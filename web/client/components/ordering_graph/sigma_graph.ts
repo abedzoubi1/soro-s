@@ -1,63 +1,79 @@
-/**
- * This is a minimal example of sigma. You can use it as a base to write new
- * examples, or reproducible test cases for new issues, for instance.
- */
 import Graph from "graphology";
 import Sigma from "sigma";
-
 import data from "./data2.json";
+import { NodeProgramSquare } from "./node.square";
 
 export class SigmaGraphCreator {
+    //the ordering graph html
     rootelement;
+    //the div element, where the graph will be
     sigmaContainer;
+    //the canvas elements which make up the graph
     renderer;
-    constructor(rootelement: HTMLElement){
+    constructor(rootelement: HTMLElement) {
         this.rootelement = rootelement;
         this.sigmaContainer = document.createElement('div');
         this.sigmaContainer.setAttribute("style", "height:100%;");
         this.rootelement.appendChild(this.sigmaContainer);
     };
 
-   /**
-    c foo
-    */
-   public createSigmaGraph() {       
+    public createSigmaGraph() {
         const graph = new Graph();
         graph.import(data);
-        var train_id_dummy;
-        var x_value = 0;
-
-        graph.nodes().forEach((node, i) => {
-            let currrent_train_id = graph.getNodeAttribute(node, "train_id");
-            if (train_id_dummy === undefined || train_id_dummy !== currrent_train_id) {
-                train_id_dummy = currrent_train_id;
-                x_value = 0;
+        var trainIdDummy;
+        var nodeXValue = 0;
+        
+        
+        //nodes
+        graph.forEachNode((node, i) => {
+            let currrentTrainId = graph.getNodeAttribute(node, "train_id")
+            if (trainIdDummy === currrentTrainId) {
+                nodeXValue++
             }
             else {
-                x_value++;
+                trainIdDummy = currrentTrainId
+                nodeXValue = 0
             }
-            graph.setNodeAttribute(node, "x", x_value);
-            //graph.setNodeAttribute(node, "x", graph.getNodeAttribute(node, "route_id"));
-            graph.setNodeAttribute(node, "y", currrent_train_id);
-            let labelName = "Train:" + currrent_train_id +" Route:" + graph.getNodeAttribute(node, "route_id");
-            graph.mergeNodeAttributes(node, {"label": labelName});
-          });
-       
-        this.renderer = new Sigma(graph, this.sigmaContainer, {allowInvalidContainer : true});
+            //coordinates of each node
+            graph.setNodeAttribute(node, "x", nodeXValue / 2);
+            graph.setNodeAttribute(node, "y", currrentTrainId / 2);
+
+            //style elements
+            let labelName = "Train:" + currrentTrainId + " Route:" + graph.getNodeAttribute(node, "route_id")
+            graph.mergeNodeAttributes(node, { "label": labelName })
+            graph.setNodeAttribute(node, "color", "#00FF00")
+            graph.setNodeAttribute(node, "type", "square")
+        });
+
+
+        //edges
+        graph.forEachEdge((edge) => {
+            //style elements
+            graph.setEdgeAttribute(edge, "type", "arrow")
+        });
+
+        this.renderer = new Sigma(graph, this.sigmaContainer, {
+            allowInvalidContainer: true,
+            nodeProgramClasses: {
+                square: NodeProgramSquare,
+            },
+            renderEdgeLabels: true
+        });
+
     }
 
     public resizeSigmaGraph() {
         if (this.renderer !== undefined) {
             this.renderer.refresh();
-        } 
+        }
         else {
             console.log("graph doesn't exist!");
-        }   
+        }
     }
-    
+
     //used to close the canvas to not run into errors when opening to many windows
     public destroySigmaGraph() {
-        if(this.renderer !== undefined) {
+        if (this.renderer !== undefined) {
             this.renderer.clear();
             this.renderer.kill();
             this.rootelement.removeChild(this.sigmaContainer);
