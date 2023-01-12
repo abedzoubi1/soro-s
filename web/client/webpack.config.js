@@ -27,7 +27,7 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '/..', 'Users', 'toebn', 'source', 'repos', 'soro-s', 'build', 'msvc-release', 'server_resources', 'components', 'ordering_graph'),
+    path: path.resolve(__dirname,'/..', 'home', 'abedzoubi', 'Desktop', 'soro-s', 'build', 'gcc-release', 'server_resources', 'components', 'ordering_graph'),
     library: {
       name: 'webpackSigmaGraph',
       type: 'umd',
