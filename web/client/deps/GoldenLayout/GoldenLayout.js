@@ -37,7 +37,11 @@ class AssertError extends InternalError {
 }
 class UnreachableCaseError extends InternalError {
   constructor(code, variableValue, message) {
-    super("UnreachableCase", code, `${variableValue}${message === void 0 ? "" : ": " + message}`);
+    super(
+      "UnreachableCase",
+      code,
+      `${variableValue}${message === void 0 ? "" : ": " + message}`
+    );
   }
 }
 class UnexpectedNullError extends InternalError {
@@ -51,25 +55,25 @@ class UnexpectedUndefinedError extends InternalError {
   }
 }
 var WidthOrHeightPropertyName;
-(function(WidthOrHeightPropertyName2) {
+(function (WidthOrHeightPropertyName2) {
   WidthOrHeightPropertyName2.width = "width";
   WidthOrHeightPropertyName2.height = "height";
 })(WidthOrHeightPropertyName || (WidthOrHeightPropertyName = {}));
 var Side;
-(function(Side2) {
+(function (Side2) {
   Side2.top = "top";
   Side2.left = "left";
   Side2.right = "right";
   Side2.bottom = "bottom";
 })(Side || (Side = {}));
 var LogicalZIndex;
-(function(LogicalZIndex2) {
+(function (LogicalZIndex2) {
   LogicalZIndex2.base = "base";
   LogicalZIndex2.drag = "drag";
   LogicalZIndex2.stackMaximised = "stackMaximised";
 })(LogicalZIndex || (LogicalZIndex = {}));
 var JsonValue;
-(function(JsonValue2) {
+(function (JsonValue2) {
   function isJson(value) {
     return isJsonObject(value);
   }
@@ -80,7 +84,7 @@ var JsonValue;
   JsonValue2.isJsonObject = isJsonObject;
 })(JsonValue || (JsonValue = {}));
 var ItemType;
-(function(ItemType2) {
+(function (ItemType2) {
   ItemType2.ground = "ground";
   ItemType2.row = "row";
   ItemType2.column = "column";
@@ -88,13 +92,13 @@ var ItemType;
   ItemType2.component = "component";
 })(ItemType || (ItemType = {}));
 var ResponsiveMode;
-(function(ResponsiveMode2) {
+(function (ResponsiveMode2) {
   ResponsiveMode2.none = "none";
   ResponsiveMode2.always = "always";
   ResponsiveMode2.onload = "onload";
 })(ResponsiveMode || (ResponsiveMode = {}));
 var ConfigMinifier;
-(function(ConfigMinifier2) {
+(function (ConfigMinifier2) {
   const keys = [
     "settings",
     "hasHeaders",
@@ -126,7 +130,7 @@ var ConfigMinifier;
     "parentId",
     "activeItemIndex",
     "reorderEnabled",
-    "borderGrabWidth"
+    "borderGrabWidth",
   ];
   const values = [
     true,
@@ -138,7 +142,7 @@ var ConfigMinifier;
     "close",
     "maximise",
     "minimise",
-    "open in new window"
+    "open in new window",
   ];
   function checkInitialise() {
     if (keys.length > 36) {
@@ -272,7 +276,7 @@ function setElementHeight(element, height) {
 function getElementWidthAndHeight(element) {
   return {
     width: element.offsetWidth,
-    height: element.offsetHeight
+    height: element.offsetHeight,
   };
 }
 function setElementDisplayVisibility(element, visible) {
@@ -350,7 +354,7 @@ function getUniqueId() {
   return (Math.random() * 1e15).toString(36).replace(".", "");
 }
 var ResolvedItemConfig;
-(function(ResolvedItemConfig2) {
+(function (ResolvedItemConfig2) {
   ResolvedItemConfig2.defaults = {
     type: ItemType.ground,
     content: [],
@@ -359,7 +363,7 @@ var ResolvedItemConfig;
     height: 50,
     minHeight: 0,
     id: "",
-    isClosable: true
+    isClosable: true,
   };
   function createCopy(original, content) {
     switch (original.type) {
@@ -372,7 +376,11 @@ var ResolvedItemConfig;
       case ItemType.component:
         return ResolvedComponentItemConfig.createCopy(original);
       default:
-        throw new UnreachableCaseError("CICC91354", original.type, "Invalid Config Item type specified");
+        throw new UnreachableCaseError(
+          "CICC91354",
+          original.type,
+          "Invalid Config Item type specified"
+        );
     }
   }
   ResolvedItemConfig2.createCopy = createCopy;
@@ -388,7 +396,11 @@ var ResolvedItemConfig;
       case ItemType.component:
         return ResolvedComponentItemConfig.createDefault();
       default:
-        throw new UnreachableCaseError("CICCDD91563", type, "Invalid Config Item type specified");
+        throw new UnreachableCaseError(
+          "CICCDD91563",
+          type,
+          "Invalid Config Item type specified"
+        );
     }
   }
   ResolvedItemConfig2.createDefault = createDefault;
@@ -406,9 +418,9 @@ var ResolvedItemConfig;
   ResolvedItemConfig2.isGroundItem = isGroundItem;
 })(ResolvedItemConfig || (ResolvedItemConfig = {}));
 var ResolvedHeaderedItemConfig;
-(function(ResolvedHeaderedItemConfig2) {
+(function (ResolvedHeaderedItemConfig2) {
   ResolvedHeaderedItemConfig2.defaultMaximised = false;
-  (function(Header2) {
+  (function (Header2) {
     function createCopy(original, show) {
       if (original === void 0) {
         return void 0;
@@ -419,20 +431,26 @@ var ResolvedHeaderedItemConfig;
           close: original.close,
           maximise: original.maximise,
           minimise: original.minimise,
-          tabDropdown: original.tabDropdown
+          tabDropdown: original.tabDropdown,
         };
       }
     }
     Header2.createCopy = createCopy;
-  })(ResolvedHeaderedItemConfig2.Header || (ResolvedHeaderedItemConfig2.Header = {}));
+  })(
+    ResolvedHeaderedItemConfig2.Header ||
+      (ResolvedHeaderedItemConfig2.Header = {})
+  );
 })(ResolvedHeaderedItemConfig || (ResolvedHeaderedItemConfig = {}));
 var ResolvedStackItemConfig;
-(function(ResolvedStackItemConfig2) {
+(function (ResolvedStackItemConfig2) {
   ResolvedStackItemConfig2.defaultActiveItemIndex = 0;
   function createCopy(original, content) {
     const result = {
       type: original.type,
-      content: content !== void 0 ? copyContent(content) : copyContent(original.content),
+      content:
+        content !== void 0
+          ? copyContent(content)
+          : copyContent(original.content),
       width: original.width,
       minWidth: original.minWidth,
       height: original.height,
@@ -441,7 +459,7 @@ var ResolvedStackItemConfig;
       maximised: original.maximised,
       isClosable: original.isClosable,
       activeItemIndex: original.activeItemIndex,
-      header: ResolvedHeaderedItemConfig.Header.createCopy(original.header)
+      header: ResolvedHeaderedItemConfig.Header.createCopy(original.header),
     };
     return result;
   }
@@ -467,14 +485,14 @@ var ResolvedStackItemConfig;
       maximised: ResolvedHeaderedItemConfig.defaultMaximised,
       isClosable: ResolvedItemConfig.defaults.isClosable,
       activeItemIndex: ResolvedStackItemConfig2.defaultActiveItemIndex,
-      header: void 0
+      header: void 0,
     };
     return result;
   }
   ResolvedStackItemConfig2.createDefault = createDefault;
 })(ResolvedStackItemConfig || (ResolvedStackItemConfig = {}));
 var ResolvedComponentItemConfig;
-(function(ResolvedComponentItemConfig2) {
+(function (ResolvedComponentItemConfig2) {
   ResolvedComponentItemConfig2.defaultReorderEnabled = true;
   function resolveComponentTypeName(itemConfig) {
     const componentType = itemConfig.componentType;
@@ -484,7 +502,8 @@ var ResolvedComponentItemConfig;
       return void 0;
     }
   }
-  ResolvedComponentItemConfig2.resolveComponentTypeName = resolveComponentTypeName;
+  ResolvedComponentItemConfig2.resolveComponentTypeName =
+    resolveComponentTypeName;
   function createCopy(original) {
     const result = {
       type: original.type,
@@ -500,7 +519,7 @@ var ResolvedComponentItemConfig;
       title: original.title,
       header: ResolvedHeaderedItemConfig.Header.createCopy(original.header),
       componentType: original.componentType,
-      componentState: deepExtendValue(void 0, original.componentState)
+      componentState: deepExtendValue(void 0, original.componentState),
     };
     return result;
   }
@@ -520,7 +539,7 @@ var ResolvedComponentItemConfig;
       title,
       header: void 0,
       componentType,
-      componentState
+      componentState,
     };
     return result;
   }
@@ -531,7 +550,7 @@ var ResolvedComponentItemConfig;
   ResolvedComponentItemConfig2.copyComponentType = copyComponentType;
 })(ResolvedComponentItemConfig || (ResolvedComponentItemConfig = {}));
 var ResolvedRowOrColumnItemConfig;
-(function(ResolvedRowOrColumnItemConfig2) {
+(function (ResolvedRowOrColumnItemConfig2) {
   function isChildItemConfig(itemConfig) {
     switch (itemConfig.type) {
       case ItemType.row:
@@ -549,13 +568,16 @@ var ResolvedRowOrColumnItemConfig;
   function createCopy(original, content) {
     const result = {
       type: original.type,
-      content: content !== void 0 ? copyContent(content) : copyContent(original.content),
+      content:
+        content !== void 0
+          ? copyContent(content)
+          : copyContent(original.content),
       width: original.width,
       minWidth: original.minWidth,
       height: original.height,
       minHeight: original.minHeight,
       id: original.id,
-      isClosable: original.isClosable
+      isClosable: original.isClosable,
     };
     return result;
   }
@@ -578,14 +600,14 @@ var ResolvedRowOrColumnItemConfig;
       height: ResolvedItemConfig.defaults.height,
       minHeight: ResolvedItemConfig.defaults.minHeight,
       id: ResolvedItemConfig.defaults.id,
-      isClosable: ResolvedItemConfig.defaults.isClosable
+      isClosable: ResolvedItemConfig.defaults.isClosable,
     };
     return result;
   }
   ResolvedRowOrColumnItemConfig2.createDefault = createDefault;
 })(ResolvedRowOrColumnItemConfig || (ResolvedRowOrColumnItemConfig = {}));
 var ResolvedRootItemConfig;
-(function(ResolvedRootItemConfig2) {
+(function (ResolvedRootItemConfig2) {
   function createCopy(config) {
     return ResolvedItemConfig.createCopy(config);
   }
@@ -606,7 +628,7 @@ var ResolvedRootItemConfig;
   ResolvedRootItemConfig2.isRootItemConfig = isRootItemConfig;
 })(ResolvedRootItemConfig || (ResolvedRootItemConfig = {}));
 var ResolvedGroundItemConfig;
-(function(ResolvedGroundItemConfig2) {
+(function (ResolvedGroundItemConfig2) {
   function create(rootItemConfig) {
     const content = rootItemConfig === void 0 ? [] : [rootItemConfig];
     return {
@@ -619,14 +641,14 @@ var ResolvedGroundItemConfig;
       id: "",
       isClosable: false,
       title: "",
-      reorderEnabled: false
+      reorderEnabled: false,
     };
   }
   ResolvedGroundItemConfig2.create = create;
 })(ResolvedGroundItemConfig || (ResolvedGroundItemConfig = {}));
 var ResolvedLayoutConfig;
-(function(ResolvedLayoutConfig2) {
-  (function(Settings) {
+(function (ResolvedLayoutConfig2) {
+  (function (Settings) {
     Settings.defaults = {
       constrainDragToContainer: true,
       reorderEnabled: true,
@@ -637,7 +659,7 @@ var ResolvedLayoutConfig;
       tabOverlapAllowance: 0,
       reorderOnTabMenuClick: true,
       tabControlOffset: 10,
-      popInOnClose: false
+      popInOnClose: false,
     };
     function createCopy2(original) {
       return {
@@ -650,12 +672,12 @@ var ResolvedLayoutConfig;
         tabOverlapAllowance: original.tabOverlapAllowance,
         reorderOnTabMenuClick: original.reorderOnTabMenuClick,
         tabControlOffset: original.tabControlOffset,
-        popInOnClose: original.popInOnClose
+        popInOnClose: original.popInOnClose,
       };
     }
     Settings.createCopy = createCopy2;
   })(ResolvedLayoutConfig2.Settings || (ResolvedLayoutConfig2.Settings = {}));
-  (function(Dimensions) {
+  (function (Dimensions) {
     function createCopy2(original) {
       return {
         borderWidth: original.borderWidth,
@@ -664,7 +686,7 @@ var ResolvedLayoutConfig;
         minItemWidth: original.minItemWidth,
         headerHeight: original.headerHeight,
         dragProxyWidth: original.dragProxyWidth,
-        dragProxyHeight: original.dragProxyHeight
+        dragProxyHeight: original.dragProxyHeight,
       };
     }
     Dimensions.createCopy = createCopy2;
@@ -675,10 +697,12 @@ var ResolvedLayoutConfig;
       minItemWidth: 10,
       headerHeight: 20,
       dragProxyWidth: 300,
-      dragProxyHeight: 200
+      dragProxyHeight: 200,
     };
-  })(ResolvedLayoutConfig2.Dimensions || (ResolvedLayoutConfig2.Dimensions = {}));
-  (function(Header2) {
+  })(
+    ResolvedLayoutConfig2.Dimensions || (ResolvedLayoutConfig2.Dimensions = {})
+  );
+  (function (Header2) {
     function createCopy2(original) {
       return {
         show: original.show,
@@ -687,7 +711,7 @@ var ResolvedLayoutConfig;
         close: original.close,
         maximise: original.maximise,
         minimise: original.minimise,
-        tabDropdown: original.tabDropdown
+        tabDropdown: original.tabDropdown,
       };
     }
     Header2.createCopy = createCopy2;
@@ -698,7 +722,7 @@ var ResolvedLayoutConfig;
       maximise: "maximise",
       minimise: "minimise",
       close: "close",
-      tabDropdown: "additional tabs"
+      tabDropdown: "additional tabs",
     };
   })(ResolvedLayoutConfig2.Header || (ResolvedLayoutConfig2.Header = {}));
   function isPopout(config) {
@@ -712,7 +736,7 @@ var ResolvedLayoutConfig;
       dimensions: ResolvedLayoutConfig2.Dimensions.defaults,
       settings: ResolvedLayoutConfig2.Settings.defaults,
       header: ResolvedLayoutConfig2.Header.defaults,
-      resolved: true
+      resolved: true,
     };
     return result;
   }
@@ -722,12 +746,17 @@ var ResolvedLayoutConfig;
       return ResolvedPopoutLayoutConfig.createCopy(config);
     } else {
       const result = {
-        root: config.root === void 0 ? void 0 : ResolvedRootItemConfig.createCopy(config.root),
+        root:
+          config.root === void 0
+            ? void 0
+            : ResolvedRootItemConfig.createCopy(config.root),
         openPopouts: ResolvedLayoutConfig2.copyOpenPopouts(config.openPopouts),
         settings: ResolvedLayoutConfig2.Settings.createCopy(config.settings),
-        dimensions: ResolvedLayoutConfig2.Dimensions.createCopy(config.dimensions),
+        dimensions: ResolvedLayoutConfig2.Dimensions.createCopy(
+          config.dimensions
+        ),
         header: ResolvedLayoutConfig2.Header.createCopy(config.header),
-        resolved: config.resolved
+        resolved: config.resolved,
       };
       return result;
     }
@@ -752,14 +781,14 @@ var ResolvedLayoutConfig;
   ResolvedLayoutConfig2.unminifyConfig = unminifyConfig;
 })(ResolvedLayoutConfig || (ResolvedLayoutConfig = {}));
 var ResolvedPopoutLayoutConfig;
-(function(ResolvedPopoutLayoutConfig2) {
-  (function(Window) {
+(function (ResolvedPopoutLayoutConfig2) {
+  (function (Window) {
     function createCopy2(original) {
       return {
         width: original.width,
         height: original.height,
         left: original.left,
-        top: original.top
+        top: original.top,
       };
     }
     Window.createCopy = createCopy2;
@@ -767,31 +796,42 @@ var ResolvedPopoutLayoutConfig;
       width: null,
       height: null,
       left: null,
-      top: null
+      top: null,
     };
-  })(ResolvedPopoutLayoutConfig2.Window || (ResolvedPopoutLayoutConfig2.Window = {}));
+  })(
+    ResolvedPopoutLayoutConfig2.Window ||
+      (ResolvedPopoutLayoutConfig2.Window = {})
+  );
   function createCopy(original) {
     const result = {
-      root: original.root === void 0 ? void 0 : ResolvedRootItemConfig.createCopy(original.root),
+      root:
+        original.root === void 0
+          ? void 0
+          : ResolvedRootItemConfig.createCopy(original.root),
       openPopouts: ResolvedLayoutConfig.copyOpenPopouts(original.openPopouts),
       settings: ResolvedLayoutConfig.Settings.createCopy(original.settings),
-      dimensions: ResolvedLayoutConfig.Dimensions.createCopy(original.dimensions),
+      dimensions: ResolvedLayoutConfig.Dimensions.createCopy(
+        original.dimensions
+      ),
       header: ResolvedLayoutConfig.Header.createCopy(original.header),
       parentId: original.parentId,
       indexInParent: original.indexInParent,
       window: ResolvedPopoutLayoutConfig2.Window.createCopy(original.window),
-      resolved: original.resolved
+      resolved: original.resolved,
     };
     return result;
   }
   ResolvedPopoutLayoutConfig2.createCopy = createCopy;
 })(ResolvedPopoutLayoutConfig || (ResolvedPopoutLayoutConfig = {}));
 var ItemConfig;
-(function(ItemConfig2) {
+(function (ItemConfig2) {
   function resolve(itemConfig) {
     switch (itemConfig.type) {
       case ItemType.ground:
-        throw new ConfigurationError("ItemConfig cannot specify type ground", JSON.stringify(itemConfig));
+        throw new ConfigurationError(
+          "ItemConfig cannot specify type ground",
+          JSON.stringify(itemConfig)
+        );
       case ItemType.row:
       case ItemType.column:
         return RowOrColumnItemConfig.resolve(itemConfig);
@@ -855,21 +895,33 @@ var ItemConfig;
   ItemConfig2.isComponent = isComponent;
 })(ItemConfig || (ItemConfig = {}));
 var HeaderedItemConfig;
-(function(HeaderedItemConfig2) {
+(function (HeaderedItemConfig2) {
   const legacyMaximisedId = "__glMaximised";
-  (function(Header2) {
+  (function (Header2) {
     function resolve(header, hasHeaders) {
       var _a;
       if (header === void 0 && hasHeaders === void 0) {
         return void 0;
       } else {
         const result = {
-          show: (_a = header === null || header === void 0 ? void 0 : header.show) !== null && _a !== void 0 ? _a : hasHeaders === void 0 ? void 0 : hasHeaders ? ResolvedLayoutConfig.Header.defaults.show : false,
+          show:
+            (_a =
+              header === null || header === void 0 ? void 0 : header.show) !==
+              null && _a !== void 0
+              ? _a
+              : hasHeaders === void 0
+              ? void 0
+              : hasHeaders
+              ? ResolvedLayoutConfig.Header.defaults.show
+              : false,
           popout: header === null || header === void 0 ? void 0 : header.popout,
-          maximise: header === null || header === void 0 ? void 0 : header.maximise,
+          maximise:
+            header === null || header === void 0 ? void 0 : header.maximise,
           close: header === null || header === void 0 ? void 0 : header.close,
-          minimise: header === null || header === void 0 ? void 0 : header.minimise,
-          tabDropdown: header === null || header === void 0 ? void 0 : header.tabDropdown
+          minimise:
+            header === null || header === void 0 ? void 0 : header.minimise,
+          tabDropdown:
+            header === null || header === void 0 ? void 0 : header.tabDropdown,
         };
         return result;
       }
@@ -904,27 +956,49 @@ var HeaderedItemConfig;
     } else {
       maximised = legacyMaximised;
     }
-    return {id, maximised};
+    return { id, maximised };
   }
   HeaderedItemConfig2.resolveIdAndMaximised = resolveIdAndMaximised;
 })(HeaderedItemConfig || (HeaderedItemConfig = {}));
 var StackItemConfig;
-(function(StackItemConfig2) {
+(function (StackItemConfig2) {
   function resolve(itemConfig) {
     var _a, _b, _c, _d, _e, _f;
-    const {id, maximised} = HeaderedItemConfig.resolveIdAndMaximised(itemConfig);
+    const { id, maximised } =
+      HeaderedItemConfig.resolveIdAndMaximised(itemConfig);
     const result = {
       type: ItemType.stack,
       content: resolveContent(itemConfig.content),
-      width: (_a = itemConfig.width) !== null && _a !== void 0 ? _a : ResolvedItemConfig.defaults.width,
-      minWidth: (_b = itemConfig.minWidth) !== null && _b !== void 0 ? _b : ResolvedItemConfig.defaults.minWidth,
-      height: (_c = itemConfig.height) !== null && _c !== void 0 ? _c : ResolvedItemConfig.defaults.height,
-      minHeight: (_d = itemConfig.minHeight) !== null && _d !== void 0 ? _d : ResolvedItemConfig.defaults.minHeight,
+      width:
+        (_a = itemConfig.width) !== null && _a !== void 0
+          ? _a
+          : ResolvedItemConfig.defaults.width,
+      minWidth:
+        (_b = itemConfig.minWidth) !== null && _b !== void 0
+          ? _b
+          : ResolvedItemConfig.defaults.minWidth,
+      height:
+        (_c = itemConfig.height) !== null && _c !== void 0
+          ? _c
+          : ResolvedItemConfig.defaults.height,
+      minHeight:
+        (_d = itemConfig.minHeight) !== null && _d !== void 0
+          ? _d
+          : ResolvedItemConfig.defaults.minHeight,
       id,
       maximised,
-      isClosable: (_e = itemConfig.isClosable) !== null && _e !== void 0 ? _e : ResolvedItemConfig.defaults.isClosable,
-      activeItemIndex: (_f = itemConfig.activeItemIndex) !== null && _f !== void 0 ? _f : ResolvedStackItemConfig.defaultActiveItemIndex,
-      header: HeaderedItemConfig.Header.resolve(itemConfig.header, itemConfig.hasHeaders)
+      isClosable:
+        (_e = itemConfig.isClosable) !== null && _e !== void 0
+          ? _e
+          : ResolvedItemConfig.defaults.isClosable,
+      activeItemIndex:
+        (_f = itemConfig.activeItemIndex) !== null && _f !== void 0
+          ? _f
+          : ResolvedStackItemConfig.defaultActiveItemIndex,
+      header: HeaderedItemConfig.Header.resolve(
+        itemConfig.header,
+        itemConfig.hasHeaders
+      ),
     };
     return result;
   }
@@ -950,7 +1024,7 @@ var StackItemConfig;
   StackItemConfig2.resolveContent = resolveContent;
 })(StackItemConfig || (StackItemConfig = {}));
 var ComponentItemConfig;
-(function(ComponentItemConfig2) {
+(function (ComponentItemConfig2) {
   function resolve(itemConfig) {
     var _a, _b, _c, _d, _e, _f, _g;
     let componentType = itemConfig.componentType;
@@ -960,7 +1034,8 @@ var ComponentItemConfig;
     if (componentType === void 0) {
       throw new Error("ComponentItemConfig.componentType is undefined");
     } else {
-      const {id, maximised} = HeaderedItemConfig.resolveIdAndMaximised(itemConfig);
+      const { id, maximised } =
+        HeaderedItemConfig.resolveIdAndMaximised(itemConfig);
       let title;
       if (itemConfig.title === void 0 || itemConfig.title === "") {
         title = ComponentItemConfig2.componentTypeToTitle(componentType);
@@ -970,18 +1045,40 @@ var ComponentItemConfig;
       const result = {
         type: itemConfig.type,
         content: [],
-        width: (_a = itemConfig.width) !== null && _a !== void 0 ? _a : ResolvedItemConfig.defaults.width,
-        minWidth: (_b = itemConfig.minWidth) !== null && _b !== void 0 ? _b : ResolvedItemConfig.defaults.minWidth,
-        height: (_c = itemConfig.height) !== null && _c !== void 0 ? _c : ResolvedItemConfig.defaults.height,
-        minHeight: (_d = itemConfig.minHeight) !== null && _d !== void 0 ? _d : ResolvedItemConfig.defaults.minHeight,
+        width:
+          (_a = itemConfig.width) !== null && _a !== void 0
+            ? _a
+            : ResolvedItemConfig.defaults.width,
+        minWidth:
+          (_b = itemConfig.minWidth) !== null && _b !== void 0
+            ? _b
+            : ResolvedItemConfig.defaults.minWidth,
+        height:
+          (_c = itemConfig.height) !== null && _c !== void 0
+            ? _c
+            : ResolvedItemConfig.defaults.height,
+        minHeight:
+          (_d = itemConfig.minHeight) !== null && _d !== void 0
+            ? _d
+            : ResolvedItemConfig.defaults.minHeight,
         id,
         maximised,
-        isClosable: (_e = itemConfig.isClosable) !== null && _e !== void 0 ? _e : ResolvedItemConfig.defaults.isClosable,
-        reorderEnabled: (_f = itemConfig.reorderEnabled) !== null && _f !== void 0 ? _f : ResolvedComponentItemConfig.defaultReorderEnabled,
+        isClosable:
+          (_e = itemConfig.isClosable) !== null && _e !== void 0
+            ? _e
+            : ResolvedItemConfig.defaults.isClosable,
+        reorderEnabled:
+          (_f = itemConfig.reorderEnabled) !== null && _f !== void 0
+            ? _f
+            : ResolvedComponentItemConfig.defaultReorderEnabled,
         title,
-        header: HeaderedItemConfig.Header.resolve(itemConfig.header, itemConfig.hasHeaders),
+        header: HeaderedItemConfig.Header.resolve(
+          itemConfig.header,
+          itemConfig.hasHeaders
+        ),
         componentType,
-        componentState: (_g = itemConfig.componentState) !== null && _g !== void 0 ? _g : {}
+        componentState:
+          (_g = itemConfig.componentState) !== null && _g !== void 0 ? _g : {},
       };
       return result;
     }
@@ -1003,7 +1100,7 @@ var ComponentItemConfig;
   ComponentItemConfig2.componentTypeToTitle = componentTypeToTitle;
 })(ComponentItemConfig || (ComponentItemConfig = {}));
 var RowOrColumnItemConfig;
-(function(RowOrColumnItemConfig2) {
+(function (RowOrColumnItemConfig2) {
   function isChildItemConfig(itemConfig) {
     switch (itemConfig.type) {
       case ItemType.row:
@@ -1023,12 +1120,27 @@ var RowOrColumnItemConfig;
     const result = {
       type: itemConfig.type,
       content: RowOrColumnItemConfig2.resolveContent(itemConfig.content),
-      width: (_a = itemConfig.width) !== null && _a !== void 0 ? _a : ResolvedItemConfig.defaults.width,
-      minWidth: (_b = itemConfig.width) !== null && _b !== void 0 ? _b : ResolvedItemConfig.defaults.minWidth,
-      height: (_c = itemConfig.height) !== null && _c !== void 0 ? _c : ResolvedItemConfig.defaults.height,
-      minHeight: (_d = itemConfig.height) !== null && _d !== void 0 ? _d : ResolvedItemConfig.defaults.minHeight,
+      width:
+        (_a = itemConfig.width) !== null && _a !== void 0
+          ? _a
+          : ResolvedItemConfig.defaults.width,
+      minWidth:
+        (_b = itemConfig.width) !== null && _b !== void 0
+          ? _b
+          : ResolvedItemConfig.defaults.minWidth,
+      height:
+        (_c = itemConfig.height) !== null && _c !== void 0
+          ? _c
+          : ResolvedItemConfig.defaults.height,
+      minHeight:
+        (_d = itemConfig.height) !== null && _d !== void 0
+          ? _d
+          : ResolvedItemConfig.defaults.minHeight,
       id: ItemConfig.resolveId(itemConfig.id),
-      isClosable: (_e = itemConfig.isClosable) !== null && _e !== void 0 ? _e : ResolvedItemConfig.defaults.isClosable
+      isClosable:
+        (_e = itemConfig.isClosable) !== null && _e !== void 0
+          ? _e
+          : ResolvedItemConfig.defaults.isClosable,
     };
     return result;
   }
@@ -1042,11 +1154,21 @@ var RowOrColumnItemConfig;
       for (let i = 0; i < count; i++) {
         const childItemConfig = content[i];
         if (!RowOrColumnItemConfig2.isChildItemConfig(childItemConfig)) {
-          throw new ConfigurationError("ItemConfig is not Row, Column or Stack", childItemConfig);
+          throw new ConfigurationError(
+            "ItemConfig is not Row, Column or Stack",
+            childItemConfig
+          );
         } else {
           const resolvedChildItemConfig = ItemConfig.resolve(childItemConfig);
-          if (!ResolvedRowOrColumnItemConfig.isChildItemConfig(resolvedChildItemConfig)) {
-            throw new AssertError("UROCOSPIC99512", JSON.stringify(resolvedChildItemConfig));
+          if (
+            !ResolvedRowOrColumnItemConfig.isChildItemConfig(
+              resolvedChildItemConfig
+            )
+          ) {
+            throw new AssertError(
+              "UROCOSPIC99512",
+              JSON.stringify(resolvedChildItemConfig)
+            );
           } else {
             result[i] = resolvedChildItemConfig;
           }
@@ -1058,7 +1180,7 @@ var RowOrColumnItemConfig;
   RowOrColumnItemConfig2.resolveContent = resolveContent;
 })(RowOrColumnItemConfig || (RowOrColumnItemConfig = {}));
 var RootItemConfig;
-(function(RootItemConfig2) {
+(function (RootItemConfig2) {
   function isRootItemConfig(itemConfig) {
     switch (itemConfig.type) {
       case ItemType.row:
@@ -1079,7 +1201,10 @@ var RootItemConfig;
     } else {
       const result = ItemConfig.resolve(itemConfig);
       if (!ResolvedRootItemConfig.isRootItemConfig(result)) {
-        throw new ConfigurationError("ItemConfig is not Row, Column or Stack", JSON.stringify(itemConfig));
+        throw new ConfigurationError(
+          "ItemConfig is not Row, Column or Stack",
+          JSON.stringify(itemConfig)
+        );
       } else {
         return result;
       }
@@ -1088,70 +1213,253 @@ var RootItemConfig;
   RootItemConfig2.resolve = resolve;
 })(RootItemConfig || (RootItemConfig = {}));
 var LayoutConfig;
-(function(LayoutConfig2) {
-  (function(Settings) {
+(function (LayoutConfig2) {
+  (function (Settings) {
     function resolve2(settings) {
       var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
       const result = {
-        constrainDragToContainer: (_a = settings === null || settings === void 0 ? void 0 : settings.constrainDragToContainer) !== null && _a !== void 0 ? _a : ResolvedLayoutConfig.Settings.defaults.constrainDragToContainer,
-        reorderEnabled: (_b = settings === null || settings === void 0 ? void 0 : settings.reorderEnabled) !== null && _b !== void 0 ? _b : ResolvedLayoutConfig.Settings.defaults.reorderEnabled,
-        popoutWholeStack: (_c = settings === null || settings === void 0 ? void 0 : settings.popoutWholeStack) !== null && _c !== void 0 ? _c : ResolvedLayoutConfig.Settings.defaults.popoutWholeStack,
-        blockedPopoutsThrowError: (_d = settings === null || settings === void 0 ? void 0 : settings.blockedPopoutsThrowError) !== null && _d !== void 0 ? _d : ResolvedLayoutConfig.Settings.defaults.blockedPopoutsThrowError,
-        closePopoutsOnUnload: (_e = settings === null || settings === void 0 ? void 0 : settings.closePopoutsOnUnload) !== null && _e !== void 0 ? _e : ResolvedLayoutConfig.Settings.defaults.closePopoutsOnUnload,
-        responsiveMode: (_f = settings === null || settings === void 0 ? void 0 : settings.responsiveMode) !== null && _f !== void 0 ? _f : ResolvedLayoutConfig.Settings.defaults.responsiveMode,
-        tabOverlapAllowance: (_g = settings === null || settings === void 0 ? void 0 : settings.tabOverlapAllowance) !== null && _g !== void 0 ? _g : ResolvedLayoutConfig.Settings.defaults.tabOverlapAllowance,
-        reorderOnTabMenuClick: (_h = settings === null || settings === void 0 ? void 0 : settings.reorderOnTabMenuClick) !== null && _h !== void 0 ? _h : ResolvedLayoutConfig.Settings.defaults.reorderOnTabMenuClick,
-        tabControlOffset: (_j = settings === null || settings === void 0 ? void 0 : settings.tabControlOffset) !== null && _j !== void 0 ? _j : ResolvedLayoutConfig.Settings.defaults.tabControlOffset,
-        popInOnClose: (_k = settings === null || settings === void 0 ? void 0 : settings.popInOnClose) !== null && _k !== void 0 ? _k : ResolvedLayoutConfig.Settings.defaults.popInOnClose
+        constrainDragToContainer:
+          (_a =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.constrainDragToContainer) !== null && _a !== void 0
+            ? _a
+            : ResolvedLayoutConfig.Settings.defaults.constrainDragToContainer,
+        reorderEnabled:
+          (_b =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.reorderEnabled) !== null && _b !== void 0
+            ? _b
+            : ResolvedLayoutConfig.Settings.defaults.reorderEnabled,
+        popoutWholeStack:
+          (_c =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.popoutWholeStack) !== null && _c !== void 0
+            ? _c
+            : ResolvedLayoutConfig.Settings.defaults.popoutWholeStack,
+        blockedPopoutsThrowError:
+          (_d =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.blockedPopoutsThrowError) !== null && _d !== void 0
+            ? _d
+            : ResolvedLayoutConfig.Settings.defaults.blockedPopoutsThrowError,
+        closePopoutsOnUnload:
+          (_e =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.closePopoutsOnUnload) !== null && _e !== void 0
+            ? _e
+            : ResolvedLayoutConfig.Settings.defaults.closePopoutsOnUnload,
+        responsiveMode:
+          (_f =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.responsiveMode) !== null && _f !== void 0
+            ? _f
+            : ResolvedLayoutConfig.Settings.defaults.responsiveMode,
+        tabOverlapAllowance:
+          (_g =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.tabOverlapAllowance) !== null && _g !== void 0
+            ? _g
+            : ResolvedLayoutConfig.Settings.defaults.tabOverlapAllowance,
+        reorderOnTabMenuClick:
+          (_h =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.reorderOnTabMenuClick) !== null && _h !== void 0
+            ? _h
+            : ResolvedLayoutConfig.Settings.defaults.reorderOnTabMenuClick,
+        tabControlOffset:
+          (_j =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.tabControlOffset) !== null && _j !== void 0
+            ? _j
+            : ResolvedLayoutConfig.Settings.defaults.tabControlOffset,
+        popInOnClose:
+          (_k =
+            settings === null || settings === void 0
+              ? void 0
+              : settings.popInOnClose) !== null && _k !== void 0
+            ? _k
+            : ResolvedLayoutConfig.Settings.defaults.popInOnClose,
       };
       return result;
     }
     Settings.resolve = resolve2;
   })(LayoutConfig2.Settings || (LayoutConfig2.Settings = {}));
-  (function(Dimensions) {
+  (function (Dimensions) {
     function resolve2(dimensions) {
       var _a, _b, _c, _d, _e, _f, _g;
       const result = {
-        borderWidth: (_a = dimensions === null || dimensions === void 0 ? void 0 : dimensions.borderWidth) !== null && _a !== void 0 ? _a : ResolvedLayoutConfig.Dimensions.defaults.borderWidth,
-        borderGrabWidth: (_b = dimensions === null || dimensions === void 0 ? void 0 : dimensions.borderGrabWidth) !== null && _b !== void 0 ? _b : ResolvedLayoutConfig.Dimensions.defaults.borderGrabWidth,
-        minItemHeight: (_c = dimensions === null || dimensions === void 0 ? void 0 : dimensions.minItemHeight) !== null && _c !== void 0 ? _c : ResolvedLayoutConfig.Dimensions.defaults.minItemHeight,
-        minItemWidth: (_d = dimensions === null || dimensions === void 0 ? void 0 : dimensions.minItemWidth) !== null && _d !== void 0 ? _d : ResolvedLayoutConfig.Dimensions.defaults.minItemWidth,
-        headerHeight: (_e = dimensions === null || dimensions === void 0 ? void 0 : dimensions.headerHeight) !== null && _e !== void 0 ? _e : ResolvedLayoutConfig.Dimensions.defaults.headerHeight,
-        dragProxyWidth: (_f = dimensions === null || dimensions === void 0 ? void 0 : dimensions.dragProxyWidth) !== null && _f !== void 0 ? _f : ResolvedLayoutConfig.Dimensions.defaults.dragProxyWidth,
-        dragProxyHeight: (_g = dimensions === null || dimensions === void 0 ? void 0 : dimensions.dragProxyHeight) !== null && _g !== void 0 ? _g : ResolvedLayoutConfig.Dimensions.defaults.dragProxyHeight
+        borderWidth:
+          (_a =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.borderWidth) !== null && _a !== void 0
+            ? _a
+            : ResolvedLayoutConfig.Dimensions.defaults.borderWidth,
+        borderGrabWidth:
+          (_b =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.borderGrabWidth) !== null && _b !== void 0
+            ? _b
+            : ResolvedLayoutConfig.Dimensions.defaults.borderGrabWidth,
+        minItemHeight:
+          (_c =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.minItemHeight) !== null && _c !== void 0
+            ? _c
+            : ResolvedLayoutConfig.Dimensions.defaults.minItemHeight,
+        minItemWidth:
+          (_d =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.minItemWidth) !== null && _d !== void 0
+            ? _d
+            : ResolvedLayoutConfig.Dimensions.defaults.minItemWidth,
+        headerHeight:
+          (_e =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.headerHeight) !== null && _e !== void 0
+            ? _e
+            : ResolvedLayoutConfig.Dimensions.defaults.headerHeight,
+        dragProxyWidth:
+          (_f =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.dragProxyWidth) !== null && _f !== void 0
+            ? _f
+            : ResolvedLayoutConfig.Dimensions.defaults.dragProxyWidth,
+        dragProxyHeight:
+          (_g =
+            dimensions === null || dimensions === void 0
+              ? void 0
+              : dimensions.dragProxyHeight) !== null && _g !== void 0
+            ? _g
+            : ResolvedLayoutConfig.Dimensions.defaults.dragProxyHeight,
       };
       return result;
     }
     Dimensions.resolve = resolve2;
   })(LayoutConfig2.Dimensions || (LayoutConfig2.Dimensions = {}));
-  (function(Header2) {
+  (function (Header2) {
     function resolve2(header, settings, labels) {
       var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
       let show;
-      if ((header === null || header === void 0 ? void 0 : header.show) !== void 0) {
+      if (
+        (header === null || header === void 0 ? void 0 : header.show) !== void 0
+      ) {
         show = header.show;
       } else {
         if (settings !== void 0 && settings.hasHeaders !== void 0) {
-          show = settings.hasHeaders ? ResolvedLayoutConfig.Header.defaults.show : false;
+          show = settings.hasHeaders
+            ? ResolvedLayoutConfig.Header.defaults.show
+            : false;
         } else {
           show = ResolvedLayoutConfig.Header.defaults.show;
         }
       }
       const result = {
         show,
-        popout: (_b = (_a = header === null || header === void 0 ? void 0 : header.popout) !== null && _a !== void 0 ? _a : labels === null || labels === void 0 ? void 0 : labels.popout) !== null && _b !== void 0 ? _b : (settings === null || settings === void 0 ? void 0 : settings.showPopoutIcon) === false ? false : ResolvedLayoutConfig.Header.defaults.popout,
-        dock: (_d = (_c = header === null || header === void 0 ? void 0 : header.popin) !== null && _c !== void 0 ? _c : labels === null || labels === void 0 ? void 0 : labels.popin) !== null && _d !== void 0 ? _d : ResolvedLayoutConfig.Header.defaults.dock,
-        maximise: (_f = (_e = header === null || header === void 0 ? void 0 : header.maximise) !== null && _e !== void 0 ? _e : labels === null || labels === void 0 ? void 0 : labels.maximise) !== null && _f !== void 0 ? _f : (settings === null || settings === void 0 ? void 0 : settings.showMaximiseIcon) === false ? false : ResolvedLayoutConfig.Header.defaults.maximise,
-        close: (_h = (_g = header === null || header === void 0 ? void 0 : header.close) !== null && _g !== void 0 ? _g : labels === null || labels === void 0 ? void 0 : labels.close) !== null && _h !== void 0 ? _h : (settings === null || settings === void 0 ? void 0 : settings.showCloseIcon) === false ? false : ResolvedLayoutConfig.Header.defaults.close,
-        minimise: (_k = (_j = header === null || header === void 0 ? void 0 : header.minimise) !== null && _j !== void 0 ? _j : labels === null || labels === void 0 ? void 0 : labels.minimise) !== null && _k !== void 0 ? _k : ResolvedLayoutConfig.Header.defaults.minimise,
-        tabDropdown: (_m = (_l = header === null || header === void 0 ? void 0 : header.tabDropdown) !== null && _l !== void 0 ? _l : labels === null || labels === void 0 ? void 0 : labels.tabDropdown) !== null && _m !== void 0 ? _m : ResolvedLayoutConfig.Header.defaults.tabDropdown
+        popout:
+          (_b =
+            (_a =
+              header === null || header === void 0 ? void 0 : header.popout) !==
+              null && _a !== void 0
+              ? _a
+              : labels === null || labels === void 0
+              ? void 0
+              : labels.popout) !== null && _b !== void 0
+            ? _b
+            : (settings === null || settings === void 0
+                ? void 0
+                : settings.showPopoutIcon) === false
+            ? false
+            : ResolvedLayoutConfig.Header.defaults.popout,
+        dock:
+          (_d =
+            (_c =
+              header === null || header === void 0 ? void 0 : header.popin) !==
+              null && _c !== void 0
+              ? _c
+              : labels === null || labels === void 0
+              ? void 0
+              : labels.popin) !== null && _d !== void 0
+            ? _d
+            : ResolvedLayoutConfig.Header.defaults.dock,
+        maximise:
+          (_f =
+            (_e =
+              header === null || header === void 0
+                ? void 0
+                : header.maximise) !== null && _e !== void 0
+              ? _e
+              : labels === null || labels === void 0
+              ? void 0
+              : labels.maximise) !== null && _f !== void 0
+            ? _f
+            : (settings === null || settings === void 0
+                ? void 0
+                : settings.showMaximiseIcon) === false
+            ? false
+            : ResolvedLayoutConfig.Header.defaults.maximise,
+        close:
+          (_h =
+            (_g =
+              header === null || header === void 0 ? void 0 : header.close) !==
+              null && _g !== void 0
+              ? _g
+              : labels === null || labels === void 0
+              ? void 0
+              : labels.close) !== null && _h !== void 0
+            ? _h
+            : (settings === null || settings === void 0
+                ? void 0
+                : settings.showCloseIcon) === false
+            ? false
+            : ResolvedLayoutConfig.Header.defaults.close,
+        minimise:
+          (_k =
+            (_j =
+              header === null || header === void 0
+                ? void 0
+                : header.minimise) !== null && _j !== void 0
+              ? _j
+              : labels === null || labels === void 0
+              ? void 0
+              : labels.minimise) !== null && _k !== void 0
+            ? _k
+            : ResolvedLayoutConfig.Header.defaults.minimise,
+        tabDropdown:
+          (_m =
+            (_l =
+              header === null || header === void 0
+                ? void 0
+                : header.tabDropdown) !== null && _l !== void 0
+              ? _l
+              : labels === null || labels === void 0
+              ? void 0
+              : labels.tabDropdown) !== null && _m !== void 0
+            ? _m
+            : ResolvedLayoutConfig.Header.defaults.tabDropdown,
       };
       return result;
     }
     Header2.resolve = resolve2;
   })(LayoutConfig2.Header || (LayoutConfig2.Header = {}));
   function isPopout(config) {
-    return "parentId" in config || "indexInParent" in config || "window" in config;
+    return (
+      "parentId" in config || "indexInParent" in config || "window" in config
+    );
   }
   LayoutConfig2.isPopout = isPopout;
   function resolve(layoutConfig) {
@@ -1162,7 +1470,10 @@ var LayoutConfig;
       if (layoutConfig.root !== void 0) {
         root = layoutConfig.root;
       } else {
-        if (layoutConfig.content !== void 0 && layoutConfig.content.length > 0) {
+        if (
+          layoutConfig.content !== void 0 &&
+          layoutConfig.content.length > 0
+        ) {
           root = layoutConfig.content[0];
         } else {
           root = void 0;
@@ -1174,7 +1485,11 @@ var LayoutConfig;
         openPopouts: LayoutConfig2.resolveOpenPopouts(layoutConfig.openPopouts),
         dimensions: LayoutConfig2.Dimensions.resolve(layoutConfig.dimensions),
         settings: LayoutConfig2.Settings.resolve(layoutConfig.settings),
-        header: LayoutConfig2.Header.resolve(layoutConfig.header, layoutConfig.settings, layoutConfig.labels)
+        header: LayoutConfig2.Header.resolve(
+          layoutConfig.header,
+          layoutConfig.settings,
+          layoutConfig.labels
+        ),
       };
       return config;
     }
@@ -1187,7 +1502,7 @@ var LayoutConfig;
       openPopouts: copiedConfig.openPopouts,
       dimensions: copiedConfig.dimensions,
       settings: copiedConfig.settings,
-      header: copiedConfig.header
+      header: copiedConfig.header,
     };
     return result;
   }
@@ -1212,25 +1527,56 @@ var LayoutConfig;
   LayoutConfig2.resolveOpenPopouts = resolveOpenPopouts;
 })(LayoutConfig || (LayoutConfig = {}));
 var PopoutLayoutConfig;
-(function(PopoutLayoutConfig2) {
-  (function(Window) {
+(function (PopoutLayoutConfig2) {
+  (function (Window) {
     function resolve2(window2, dimensions) {
       var _a, _b, _c, _d, _e, _f, _g, _h;
       let result;
       const defaults = ResolvedPopoutLayoutConfig.Window.defaults;
       if (window2 !== void 0) {
         result = {
-          width: (_a = window2.width) !== null && _a !== void 0 ? _a : defaults.width,
-          height: (_b = window2.height) !== null && _b !== void 0 ? _b : defaults.height,
-          left: (_c = window2.left) !== null && _c !== void 0 ? _c : defaults.left,
-          top: (_d = window2.top) !== null && _d !== void 0 ? _d : defaults.top
+          width:
+            (_a = window2.width) !== null && _a !== void 0
+              ? _a
+              : defaults.width,
+          height:
+            (_b = window2.height) !== null && _b !== void 0
+              ? _b
+              : defaults.height,
+          left:
+            (_c = window2.left) !== null && _c !== void 0 ? _c : defaults.left,
+          top: (_d = window2.top) !== null && _d !== void 0 ? _d : defaults.top,
         };
       } else {
         result = {
-          width: (_e = dimensions === null || dimensions === void 0 ? void 0 : dimensions.width) !== null && _e !== void 0 ? _e : defaults.width,
-          height: (_f = dimensions === null || dimensions === void 0 ? void 0 : dimensions.height) !== null && _f !== void 0 ? _f : defaults.height,
-          left: (_g = dimensions === null || dimensions === void 0 ? void 0 : dimensions.left) !== null && _g !== void 0 ? _g : defaults.left,
-          top: (_h = dimensions === null || dimensions === void 0 ? void 0 : dimensions.top) !== null && _h !== void 0 ? _h : defaults.top
+          width:
+            (_e =
+              dimensions === null || dimensions === void 0
+                ? void 0
+                : dimensions.width) !== null && _e !== void 0
+              ? _e
+              : defaults.width,
+          height:
+            (_f =
+              dimensions === null || dimensions === void 0
+                ? void 0
+                : dimensions.height) !== null && _f !== void 0
+              ? _f
+              : defaults.height,
+          left:
+            (_g =
+              dimensions === null || dimensions === void 0
+                ? void 0
+                : dimensions.left) !== null && _g !== void 0
+              ? _g
+              : defaults.left,
+          top:
+            (_h =
+              dimensions === null || dimensions === void 0
+                ? void 0
+                : dimensions.top) !== null && _h !== void 0
+              ? _h
+              : defaults.top,
         };
       }
       return result;
@@ -1254,11 +1600,20 @@ var PopoutLayoutConfig;
       openPopouts: LayoutConfig.resolveOpenPopouts(popoutConfig.openPopouts),
       settings: LayoutConfig.Settings.resolve(popoutConfig.settings),
       dimensions: LayoutConfig.Dimensions.resolve(popoutConfig.dimensions),
-      header: LayoutConfig.Header.resolve(popoutConfig.header, popoutConfig.settings, popoutConfig.labels),
-      parentId: (_a = popoutConfig.parentId) !== null && _a !== void 0 ? _a : null,
-      indexInParent: (_b = popoutConfig.indexInParent) !== null && _b !== void 0 ? _b : null,
-      window: PopoutLayoutConfig2.Window.resolve(popoutConfig.window, popoutConfig.dimensions),
-      resolved: true
+      header: LayoutConfig.Header.resolve(
+        popoutConfig.header,
+        popoutConfig.settings,
+        popoutConfig.labels
+      ),
+      parentId:
+        (_a = popoutConfig.parentId) !== null && _a !== void 0 ? _a : null,
+      indexInParent:
+        (_b = popoutConfig.indexInParent) !== null && _b !== void 0 ? _b : null,
+      window: PopoutLayoutConfig2.Window.resolve(
+        popoutConfig.window,
+        popoutConfig.dimensions
+      ),
+      resolved: true,
     };
     return config;
   }
@@ -1271,8 +1626,7 @@ class EventEmitter {
     this.unbind = this.removeEventListener;
     this.trigger = this.emit;
   }
-  tryBubbleEvent(name, args) {
-  }
+  tryBubbleEvent(name, args) {}
   emit(eventName, ...args) {
     let subcriptions = this._subscriptionsMap.get(eventName);
     if (subcriptions !== void 0) {
@@ -1337,7 +1691,9 @@ class EventEmitter {
     } else {
       const subscriptions = this._subscriptionsMap.get(eventName);
       if (subscriptions === void 0) {
-        throw new Error("No subscribtions to unsubscribe for event " + eventName);
+        throw new Error(
+          "No subscribtions to unsubscribe for event " + eventName
+        );
       } else {
         this.removeSubscription(eventName, subscriptions, callback);
       }
@@ -1363,7 +1719,7 @@ class EventEmitter {
     }
   }
 }
-(function(EventEmitter2) {
+(function (EventEmitter2) {
   EventEmitter2.ALL_EVENT = "__all";
   EventEmitter2.headerClickEventName = "stackHeaderClick";
   EventEmitter2.headerTouchStartEventName = "stackHeaderTouchStart";
@@ -1412,13 +1768,23 @@ class EventEmitter {
   EventEmitter2.TouchStartBubblingEvent = TouchStartBubblingEvent;
 })(EventEmitter || (EventEmitter = {}));
 var StyleConstants;
-(function(StyleConstants2) {
+(function (StyleConstants2) {
   StyleConstants2.defaultComponentBaseZIndex = "auto";
   StyleConstants2.defaultComponentDragZIndex = "32";
   StyleConstants2.defaultComponentStackMaximisedZIndex = "41";
 })(StyleConstants || (StyleConstants = {}));
 class ComponentContainer extends EventEmitter {
-  constructor(_config, _parent, _layoutManager, _element, _updateItemConfigEvent, _showEvent, _hideEvent, _focusEvent, _blurEvent) {
+  constructor(
+    _config,
+    _parent,
+    _layoutManager,
+    _element,
+    _updateItemConfigEvent,
+    _showEvent,
+    _hideEvent,
+    _focusEvent,
+    _blurEvent
+  ) {
     super();
     this._config = _config;
     this._parent = _parent;
@@ -1508,14 +1874,25 @@ class ComponentContainer extends EventEmitter {
   }
   setSize(width, height) {
     let ancestorItem = this._parent;
-    if (ancestorItem.isColumn || ancestorItem.isRow || ancestorItem.parent === null) {
-      throw new AssertError("ICSSPRC", "ComponentContainer cannot have RowColumn Parent");
+    if (
+      ancestorItem.isColumn ||
+      ancestorItem.isRow ||
+      ancestorItem.parent === null
+    ) {
+      throw new AssertError(
+        "ICSSPRC",
+        "ComponentContainer cannot have RowColumn Parent"
+      );
     } else {
       let ancestorChildItem;
       do {
         ancestorChildItem = ancestorItem;
         ancestorItem = ancestorItem.parent;
-      } while (ancestorItem !== null && !ancestorItem.isColumn && !ancestorItem.isRow);
+      } while (
+        ancestorItem !== null &&
+        !ancestorItem.isColumn &&
+        !ancestorItem.isRow
+      );
       if (ancestorItem === null) {
         return false;
       } else {
@@ -1525,9 +1902,12 @@ class ComponentContainer extends EventEmitter {
           throw new UnexpectedNullError("ICSSCS11194");
         } else {
           const newSize = direction === "height" ? height : width;
-          const totalPixel = currentSize * (1 / (ancestorChildItem[direction] / 100));
-          const percentage = newSize / totalPixel * 100;
-          const delta = (ancestorChildItem[direction] - percentage) / (ancestorItem.contentItems.length - 1);
+          const totalPixel =
+            currentSize * (1 / (ancestorChildItem[direction] / 100));
+          const percentage = (newSize / totalPixel) * 100;
+          const delta =
+            (ancestorChildItem[direction] - percentage) /
+            (ancestorItem.contentItems.length - 1);
           for (let i = 0; i < ancestorItem.contentItems.length; i++) {
             if (ancestorItem.contentItems[i] === ancestorChildItem) {
               ancestorItem.contentItems[i][direction] = percentage;
@@ -1572,7 +1952,11 @@ class ComponentContainer extends EventEmitter {
           }
         }
         if (this.virtualZIndexChangeRequiredEvent !== void 0) {
-          this.virtualZIndexChangeRequiredEvent(this, LogicalZIndex.base, StyleConstants.defaultComponentBaseZIndex);
+          this.virtualZIndexChangeRequiredEvent(
+            this,
+            LogicalZIndex.base,
+            StyleConstants.defaultComponentBaseZIndex
+          );
         }
       }
       this.emit("stateChanged");
@@ -1613,7 +1997,10 @@ class ComponentContainer extends EventEmitter {
           this.emitShow();
         }
       } else {
-        if (this._isShownWithZeroDimensions && (this._height !== 0 || this._width !== 0)) {
+        if (
+          this._isShownWithZeroDimensions &&
+          (this._height !== 0 || this._width !== 0)
+        ) {
           this._isShownWithZeroDimensions = false;
           this.setSizeToNodeSize(this._width, this._height, true);
           this.emitShow();
@@ -1633,24 +2020,40 @@ class ComponentContainer extends EventEmitter {
     setElementWidth(this._element, width);
     setElementHeight(this._element, height);
     if (this.virtualZIndexChangeRequiredEvent !== void 0) {
-      this.virtualZIndexChangeRequiredEvent(this, LogicalZIndex.drag, StyleConstants.defaultComponentDragZIndex);
+      this.virtualZIndexChangeRequiredEvent(
+        this,
+        LogicalZIndex.drag,
+        StyleConstants.defaultComponentDragZIndex
+      );
     }
     this.drag();
   }
   exitDragMode() {
     if (this.virtualZIndexChangeRequiredEvent !== void 0) {
-      this.virtualZIndexChangeRequiredEvent(this, LogicalZIndex.base, StyleConstants.defaultComponentBaseZIndex);
+      this.virtualZIndexChangeRequiredEvent(
+        this,
+        LogicalZIndex.base,
+        StyleConstants.defaultComponentBaseZIndex
+      );
     }
   }
   enterStackMaximised() {
     this._stackMaximised = true;
     if (this.virtualZIndexChangeRequiredEvent !== void 0) {
-      this.virtualZIndexChangeRequiredEvent(this, LogicalZIndex.stackMaximised, StyleConstants.defaultComponentStackMaximisedZIndex);
+      this.virtualZIndexChangeRequiredEvent(
+        this,
+        LogicalZIndex.stackMaximised,
+        StyleConstants.defaultComponentStackMaximisedZIndex
+      );
     }
   }
   exitStackMaximised() {
     if (this.virtualZIndexChangeRequiredEvent !== void 0) {
-      this.virtualZIndexChangeRequiredEvent(this, LogicalZIndex.base, StyleConstants.defaultComponentBaseZIndex);
+      this.virtualZIndexChangeRequiredEvent(
+        this,
+        LogicalZIndex.base,
+        StyleConstants.defaultComponentBaseZIndex
+      );
     }
     this._stackMaximised = false;
   }
@@ -1703,7 +2106,10 @@ class ComponentContainer extends EventEmitter {
     }
   }
   checkShownFromZeroDimensions() {
-    if (this._isShownWithZeroDimensions && (this._height !== 0 || this._width !== 0)) {
+    if (
+      this._isShownWithZeroDimensions &&
+      (this._height !== 0 || this._width !== 0)
+    ) {
       this._isShownWithZeroDimensions = false;
       this.emitShow();
     }
@@ -1720,7 +2126,11 @@ class ComponentContainer extends EventEmitter {
       this.exitStackMaximised();
     }
     this.emit("beforeComponentRelease", this._boundComponent.component);
-    this.layoutManager.unbindComponent(this, this._boundComponent.virtual, this._boundComponent.component);
+    this.layoutManager.unbindComponent(
+      this,
+      this._boundComponent.virtual,
+      this._boundComponent.component
+    );
   }
 }
 class BrowserPopout extends EventEmitter {
@@ -1746,14 +2156,20 @@ class BrowserPopout extends EventEmitter {
       left = null;
       top = null;
     } else {
-      left = (_a = this._popoutWindow.screenX) !== null && _a !== void 0 ? _a : this._popoutWindow.screenLeft;
-      top = (_b = this._popoutWindow.screenY) !== null && _b !== void 0 ? _b : this._popoutWindow.screenTop;
+      left =
+        (_a = this._popoutWindow.screenX) !== null && _a !== void 0
+          ? _a
+          : this._popoutWindow.screenLeft;
+      top =
+        (_b = this._popoutWindow.screenY) !== null && _b !== void 0
+          ? _b
+          : this._popoutWindow.screenTop;
     }
     const window2 = {
       width: this.getGlInstance().width,
       height: this.getGlInstance().height,
       left,
-      top
+      top,
     };
     const config = {
       root: glInstanceConfig.root,
@@ -1764,7 +2180,7 @@ class BrowserPopout extends EventEmitter {
       window: window2,
       parentId: this._config.parentId,
       indexInParent: this._config.indexInParent,
-      resolved: true
+      resolved: true,
     };
     return config;
   }
@@ -1786,8 +2202,7 @@ class BrowserPopout extends EventEmitter {
     } else {
       try {
         this.getWindow().close();
-      } catch (e) {
-      }
+      } catch (e) {}
     }
   }
   popIn() {
@@ -1815,7 +2230,10 @@ class BrowserPopout extends EventEmitter {
       }
       index = 0;
     }
-    const newContentItem = this._layoutManager.createAndInitContentItem(copiedRoot, parentItem);
+    const newContentItem = this._layoutManager.createAndInitContentItem(
+      copiedRoot,
+      parentItem
+    );
     parentItem.addChild(newContentItem, index);
     if (this._layoutManager.layoutConfig.settings.popInOnClose) {
       this._onClose();
@@ -1837,32 +2255,44 @@ class BrowserPopout extends EventEmitter {
       personalbar: "no",
       resizable: "yes",
       scrollbars: "no",
-      status: "no"
+      status: "no",
     });
     this._popoutWindow = globalThis.open(url, target, features);
     if (!this._popoutWindow) {
-      if (this._layoutManager.layoutConfig.settings.blockedPopoutsThrowError === true) {
+      if (
+        this._layoutManager.layoutConfig.settings.blockedPopoutsThrowError ===
+        true
+      ) {
         const error = new PopoutBlockedError("Popout blocked");
         throw error;
       } else {
         return;
       }
     }
-    this._popoutWindow.addEventListener("load", () => this.positionWindow(), {passive: true});
-    this._popoutWindow.addEventListener("beforeunload", () => {
-      if (this._layoutManager.layoutConfig.settings.popInOnClose) {
-        this.popIn();
-      } else {
-        this._onClose();
-      }
-    }, {passive: true});
+    this._popoutWindow.addEventListener("load", () => this.positionWindow(), {
+      passive: true,
+    });
+    this._popoutWindow.addEventListener(
+      "beforeunload",
+      () => {
+        if (this._layoutManager.layoutConfig.settings.popInOnClose) {
+          this.popIn();
+        } else {
+          this._onClose();
+        }
+      },
+      { passive: true }
+    );
     this._checkReadyInterval = setInterval(() => this.checkReady(), 10);
   }
   checkReady() {
     if (this._popoutWindow === null) {
       throw new UnexpectedNullError("BPCR01844");
     } else {
-      if (this._popoutWindow.__glInstance && this._popoutWindow.__glInstance.isInitialised) {
+      if (
+        this._popoutWindow.__glInstance &&
+        this._popoutWindow.__glInstance.isInitialised
+      ) {
         this.onInitialised();
         if (this._checkReadyInterval !== void 0) {
           clearInterval(this._checkReadyInterval);
@@ -1894,7 +2324,10 @@ class BrowserPopout extends EventEmitter {
     if (this._popoutWindow === null) {
       throw new Error("BrowserPopout.positionWindow: null popoutWindow");
     } else {
-      this._popoutWindow.moveTo(this._initialWindowSize.left, this._initialWindowSize.top);
+      this._popoutWindow.moveTo(
+        this._initialWindowSize.left,
+        this._initialWindowSize.top
+      );
       this._popoutWindow.focus();
     }
   }
@@ -1911,7 +2344,7 @@ function getJQueryOffset(element) {
   const rect = element.getBoundingClientRect();
   return {
     top: rect.top + document.body.scrollTop,
-    left: rect.left + document.body.scrollLeft
+    left: rect.left + document.body.scrollLeft,
   };
 }
 class ContentItem extends EventEmitter {
@@ -1996,7 +2429,9 @@ class ContentItem extends EventEmitter {
     }
   }
   addChild(contentItem, index, suspendResize) {
-    index !== null && index !== void 0 ? index : index = this._contentItems.length;
+    index !== null && index !== void 0
+      ? index
+      : (index = this._contentItems.length);
     this._contentItems.splice(index, 0, contentItem);
     contentItem.setParent(this);
     if (this._isInitialised === true && contentItem._isInitialised === false) {
@@ -2008,7 +2443,10 @@ class ContentItem extends EventEmitter {
     const index = this._contentItems.indexOf(oldChild);
     const parentNode = oldChild._element.parentNode;
     if (index === -1) {
-      throw new AssertError("CIRCI23232", "Can't replace child. oldChild is not child of this");
+      throw new AssertError(
+        "CIRCI23232",
+        "Can't replace child. oldChild is not child of this"
+      );
     }
     if (parentNode === null) {
       throw new UnexpectedNullError("CIRCP23232");
@@ -2025,7 +2463,10 @@ class ContentItem extends EventEmitter {
       if (newChild._parent === null) {
         throw new UnexpectedNullError("CIRCNC45699");
       } else {
-        if (newChild._parent._isInitialised === true && newChild._isInitialised === false) {
+        if (
+          newChild._parent._isInitialised === true &&
+          newChild._isInitialised === false
+        ) {
           newChild.init();
         }
         this.updateSize();
@@ -2041,7 +2482,12 @@ class ContentItem extends EventEmitter {
   }
   popout() {
     const parentId = getUniqueId();
-    const browserPopout = this.layoutManager.createPopoutFromContentItem(this, void 0, parentId, void 0);
+    const browserPopout = this.layoutManager.createPopoutFromContentItem(
+      this,
+      void 0,
+      parentId,
+      void 0
+    );
     this.emitBaseBubblingEvent("stateChanged");
     return browserPopout;
   }
@@ -2093,7 +2539,7 @@ class ContentItem extends EventEmitter {
       x2: offset.left + width - 1,
       y2: offset.top + height - 1,
       surface: width * height,
-      contentItem: this
+      contentItem: this,
     };
   }
   init() {
@@ -2134,7 +2580,11 @@ class ContentItem extends EventEmitter {
   propagateEvent(name, args) {
     if (args.length === 1) {
       const event = args[0];
-      if (event instanceof EventEmitter.BubblingEvent && event.isPropagationStopped === false && this._isInitialised === true) {
+      if (
+        event instanceof EventEmitter.BubblingEvent &&
+        event.isPropagationStopped === false &&
+        this._isInitialised === true
+      ) {
         if (this.isGround === false && this._parent) {
           this._parent.emitUnknown(name, event);
         } else {
@@ -2146,7 +2596,11 @@ class ContentItem extends EventEmitter {
   tryBubbleEvent(name, args) {
     if (args.length === 1) {
       const event = args[0];
-      if (event instanceof EventEmitter.BubblingEvent && event.isPropagationStopped === false && this._isInitialised === true) {
+      if (
+        event instanceof EventEmitter.BubblingEvent &&
+        event.isPropagationStopped === false &&
+        this._isInitialised === true
+      ) {
         if (this.isGround === false && this._parent) {
           this._parent.emitUnknown(name, event);
         } else {
@@ -2161,7 +2615,9 @@ class ContentItem extends EventEmitter {
     } else {
       if (this._pendingEventPropagations[name] !== true) {
         this._pendingEventPropagations[name] = true;
-        globalThis.requestAnimationFrame(() => this.propagateEventToLayoutManager(name, event));
+        globalThis.requestAnimationFrame(() =>
+          this.propagateEventToLayoutManager(name, event)
+        );
       }
     }
   }
@@ -2182,7 +2638,17 @@ class ComponentItem extends ContentItem {
     const containerElement = document.createElement("div");
     containerElement.classList.add("lm_content");
     this.element.appendChild(containerElement);
-    this._container = new ComponentContainer(config, this, layoutManager, containerElement, (itemConfig) => this.handleUpdateItemConfigEvent(itemConfig), () => this.show(), () => this.hide(), (suppressEvent) => this.focus(suppressEvent), (suppressEvent) => this.blur(suppressEvent));
+    this._container = new ComponentContainer(
+      config,
+      this,
+      layoutManager,
+      containerElement,
+      (itemConfig) => this.handleUpdateItemConfigEvent(itemConfig),
+      () => this.show(),
+      () => this.hide(),
+      (suppressEvent) => this.focus(suppressEvent),
+      (suppressEvent) => this.blur(suppressEvent)
+    );
   }
   get componentName() {
     return this._container.componentType;
@@ -2227,7 +2693,10 @@ class ComponentItem extends ContentItem {
   }
   toConfig() {
     const stateRequestEvent = this._container.stateRequestEvent;
-    const state = stateRequestEvent === void 0 ? this._container.state : stateRequestEvent();
+    const state =
+      stateRequestEvent === void 0
+        ? this._container.state
+        : stateRequestEvent();
     const result = {
       type: ItemType.component,
       content: [],
@@ -2241,8 +2710,10 @@ class ComponentItem extends ContentItem {
       reorderEnabled: this._reorderEnabled,
       title: this._title,
       header: ResolvedHeaderedItemConfig.Header.createCopy(this._headerConfig),
-      componentType: ResolvedComponentItemConfig.copyComponentType(this.componentType),
-      componentState: state
+      componentType: ResolvedComponentItemConfig.copyComponentType(
+        this.componentType
+      ),
+      componentState: state,
     };
     return result;
   }
@@ -2328,7 +2799,7 @@ class ComponentItem extends ContentItem {
   }
   updateNodeSize() {
     if (this.element.style.display !== "none") {
-      const {width, height} = getElementWidthAndHeight(this.element);
+      const { width, height } = getElementWidthAndHeight(this.element);
       this._container.setSizeToNodeSize(width, height, false);
     }
   }
@@ -2364,11 +2835,18 @@ class DragListener extends EventEmitter {
     this._nOriginalX = 0;
     this._nOriginalY = 0;
     this._dragging = false;
-    this._eElement.addEventListener("pointerdown", this._pointerDownEventListener, {passive: true});
+    this._eElement.addEventListener(
+      "pointerdown",
+      this._pointerDownEventListener,
+      { passive: true }
+    );
   }
   destroy() {
     this.checkRemovePointerTrackingEventListeners();
-    this._eElement.removeEventListener("pointerdown", this._pointerDownEventListener);
+    this._eElement.removeEventListener(
+      "pointerdown",
+      this._pointerDownEventListener
+    );
   }
   cancelDrag() {
     this.processDragStop(void 0);
@@ -2382,8 +2860,15 @@ class DragListener extends EventEmitter {
   processPointerDown(coordinates) {
     this._nOriginalX = coordinates.x;
     this._nOriginalY = coordinates.y;
-    this._oDocument.addEventListener("pointermove", this._pointerMoveEventListener);
-    this._oDocument.addEventListener("pointerup", this._pointerUpEventListener, {passive: true});
+    this._oDocument.addEventListener(
+      "pointermove",
+      this._pointerMoveEventListener
+    );
+    this._oDocument.addEventListener(
+      "pointerup",
+      this._pointerUpEventListener,
+      { passive: true }
+    );
     this._pointerTracking = true;
     this._timeout = setTimeout(() => {
       try {
@@ -2404,7 +2889,10 @@ class DragListener extends EventEmitter {
     this._nX = dragEvent.pageX - this._nOriginalX;
     this._nY = dragEvent.pageY - this._nOriginalY;
     if (this._dragging === false) {
-      if (Math.abs(this._nX) > this._nDistance || Math.abs(this._nY) > this._nDistance) {
+      if (
+        Math.abs(this._nX) > this._nDistance ||
+        Math.abs(this._nY) > this._nDistance
+      ) {
         this.startDrag();
       }
     }
@@ -2425,15 +2913,23 @@ class DragListener extends EventEmitter {
     if (this._dragging === true) {
       this._eBody.classList.remove("lm_dragging");
       this._eElement.classList.remove("lm_dragging");
-      (_a = this._oDocument.querySelector("iframe")) === null || _a === void 0 ? void 0 : _a.style.setProperty("pointer-events", "");
+      (_a = this._oDocument.querySelector("iframe")) === null || _a === void 0
+        ? void 0
+        : _a.style.setProperty("pointer-events", "");
       this._dragging = false;
       this.emit("dragStop", dragEvent);
     }
   }
   checkRemovePointerTrackingEventListeners() {
     if (this._pointerTracking) {
-      this._oDocument.removeEventListener("pointermove", this._pointerMoveEventListener);
-      this._oDocument.removeEventListener("pointerup", this._pointerUpEventListener);
+      this._oDocument.removeEventListener(
+        "pointermove",
+        this._pointerMoveEventListener
+      );
+      this._oDocument.removeEventListener(
+        "pointerup",
+        this._pointerUpEventListener
+      );
       this._pointerTracking = false;
     }
   }
@@ -2446,13 +2942,15 @@ class DragListener extends EventEmitter {
     this._dragging = true;
     this._eBody.classList.add("lm_dragging");
     this._eElement.classList.add("lm_dragging");
-    (_a = this._oDocument.querySelector("iframe")) === null || _a === void 0 ? void 0 : _a.style.setProperty("pointer-events", "none");
+    (_a = this._oDocument.querySelector("iframe")) === null || _a === void 0
+      ? void 0
+      : _a.style.setProperty("pointer-events", "none");
     this.emit("dragStart", this._nOriginalX, this._nOriginalY);
   }
   getPointerCoordinates(event) {
     const result = {
       x: event.pageX,
-      y: event.pageY
+      y: event.pageY,
     };
     return result;
   }
@@ -2470,12 +2968,16 @@ class Splitter {
     const handleExcessPos = handleExcessSize / 2;
     if (this._isVertical) {
       dragHandleElement.style.top = numberToPixels(-handleExcessPos);
-      dragHandleElement.style.height = numberToPixels(this._size + handleExcessSize);
+      dragHandleElement.style.height = numberToPixels(
+        this._size + handleExcessSize
+      );
       this._element.classList.add("lm_vertical");
       this._element.style.height = numberToPixels(this._size);
     } else {
       dragHandleElement.style.left = numberToPixels(-handleExcessPos);
-      dragHandleElement.style.width = numberToPixels(this._size + handleExcessSize);
+      dragHandleElement.style.width = numberToPixels(
+        this._size + handleExcessSize
+      );
       this._element.classList.add("lm_horizontal");
       this._element.style.width = numberToPixels(this._size);
     }
@@ -2494,14 +2996,20 @@ class Splitter {
 }
 class RowOrColumn extends ContentItem {
   constructor(isColumn, layoutManager, config, _rowOrColumnParent) {
-    super(layoutManager, config, _rowOrColumnParent, RowOrColumn.createElement(document, isColumn));
+    super(
+      layoutManager,
+      config,
+      _rowOrColumnParent,
+      RowOrColumn.createElement(document, isColumn)
+    );
     this._rowOrColumnParent = _rowOrColumnParent;
     this._splitter = [];
     this.isRow = !isColumn;
     this.isColumn = isColumn;
     this._childElementContainer = this.element;
     this._splitterSize = layoutManager.layoutConfig.dimensions.borderWidth;
-    this._splitterGrabSize = layoutManager.layoutConfig.dimensions.borderGrabWidth;
+    this._splitterGrabSize =
+      layoutManager.layoutConfig.dimensions.borderGrabWidth;
     this._isColumn = isColumn;
     this._dimension = isColumn ? "height" : "width";
     this._splitterPosition = null;
@@ -2521,7 +3029,7 @@ class RowOrColumn extends ContentItem {
       type: "component",
       componentType,
       componentState,
-      title
+      title,
     };
     return this.newItem(itemConfig, index);
   }
@@ -2530,14 +3038,17 @@ class RowOrColumn extends ContentItem {
       type: "component",
       componentType,
       componentState,
-      title
+      title,
     };
     return this.addItem(itemConfig, index);
   }
   newItem(itemConfig, index) {
     index = this.addItem(itemConfig, index);
     const createdItem = this.contentItems[index];
-    if (ContentItem.isStack(createdItem) && ItemConfig.isComponent(itemConfig)) {
+    if (
+      ContentItem.isStack(createdItem) &&
+      ItemConfig.isComponent(itemConfig)
+    ) {
       return createdItem.contentItems[0];
     } else {
       return createdItem;
@@ -2546,7 +3057,10 @@ class RowOrColumn extends ContentItem {
   addItem(itemConfig, index) {
     this.layoutManager.checkMinimiseMaximisedStack();
     const resolvedItemConfig = ItemConfig.resolve(itemConfig);
-    const contentItem = this.layoutManager.createAndInitContentItem(resolvedItemConfig, this);
+    const contentItem = this.layoutManager.createAndInitContentItem(
+      resolvedItemConfig,
+      this
+    );
     return this.addChild(contentItem, index, false);
   }
   addChild(contentItem, index, suspendResize) {
@@ -2554,19 +3068,30 @@ class RowOrColumn extends ContentItem {
       index = this.contentItems.length;
     }
     if (this.contentItems.length > 0) {
-      const splitterElement = this.createSplitter(Math.max(0, index - 1)).element;
+      const splitterElement = this.createSplitter(
+        Math.max(0, index - 1)
+      ).element;
       if (index > 0) {
-        this.contentItems[index - 1].element.insertAdjacentElement("afterend", splitterElement);
+        this.contentItems[index - 1].element.insertAdjacentElement(
+          "afterend",
+          splitterElement
+        );
         splitterElement.insertAdjacentElement("afterend", contentItem.element);
       } else {
-        this.contentItems[0].element.insertAdjacentElement("beforebegin", splitterElement);
-        splitterElement.insertAdjacentElement("beforebegin", contentItem.element);
+        this.contentItems[0].element.insertAdjacentElement(
+          "beforebegin",
+          splitterElement
+        );
+        splitterElement.insertAdjacentElement(
+          "beforebegin",
+          contentItem.element
+        );
       }
     } else {
       this._childElementContainer.appendChild(contentItem.element);
     }
     super.addChild(contentItem, index);
-    const newItemSize = 1 / this.contentItems.length * 100;
+    const newItemSize = (1 / this.contentItems.length) * 100;
     if (suspendResize === true) {
       this.emitBaseBubblingEvent("stateChanged");
       return index;
@@ -2575,7 +3100,8 @@ class RowOrColumn extends ContentItem {
       if (this.contentItems[i] === contentItem) {
         contentItem[this._dimension] = newItemSize;
       } else {
-        const itemSize = this.contentItems[i][this._dimension] *= (100 - newItemSize) / 100;
+        const itemSize = (this.contentItems[i][this._dimension] *=
+          (100 - newItemSize) / 100);
         this.contentItems[i][this._dimension] = itemSize;
       }
     }
@@ -2587,7 +3113,9 @@ class RowOrColumn extends ContentItem {
     const index = this.contentItems.indexOf(contentItem);
     const splitterIndex = Math.max(index - 1, 0);
     if (index === -1) {
-      throw new Error("Can't remove child. ContentItem is not child of this Row or Column");
+      throw new Error(
+        "Can't remove child. ContentItem is not child of this Row or Column"
+      );
     }
     if (this._splitter[splitterIndex]) {
       this._splitter[splitterIndex].destroy();
@@ -2620,15 +3148,17 @@ class RowOrColumn extends ContentItem {
     }
   }
   init() {
-    if (this.isInitialised === true)
-      return;
+    if (this.isInitialised === true) return;
     this.updateNodeSize();
     for (let i = 0; i < this.contentItems.length; i++) {
       this._childElementContainer.appendChild(this.contentItems[i].element);
     }
     super.init();
     for (let i = 0; i < this.contentItems.length - 1; i++) {
-      this.contentItems[i].element.insertAdjacentElement("afterend", this.createSplitter(i).element);
+      this.contentItems[i].element.insertAdjacentElement(
+        "afterend",
+        this.createSplitter(i).element
+      );
     }
     this.initContentItems();
   }
@@ -2641,7 +3171,7 @@ class RowOrColumn extends ContentItem {
       height: this.height,
       minHeight: this.minHeight,
       id: this.id,
-      isClosable: this.isClosable
+      isClosable: this.isClosable,
     };
     return result;
   }
@@ -2673,8 +3203,11 @@ class RowOrColumn extends ContentItem {
     }
   }
   calculateAbsoluteSizes() {
-    const totalSplitterSize = (this.contentItems.length - 1) * this._splitterSize;
-    let {width: totalWidth, height: totalHeight} = getElementWidthAndHeight(this.element);
+    const totalSplitterSize =
+      (this.contentItems.length - 1) * this._splitterSize;
+    let { width: totalWidth, height: totalHeight } = getElementWidthAndHeight(
+      this.element
+    );
     if (this._isColumn) {
       totalHeight -= totalSplitterSize;
     } else {
@@ -2685,19 +3218,23 @@ class RowOrColumn extends ContentItem {
     for (let i = 0; i < this.contentItems.length; i++) {
       let itemSize;
       if (this._isColumn) {
-        itemSize = Math.floor(totalHeight * (this.contentItems[i].height / 100));
+        itemSize = Math.floor(
+          totalHeight * (this.contentItems[i].height / 100)
+        );
       } else {
         itemSize = Math.floor(totalWidth * (this.contentItems[i].width / 100));
       }
       totalAssigned += itemSize;
       itemSizes.push(itemSize);
     }
-    const additionalPixel = Math.floor((this._isColumn ? totalHeight : totalWidth) - totalAssigned);
+    const additionalPixel = Math.floor(
+      (this._isColumn ? totalHeight : totalWidth) - totalAssigned
+    );
     return {
       itemSizes,
       additionalPixel,
       totalWidth,
-      totalHeight
+      totalHeight,
     };
   }
   calculateRelativeSizes() {
@@ -2716,7 +3253,8 @@ class RowOrColumn extends ContentItem {
     }
     if (Math.round(total) < 100 && itemsWithoutSetDimension.length > 0) {
       for (let i = 0; i < itemsWithoutSetDimension.length; i++) {
-        itemsWithoutSetDimension[i][this._dimension] = (100 - total) / itemsWithoutSetDimension.length;
+        itemsWithoutSetDimension[i][this._dimension] =
+          (100 - total) / itemsWithoutSetDimension.length;
       }
       this.respectMinItemWidth();
       return;
@@ -2728,12 +3266,14 @@ class RowOrColumn extends ContentItem {
       }
     }
     for (let i = 0; i < this.contentItems.length; i++) {
-      this.contentItems[i][this._dimension] = this.contentItems[i][this._dimension] / total * 100;
+      this.contentItems[i][this._dimension] =
+        (this.contentItems[i][this._dimension] / total) * 100;
     }
     this.respectMinItemWidth();
   }
   respectMinItemWidth() {
-    const minItemWidth = this.layoutManager.layoutConfig.dimensions.minItemWidth;
+    const minItemWidth =
+      this.layoutManager.layoutConfig.dimensions.minItemWidth;
     let totalOverMin = 0;
     let totalUnderMin = 0;
     const entriesOverMin = [];
@@ -2748,12 +3288,12 @@ class RowOrColumn extends ContentItem {
       if (itemSize < minItemWidth) {
         totalUnderMin += minItemWidth - itemSize;
         entry = {
-          width: minItemWidth
+          width: minItemWidth,
         };
       } else {
         totalOverMin += itemSize - minItemWidth;
         entry = {
-          width: itemSize
+          width: itemSize,
         };
         entriesOverMin.push(entry);
       }
@@ -2766,7 +3306,9 @@ class RowOrColumn extends ContentItem {
     let remainingWidth = totalUnderMin;
     for (let i = 0; i < entriesOverMin.length; i++) {
       const entry = entriesOverMin[i];
-      const reducedWidth = Math.round((entry.width - minItemWidth) * reducePercent);
+      const reducedWidth = Math.round(
+        (entry.width - minItemWidth) * reducePercent
+      );
       remainingWidth -= reducedWidth;
       entry.width -= reducedWidth;
     }
@@ -2774,12 +3316,19 @@ class RowOrColumn extends ContentItem {
       allEntries[allEntries.length - 1].width -= remainingWidth;
     }
     for (let i = 0; i < this.contentItems.length; i++) {
-      this.contentItems[i].width = allEntries[i].width / sizeData.totalWidth * 100;
+      this.contentItems[i].width =
+        (allEntries[i].width / sizeData.totalWidth) * 100;
     }
   }
   createSplitter(index) {
-    const splitter = new Splitter(this._isColumn, this._splitterSize, this._splitterGrabSize);
-    splitter.on("drag", (offsetX, offsetY) => this.onSplitterDrag(splitter, offsetX, offsetY));
+    const splitter = new Splitter(
+      this._isColumn,
+      this._splitterSize,
+      this._splitterGrabSize
+    );
+    splitter.on("drag", (offsetX, offsetY) =>
+      this.onSplitterDrag(splitter, offsetX, offsetY)
+    );
     splitter.on("dragStop", () => this.onSplitterDragStop(splitter));
     splitter.on("dragStart", () => this.onSplitterDragStart(splitter));
     this._splitter.splice(index, 0, splitter);
@@ -2789,7 +3338,7 @@ class RowOrColumn extends ContentItem {
     const index = this._splitter.indexOf(splitter);
     return {
       before: this.contentItems[index],
-      after: this.contentItems[index + 1]
+      after: this.contentItems[index + 1],
     };
   }
   getMinimumDimensions(arr) {
@@ -2797,28 +3346,49 @@ class RowOrColumn extends ContentItem {
     let minWidth = 0;
     let minHeight = 0;
     for (let i = 0; i < arr.length; ++i) {
-      minWidth = Math.max((_a = arr[i].minWidth) !== null && _a !== void 0 ? _a : 0, minWidth);
-      minHeight = Math.max((_b = arr[i].minHeight) !== null && _b !== void 0 ? _b : 0, minHeight);
+      minWidth = Math.max(
+        (_a = arr[i].minWidth) !== null && _a !== void 0 ? _a : 0,
+        minWidth
+      );
+      minHeight = Math.max(
+        (_b = arr[i].minHeight) !== null && _b !== void 0 ? _b : 0,
+        minHeight
+      );
     }
     return {
       horizontal: minWidth,
-      vertical: minHeight
+      vertical: minHeight,
     };
   }
   onSplitterDragStart(splitter) {
     const items = this.getItemsForSplitter(splitter);
-    const minSize = this.layoutManager.layoutConfig.dimensions[this._isColumn ? "minItemHeight" : "minItemWidth"];
+    const minSize =
+      this.layoutManager.layoutConfig.dimensions[
+        this._isColumn ? "minItemHeight" : "minItemWidth"
+      ];
     const beforeMinDim = this.getMinimumDimensions(items.before.contentItems);
-    const beforeMinSize = this._isColumn ? beforeMinDim.vertical : beforeMinDim.horizontal;
+    const beforeMinSize = this._isColumn
+      ? beforeMinDim.vertical
+      : beforeMinDim.horizontal;
     const afterMinDim = this.getMinimumDimensions(items.after.contentItems);
-    const afterMinSize = this._isColumn ? afterMinDim.vertical : afterMinDim.horizontal;
+    const afterMinSize = this._isColumn
+      ? afterMinDim.vertical
+      : afterMinDim.horizontal;
     this._splitterPosition = 0;
-    this._splitterMinPosition = -1 * (pixelsToNumber(items.before.element.style[this._dimension]) - (beforeMinSize || minSize));
-    this._splitterMaxPosition = pixelsToNumber(items.after.element.style[this._dimension]) - (afterMinSize || minSize);
+    this._splitterMinPosition =
+      -1 *
+      (pixelsToNumber(items.before.element.style[this._dimension]) -
+        (beforeMinSize || minSize));
+    this._splitterMaxPosition =
+      pixelsToNumber(items.after.element.style[this._dimension]) -
+      (afterMinSize || minSize);
   }
   onSplitterDrag(splitter, offsetX, offsetY) {
     let offset = this._isColumn ? offsetY : offsetX;
-    if (this._splitterMinPosition === null || this._splitterMaxPosition === null) {
+    if (
+      this._splitterMinPosition === null ||
+      this._splitterMaxPosition === null
+    ) {
       throw new UnexpectedNullError("ROCOSD59226");
     }
     offset = Math.max(offset, this._splitterMinPosition);
@@ -2836,19 +3406,27 @@ class RowOrColumn extends ContentItem {
       throw new UnexpectedNullError("ROCOSDS66932");
     } else {
       const items = this.getItemsForSplitter(splitter);
-      const sizeBefore = pixelsToNumber(items.before.element.style[this._dimension]);
-      const sizeAfter = pixelsToNumber(items.after.element.style[this._dimension]);
-      const splitterPositionInRange = (this._splitterPosition + sizeBefore) / (sizeBefore + sizeAfter);
-      const totalRelativeSize = items.before[this._dimension] + items.after[this._dimension];
-      items.before[this._dimension] = splitterPositionInRange * totalRelativeSize;
-      items.after[this._dimension] = (1 - splitterPositionInRange) * totalRelativeSize;
+      const sizeBefore = pixelsToNumber(
+        items.before.element.style[this._dimension]
+      );
+      const sizeAfter = pixelsToNumber(
+        items.after.element.style[this._dimension]
+      );
+      const splitterPositionInRange =
+        (this._splitterPosition + sizeBefore) / (sizeBefore + sizeAfter);
+      const totalRelativeSize =
+        items.before[this._dimension] + items.after[this._dimension];
+      items.before[this._dimension] =
+        splitterPositionInRange * totalRelativeSize;
+      items.after[this._dimension] =
+        (1 - splitterPositionInRange) * totalRelativeSize;
       splitter.element.style.top = numberToPixels(0);
       splitter.element.style.left = numberToPixels(0);
       globalThis.requestAnimationFrame(() => this.updateSize());
     }
   }
 }
-(function(RowOrColumn2) {
+(function (RowOrColumn2) {
   function getElementDimensionSize(element, dimension) {
     if (dimension === "width") {
       return getElementWidth(element);
@@ -2879,15 +3457,19 @@ class RowOrColumn extends ContentItem {
 })(RowOrColumn || (RowOrColumn = {}));
 class GroundItem extends ComponentParentableItem {
   constructor(layoutManager, rootItemConfig, containerElement) {
-    super(layoutManager, ResolvedGroundItemConfig.create(rootItemConfig), null, GroundItem.createElement(document));
+    super(
+      layoutManager,
+      ResolvedGroundItemConfig.create(rootItemConfig),
+      null,
+      GroundItem.createElement(document)
+    );
     this.isGround = true;
     this._childElementContainer = this.element;
     this._containerElement = containerElement;
     this._containerElement.appendChild(this.element);
   }
   init() {
-    if (this.isInitialised === true)
-      return;
+    if (this.isInitialised === true) return;
     this.updateNodeSize();
     for (let i = 0; i < this.contentItems.length; i++) {
       this._childElementContainer.appendChild(this.contentItems[i].element);
@@ -2898,7 +3480,10 @@ class GroundItem extends ComponentParentableItem {
   loadRoot(rootItemConfig) {
     this.clearRoot();
     if (rootItemConfig !== void 0) {
-      const rootContentItem = this.layoutManager.createAndInitContentItem(rootItemConfig, this);
+      const rootContentItem = this.layoutManager.createAndInitContentItem(
+        rootItemConfig,
+        this
+      );
       this.addChild(rootContentItem, 0);
     }
   }
@@ -2930,7 +3515,10 @@ class GroundItem extends ComponentParentableItem {
     if (parent.isComponent) {
       throw new Error("Cannot add item as child to ComponentItem");
     } else {
-      const contentItem = this.layoutManager.createAndInitContentItem(resolvedItemConfig, parent);
+      const contentItem = this.layoutManager.createAndInitContentItem(
+        resolvedItemConfig,
+        parent
+      );
       index = parent.addChild(contentItem, index);
       return parent === this ? -1 : index;
     }
@@ -2941,7 +3529,11 @@ class GroundItem extends ComponentParentableItem {
     if (resolvedItemConfig.maximised) {
       throw new Error("Root Component cannot be maximised");
     } else {
-      const rootContentItem = new ComponentItem(this.layoutManager, resolvedItemConfig, this);
+      const rootContentItem = new ComponentItem(
+        this.layoutManager,
+        resolvedItemConfig,
+        this
+      );
       rootContentItem.init();
       this.addChild(rootContentItem, 0);
     }
@@ -3008,8 +3600,7 @@ class GroundItem extends ComponentParentableItem {
         area.side = side;
         if (oppositeSides[side][1] === "2")
           area[side] = area[oppositeSides[side]] - areaSize;
-        else
-          area[side] = area[oppositeSides[side]] + areaSize;
+        else area[side] = area[oppositeSides[side]] + areaSize;
         area.surface = (area.x2 - area.x1) * (area.y2 - area.y1);
         result[idx++] = area;
       }
@@ -3024,15 +3615,23 @@ class GroundItem extends ComponentParentableItem {
     if (contentItem.isComponent) {
       const itemConfig = ResolvedStackItemConfig.createDefault();
       const component = contentItem;
-      itemConfig.header = ResolvedHeaderedItemConfig.Header.createCopy(component.headerConfig);
-      const stack = this.layoutManager.createAndInitContentItem(itemConfig, this);
+      itemConfig.header = ResolvedHeaderedItemConfig.Header.createCopy(
+        component.headerConfig
+      );
+      const stack = this.layoutManager.createAndInitContentItem(
+        itemConfig,
+        this
+      );
       stack.addChild(contentItem);
       contentItem = stack;
     }
     if (this.contentItems.length === 0) {
       this.addChild(contentItem);
     } else {
-      if (contentItem.type === ItemType.row || contentItem.type === ItemType.column) {
+      if (
+        contentItem.type === ItemType.row ||
+        contentItem.type === ItemType.column
+      ) {
         const itemConfig = ResolvedStackItemConfig.createDefault();
         const stack = this.layoutManager.createContentItem(itemConfig, this);
         stack.addChild(contentItem);
@@ -3044,7 +3643,10 @@ class GroundItem extends ComponentParentableItem {
       const column = this.contentItems[0];
       if (!(column instanceof RowOrColumn) || column.type !== type) {
         const itemConfig = ResolvedItemConfig.createDefault(type);
-        const rowOrColumn = this.layoutManager.createContentItem(itemConfig, this);
+        const rowOrColumn = this.layoutManager.createContentItem(
+          itemConfig,
+          this
+        );
         this.replaceChild(column, rowOrColumn);
         rowOrColumn.addChild(contentItem, insertBefore ? 0 : void 0, true);
         rowOrColumn.addChild(column, insertBefore ? void 0 : 0, true);
@@ -3052,7 +3654,10 @@ class GroundItem extends ComponentParentableItem {
         contentItem[dimension] = 50;
         rowOrColumn.updateSize();
       } else {
-        const sibling = column.contentItems[insertBefore ? 0 : column.contentItems.length - 1];
+        const sibling =
+          column.contentItems[
+            insertBefore ? 0 : column.contentItems.length - 1
+          ];
         column.addChild(contentItem, insertBefore ? 0 : void 0, true);
         sibling[dimension] *= 0.5;
         contentItem[dimension] = sibling[dimension];
@@ -3088,16 +3693,17 @@ class GroundItem extends ComponentParentableItem {
   }
   getItemsByPopInParentId(popInParentId) {
     const result = [];
-    this.deepFilterContentItems(this.contentItems, result, (item) => item.popInParentIds.includes(popInParentId));
+    this.deepFilterContentItems(this.contentItems, result, (item) =>
+      item.popInParentIds.includes(popInParentId)
+    );
     return result;
   }
   toConfig() {
     throw new Error("Cannot generate GroundItem config");
   }
-  setActiveComponentItem(item, focus, suppressFocusEvent) {
-  }
+  setActiveComponentItem(item, focus, suppressFocusEvent) {}
   updateNodeSize() {
-    const {width, height} = getElementWidthAndHeight(this._containerElement);
+    const { width, height } = getElementWidthAndHeight(this._containerElement);
     setElementWidth(this.element, width);
     setElementHeight(this.element, height);
     if (this.contentItems.length > 0) {
@@ -3118,17 +3724,21 @@ class GroundItem extends ComponentParentableItem {
       if (checkAcceptFtn(contentItem)) {
         result.push(contentItem);
       }
-      this.deepFilterContentItems(contentItem.contentItems, result, checkAcceptFtn);
+      this.deepFilterContentItems(
+        contentItem.contentItems,
+        result,
+        checkAcceptFtn
+      );
     }
   }
 }
-(function(GroundItem2) {
-  (function(Area) {
+(function (GroundItem2) {
+  (function (Area) {
     Area.oppositeSides = {
       y2: "y1",
       x2: "x1",
       y1: "y2",
-      x1: "x2"
+      x1: "x2",
     };
   })(GroundItem2.Area || (GroundItem2.Area = {}));
   function createElement(document2) {
@@ -3150,8 +3760,14 @@ class HeaderButton {
     this._element.classList.add(cssClass);
     this._element.title = label;
     this._header.on("destroy", () => this.destroy());
-    this._element.addEventListener("click", this._clickEventListener, {passive: true});
-    this._element.addEventListener("touchstart", this._touchStartEventListener, {passive: true});
+    this._element.addEventListener("click", this._clickEventListener, {
+      passive: true,
+    });
+    this._element.addEventListener(
+      "touchstart",
+      this._touchStartEventListener,
+      { passive: true }
+    );
     this._header.controlsContainerElement.appendChild(this._element);
   }
   get element() {
@@ -3160,8 +3776,13 @@ class HeaderButton {
   destroy() {
     var _a;
     this._element.removeEventListener("click", this._clickEventListener);
-    this._element.removeEventListener("touchstart", this._touchStartEventListener);
-    (_a = this._element.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(this._element);
+    this._element.removeEventListener(
+      "touchstart",
+      this._touchStartEventListener
+    );
+    (_a = this._element.parentNode) === null || _a === void 0
+      ? void 0
+      : _a.removeChild(this._element);
   }
   onClick(ev) {
     this._pushEvent(ev);
@@ -3171,7 +3792,13 @@ class HeaderButton {
   }
 }
 class Tab {
-  constructor(_layoutManager, _componentItem, _closeEvent, _focusEvent, _dragStartEvent) {
+  constructor(
+    _layoutManager,
+    _componentItem,
+    _closeEvent,
+    _focusEvent,
+    _dragStartEvent
+  ) {
     var _a;
     this._layoutManager = _layoutManager;
     this._componentItem = _componentItem;
@@ -3201,15 +3828,28 @@ class Tab {
     }
     this.setTitle(_componentItem.title);
     this._componentItem.on("titleChanged", this._tabTitleChangedListener);
-    const reorderEnabled = (_a = _componentItem.reorderEnabled) !== null && _a !== void 0 ? _a : this._layoutManager.layoutConfig.settings.reorderEnabled;
+    const reorderEnabled =
+      (_a = _componentItem.reorderEnabled) !== null && _a !== void 0
+        ? _a
+        : this._layoutManager.layoutConfig.settings.reorderEnabled;
     if (reorderEnabled) {
       this.enableReorder();
     }
-    this._element.addEventListener("click", this._tabClickListener, {passive: true});
-    this._element.addEventListener("touchstart", this._tabTouchStartListener, {passive: true});
+    this._element.addEventListener("click", this._tabClickListener, {
+      passive: true,
+    });
+    this._element.addEventListener("touchstart", this._tabTouchStartListener, {
+      passive: true,
+    });
     if (this._componentItem.isClosable) {
-      this._closeElement.addEventListener("click", this._closeClickListener, {passive: true});
-      this._closeElement.addEventListener("touchstart", this._closeTouchStartListener, {passive: true});
+      this._closeElement.addEventListener("click", this._closeClickListener, {
+        passive: true,
+      });
+      this._closeElement.addEventListener(
+        "touchstart",
+        this._closeTouchStartListener,
+        { passive: true }
+      );
     } else {
       this._closeElement.remove();
       this._closeElement = void 0;
@@ -3268,9 +3908,16 @@ class Tab {
     this._focusEvent = void 0;
     this._dragStartEvent = void 0;
     this._element.removeEventListener("click", this._tabClickListener);
-    this._element.removeEventListener("touchstart", this._tabTouchStartListener);
-    (_a = this._closeElement) === null || _a === void 0 ? void 0 : _a.removeEventListener("click", this._closeClickListener);
-    (_b = this._closeElement) === null || _b === void 0 ? void 0 : _b.removeEventListener("touchstart", this._closeTouchStartListener);
+    this._element.removeEventListener(
+      "touchstart",
+      this._tabTouchStartListener
+    );
+    (_a = this._closeElement) === null || _a === void 0
+      ? void 0
+      : _a.removeEventListener("click", this._closeClickListener);
+    (_b = this._closeElement) === null || _b === void 0
+      ? void 0
+      : _b.removeEventListener("touchstart", this._closeTouchStartListener);
     this._componentItem.off("titleChanged", this._tabTitleChangedListener);
     if (this.reorderEnabled) {
       this.disableReorder();
@@ -3353,7 +4000,13 @@ class Tab {
   }
 }
 class TabsContainer {
-  constructor(_layoutManager, _componentRemoveEvent, _componentFocusEvent, _componentDragStartEvent, _dropdownActiveChangedEvent) {
+  constructor(
+    _layoutManager,
+    _componentRemoveEvent,
+    _componentFocusEvent,
+    _componentDragStartEvent,
+    _dropdownActiveChangedEvent
+  ) {
     this._layoutManager = _layoutManager;
     this._componentRemoveEvent = _componentRemoveEvent;
     this._componentFocusEvent = _componentFocusEvent;
@@ -3397,7 +4050,14 @@ class TabsContainer {
         return;
       }
     }
-    const tab = new Tab(this._layoutManager, componentItem, (item) => this.handleTabCloseEvent(item), (item) => this.handleTabFocusEvent(item), (x, y, dragListener, item) => this.handleTabDragStartEvent(x, y, dragListener, item));
+    const tab = new Tab(
+      this._layoutManager,
+      componentItem,
+      (item) => this.handleTabCloseEvent(item),
+      (item) => this.handleTabFocusEvent(item),
+      (x, y, dragListener, item) =>
+        this.handleTabDragStartEvent(x, y, dragListener, item)
+    );
     if (this._tabs.length === 0) {
       this._tabs.push(tab);
       this._element.appendChild(tab.element);
@@ -3406,7 +4066,10 @@ class TabsContainer {
         index = this._tabs.length;
       }
       if (index > 0) {
-        this._tabs[index - 1].element.insertAdjacentElement("afterend", tab.element);
+        this._tabs[index - 1].element.insertAdjacentElement(
+          "afterend",
+          tab.element
+        );
       } else {
         this._tabs[0].element.insertAdjacentElement("beforebegin", tab.element);
       }
@@ -3437,7 +4100,10 @@ class TabsContainer {
       throw new AssertError("HSACI56632");
     } else {
       if (this._layoutManager.layoutConfig.settings.reorderOnTabMenuClick) {
-        if (this._lastVisibleTabIndex !== -1 && activeIndex > this._lastVisibleTabIndex) {
+        if (
+          this._lastVisibleTabIndex !== -1 &&
+          activeIndex > this._lastVisibleTabIndex
+        ) {
           const activeTab = this._tabs[activeIndex];
           for (let j = activeIndex; j > 0; j--) {
             this._tabs[j] = this._tabs[j - 1];
@@ -3449,10 +4115,18 @@ class TabsContainer {
   }
   updateTabSizes(availableWidth, activeComponentItem) {
     let dropDownActive = false;
-    const success = this.tryUpdateTabSizes(dropDownActive, availableWidth, activeComponentItem);
+    const success = this.tryUpdateTabSizes(
+      dropDownActive,
+      availableWidth,
+      activeComponentItem
+    );
     if (!success) {
       dropDownActive = true;
-      this.tryUpdateTabSizes(dropDownActive, availableWidth, activeComponentItem);
+      this.tryUpdateTabSizes(
+        dropDownActive,
+        availableWidth,
+        activeComponentItem
+      );
     }
     if (dropDownActive !== this._dropdownActive) {
       this._dropdownActive = dropDownActive;
@@ -3466,7 +4140,8 @@ class TabsContainer {
       }
       let cumulativeTabWidth = 0;
       let tabOverlapAllowanceExceeded = false;
-      const tabOverlapAllowance = this._layoutManager.layoutConfig.settings.tabOverlapAllowance;
+      const tabOverlapAllowance =
+        this._layoutManager.layoutConfig.settings.tabOverlapAllowance;
       const activeIndex = this._tabs.indexOf(activeComponentItem.tab);
       const activeTab = this._tabs[activeIndex];
       this._lastVisibleTabIndex = -1;
@@ -3475,7 +4150,9 @@ class TabsContainer {
         if (tabElement.parentElement !== this._element) {
           this._element.appendChild(tabElement);
         }
-        const tabMarginRightPixels = getComputedStyle(activeTab.element).marginRight;
+        const tabMarginRightPixels = getComputedStyle(
+          activeTab.element
+        ).marginRight;
         const tabMarginRight = pixelsToNumber(tabMarginRightPixels);
         const tabWidth = tabElement.offsetWidth + tabMarginRight;
         cumulativeTabWidth += tabWidth;
@@ -3483,9 +4160,16 @@ class TabsContainer {
         if (activeIndex <= i) {
           visibleTabWidth = cumulativeTabWidth;
         } else {
-          const activeTabMarginRightPixels = getComputedStyle(activeTab.element).marginRight;
-          const activeTabMarginRight = pixelsToNumber(activeTabMarginRightPixels);
-          visibleTabWidth = cumulativeTabWidth + activeTab.element.offsetWidth + activeTabMarginRight;
+          const activeTabMarginRightPixels = getComputedStyle(
+            activeTab.element
+          ).marginRight;
+          const activeTabMarginRight = pixelsToNumber(
+            activeTabMarginRightPixels
+          );
+          visibleTabWidth =
+            cumulativeTabWidth +
+            activeTab.element.offsetWidth +
+            activeTabMarginRight;
         }
         if (visibleTabWidth > availableWidth) {
           if (!tabOverlapAllowanceExceeded) {
@@ -3497,7 +4181,10 @@ class TabsContainer {
             }
             if (overlap < tabOverlapAllowance) {
               for (let j = 0; j <= i; j++) {
-                const marginLeft = j !== activeIndex && j !== 0 ? "-" + numberToPixels(overlap) : "";
+                const marginLeft =
+                  j !== activeIndex && j !== 0
+                    ? "-" + numberToPixels(overlap)
+                    : "";
                 this._tabs[j].element.style.zIndex = numberToPixels(i - j);
                 this._tabs[j].element.style.marginLeft = marginLeft;
               }
@@ -3555,7 +4242,21 @@ class TabsContainer {
   }
 }
 class Header extends EventEmitter {
-  constructor(_layoutManager, _parent, settings, _configClosable, _getActiveComponentItemEvent, closeEvent, _popoutEvent, _maximiseToggleEvent, _clickEvent, _touchStartEvent, _componentRemoveEvent, _componentFocusEvent, _componentDragStartEvent) {
+  constructor(
+    _layoutManager,
+    _parent,
+    settings,
+    _configClosable,
+    _getActiveComponentItemEvent,
+    closeEvent,
+    _popoutEvent,
+    _maximiseToggleEvent,
+    _clickEvent,
+    _touchStartEvent,
+    _componentRemoveEvent,
+    _componentFocusEvent,
+    _componentDragStartEvent
+  ) {
     super();
     this._layoutManager = _layoutManager;
     this._parent = _parent;
@@ -3573,7 +4274,14 @@ class Header extends EventEmitter {
     this._rowColumnClosable = true;
     this._closeButton = null;
     this._popoutButton = null;
-    this._tabsContainer = new TabsContainer(this._layoutManager, (item) => this.handleTabInitiatedComponentRemoveEvent(item), (item) => this.handleTabInitiatedComponentFocusEvent(item), (x, y, dragListener, item) => this.handleTabInitiatedDragStartEvent(x, y, dragListener, item), () => this.processTabDropdownActiveChanged());
+    this._tabsContainer = new TabsContainer(
+      this._layoutManager,
+      (item) => this.handleTabInitiatedComponentRemoveEvent(item),
+      (item) => this.handleTabInitiatedComponentFocusEvent(item),
+      (x, y, dragListener, item) =>
+        this.handleTabInitiatedDragStartEvent(x, y, dragListener, item),
+      () => this.processTabDropdownActiveChanged()
+    );
     this._show = settings.show;
     this._popoutEnabled = settings.popoutEnabled;
     this._popoutLabel = settings.popoutLabel;
@@ -3594,22 +4302,52 @@ class Header extends EventEmitter {
     this._element.appendChild(this._tabsContainer.element);
     this._element.appendChild(this._controlsContainerElement);
     this._element.appendChild(this._tabsContainer.dropdownElement);
-    this._element.addEventListener("click", this._clickListener, {passive: true});
-    this._element.addEventListener("touchstart", this._touchStartListener, {passive: true});
-    this._documentMouseUpListener = () => this._tabsContainer.hideAdditionalTabsDropdown();
-    globalThis.document.addEventListener("mouseup", this._documentMouseUpListener, {passive: true});
-    this._tabControlOffset = this._layoutManager.layoutConfig.settings.tabControlOffset;
+    this._element.addEventListener("click", this._clickListener, {
+      passive: true,
+    });
+    this._element.addEventListener("touchstart", this._touchStartListener, {
+      passive: true,
+    });
+    this._documentMouseUpListener = () =>
+      this._tabsContainer.hideAdditionalTabsDropdown();
+    globalThis.document.addEventListener(
+      "mouseup",
+      this._documentMouseUpListener,
+      { passive: true }
+    );
+    this._tabControlOffset =
+      this._layoutManager.layoutConfig.settings.tabControlOffset;
     if (this._tabDropdownEnabled) {
-      this._tabDropdownButton = new HeaderButton(this, this._tabDropdownLabel, "lm_tabdropdown", () => this._tabsContainer.showAdditionalTabsDropdown());
+      this._tabDropdownButton = new HeaderButton(
+        this,
+        this._tabDropdownLabel,
+        "lm_tabdropdown",
+        () => this._tabsContainer.showAdditionalTabsDropdown()
+      );
     }
     if (this._popoutEnabled) {
-      this._popoutButton = new HeaderButton(this, this._popoutLabel, "lm_popout", () => this.handleButtonPopoutEvent());
+      this._popoutButton = new HeaderButton(
+        this,
+        this._popoutLabel,
+        "lm_popout",
+        () => this.handleButtonPopoutEvent()
+      );
     }
     if (this._maximiseEnabled) {
-      this._maximiseButton = new HeaderButton(this, this._maximiseLabel, "lm_maximise", (ev) => this.handleButtonMaximiseToggleEvent(ev));
+      this._maximiseButton = new HeaderButton(
+        this,
+        this._maximiseLabel,
+        "lm_maximise",
+        (ev) => this.handleButtonMaximiseToggleEvent(ev)
+      );
     }
     if (this._configClosable) {
-      this._closeButton = new HeaderButton(this, this._closeLabel, "lm_close", () => closeEvent());
+      this._closeButton = new HeaderButton(
+        this,
+        this._closeLabel,
+        "lm_close",
+        () => closeEvent()
+      );
     }
     this.processTabDropdownActiveChanged();
   }
@@ -3653,7 +4391,10 @@ class Header extends EventEmitter {
     this._componentFocusEvent = void 0;
     this._componentDragStartEvent = void 0;
     this._tabsContainer.destroy();
-    globalThis.document.removeEventListener("mouseup", this._documentMouseUpListener);
+    globalThis.document.removeEventListener(
+      "mouseup",
+      this._documentMouseUpListener
+    );
     this._element.remove();
   }
   createTab(componentItem, index) {
@@ -3725,7 +4466,9 @@ class Header extends EventEmitter {
   }
   updateTabSizes() {
     if (this._tabsContainer.tabCount > 0) {
-      const headerHeight = this._show ? this._layoutManager.layoutConfig.dimensions.headerHeight : 0;
+      const headerHeight = this._show
+        ? this._layoutManager.layoutConfig.dimensions.headerHeight
+        : 0;
       if (this._leftRightSided) {
         this._element.style.height = "";
         this._element.style.width = numberToPixels(headerHeight);
@@ -3735,11 +4478,20 @@ class Header extends EventEmitter {
       }
       let availableWidth;
       if (this._leftRightSided) {
-        availableWidth = this._element.offsetHeight - this._controlsContainerElement.offsetHeight - this._tabControlOffset;
+        availableWidth =
+          this._element.offsetHeight -
+          this._controlsContainerElement.offsetHeight -
+          this._tabControlOffset;
       } else {
-        availableWidth = this._element.offsetWidth - this._controlsContainerElement.offsetWidth - this._tabControlOffset;
+        availableWidth =
+          this._element.offsetWidth -
+          this._controlsContainerElement.offsetWidth -
+          this._tabControlOffset;
       }
-      this._tabsContainer.updateTabSizes(availableWidth, this._getActiveComponentItemEvent());
+      this._tabsContainer.updateTabSizes(
+        availableWidth,
+        this._getActiveComponentItemEvent()
+      );
     }
   }
   handleTabInitiatedComponentRemoveEvent(componentItem) {
@@ -3771,7 +4523,10 @@ class Header extends EventEmitter {
   }
   processTabDropdownActiveChanged() {
     if (this._tabDropdownButton !== void 0) {
-      setElementDisplayVisibility(this._tabDropdownButton.element, this._tabsContainer.dropdownActive);
+      setElementDisplayVisibility(
+        this._tabDropdownButton.element,
+        this._tabsContainer.dropdownActive
+      );
     }
   }
   handleButtonPopoutEvent() {
@@ -3822,7 +4577,25 @@ class Header extends EventEmitter {
 }
 class Stack extends ComponentParentableItem {
   constructor(layoutManager, config, parent) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+    var _a,
+      _b,
+      _c,
+      _d,
+      _e,
+      _f,
+      _g,
+      _h,
+      _j,
+      _k,
+      _l,
+      _m,
+      _o,
+      _p,
+      _q,
+      _r,
+      _s,
+      _t,
+      _u;
     super(layoutManager, config, parent, Stack.createElement(document));
     this._headerSideChanged = false;
     this._resizeListener = () => this.handleResize();
@@ -3839,13 +4612,80 @@ class Stack extends ComponentParentableItem {
       componentHeaderConfig = firstChildItemConfig.header;
     }
     this._initialWantMaximise = config.maximised;
-    this._initialActiveItemIndex = (_a = config.activeItemIndex) !== null && _a !== void 0 ? _a : 0;
-    const show = (_d = (_c = (_b = this._headerConfig) === null || _b === void 0 ? void 0 : _b.show) !== null && _c !== void 0 ? _c : componentHeaderConfig === null || componentHeaderConfig === void 0 ? void 0 : componentHeaderConfig.show) !== null && _d !== void 0 ? _d : layoutHeaderConfig.show;
-    const popout = (_g = (_f = (_e = this._headerConfig) === null || _e === void 0 ? void 0 : _e.popout) !== null && _f !== void 0 ? _f : componentHeaderConfig === null || componentHeaderConfig === void 0 ? void 0 : componentHeaderConfig.popout) !== null && _g !== void 0 ? _g : layoutHeaderConfig.popout;
-    const maximise = (_k = (_j = (_h = this._headerConfig) === null || _h === void 0 ? void 0 : _h.maximise) !== null && _j !== void 0 ? _j : componentHeaderConfig === null || componentHeaderConfig === void 0 ? void 0 : componentHeaderConfig.maximise) !== null && _k !== void 0 ? _k : layoutHeaderConfig.maximise;
-    const close = (_o = (_m = (_l = this._headerConfig) === null || _l === void 0 ? void 0 : _l.close) !== null && _m !== void 0 ? _m : componentHeaderConfig === null || componentHeaderConfig === void 0 ? void 0 : componentHeaderConfig.close) !== null && _o !== void 0 ? _o : layoutHeaderConfig.close;
-    const minimise = (_r = (_q = (_p = this._headerConfig) === null || _p === void 0 ? void 0 : _p.minimise) !== null && _q !== void 0 ? _q : componentHeaderConfig === null || componentHeaderConfig === void 0 ? void 0 : componentHeaderConfig.minimise) !== null && _r !== void 0 ? _r : layoutHeaderConfig.minimise;
-    const tabDropdown = (_u = (_t = (_s = this._headerConfig) === null || _s === void 0 ? void 0 : _s.tabDropdown) !== null && _t !== void 0 ? _t : componentHeaderConfig === null || componentHeaderConfig === void 0 ? void 0 : componentHeaderConfig.tabDropdown) !== null && _u !== void 0 ? _u : layoutHeaderConfig.tabDropdown;
+    this._initialActiveItemIndex =
+      (_a = config.activeItemIndex) !== null && _a !== void 0 ? _a : 0;
+    const show =
+      (_d =
+        (_c =
+          (_b = this._headerConfig) === null || _b === void 0
+            ? void 0
+            : _b.show) !== null && _c !== void 0
+          ? _c
+          : componentHeaderConfig === null || componentHeaderConfig === void 0
+          ? void 0
+          : componentHeaderConfig.show) !== null && _d !== void 0
+        ? _d
+        : layoutHeaderConfig.show;
+    const popout =
+      (_g =
+        (_f =
+          (_e = this._headerConfig) === null || _e === void 0
+            ? void 0
+            : _e.popout) !== null && _f !== void 0
+          ? _f
+          : componentHeaderConfig === null || componentHeaderConfig === void 0
+          ? void 0
+          : componentHeaderConfig.popout) !== null && _g !== void 0
+        ? _g
+        : layoutHeaderConfig.popout;
+    const maximise =
+      (_k =
+        (_j =
+          (_h = this._headerConfig) === null || _h === void 0
+            ? void 0
+            : _h.maximise) !== null && _j !== void 0
+          ? _j
+          : componentHeaderConfig === null || componentHeaderConfig === void 0
+          ? void 0
+          : componentHeaderConfig.maximise) !== null && _k !== void 0
+        ? _k
+        : layoutHeaderConfig.maximise;
+    const close =
+      (_o =
+        (_m =
+          (_l = this._headerConfig) === null || _l === void 0
+            ? void 0
+            : _l.close) !== null && _m !== void 0
+          ? _m
+          : componentHeaderConfig === null || componentHeaderConfig === void 0
+          ? void 0
+          : componentHeaderConfig.close) !== null && _o !== void 0
+        ? _o
+        : layoutHeaderConfig.close;
+    const minimise =
+      (_r =
+        (_q =
+          (_p = this._headerConfig) === null || _p === void 0
+            ? void 0
+            : _p.minimise) !== null && _q !== void 0
+          ? _q
+          : componentHeaderConfig === null || componentHeaderConfig === void 0
+          ? void 0
+          : componentHeaderConfig.minimise) !== null && _r !== void 0
+        ? _r
+        : layoutHeaderConfig.minimise;
+    const tabDropdown =
+      (_u =
+        (_t =
+          (_s = this._headerConfig) === null || _s === void 0
+            ? void 0
+            : _s.tabDropdown) !== null && _t !== void 0
+          ? _t
+          : componentHeaderConfig === null || componentHeaderConfig === void 0
+          ? void 0
+          : componentHeaderConfig.tabDropdown) !== null && _u !== void 0
+        ? _u
+        : layoutHeaderConfig.tabDropdown;
     this._maximisedEnabled = maximise !== false;
     const headerSettings = {
       show: show !== false,
@@ -3859,9 +4699,24 @@ class Stack extends ComponentParentableItem {
       minimiseEnabled: true,
       minimiseLabel: minimise,
       tabDropdownEnabled: tabDropdown !== false,
-      tabDropdownLabel: tabDropdown === false ? "" : tabDropdown
+      tabDropdownLabel: tabDropdown === false ? "" : tabDropdown,
     };
-    this._header = new Header(layoutManager, this, headerSettings, config.isClosable && close !== false, () => this.getActiveComponentItem(), () => this.remove(), () => this.handlePopoutEvent(), () => this.toggleMaximise(), (ev) => this.handleHeaderClickEvent(ev), (ev) => this.handleHeaderTouchStartEvent(ev), (item) => this.handleHeaderComponentRemoveEvent(item), (item) => this.handleHeaderComponentFocusEvent(item), (x, y, dragListener, item) => this.handleHeaderComponentStartDragEvent(x, y, dragListener, item));
+    this._header = new Header(
+      layoutManager,
+      this,
+      headerSettings,
+      config.isClosable && close !== false,
+      () => this.getActiveComponentItem(),
+      () => this.remove(),
+      () => this.handlePopoutEvent(),
+      () => this.toggleMaximise(),
+      (ev) => this.handleHeaderClickEvent(ev),
+      (ev) => this.handleHeaderTouchStartEvent(ev),
+      (item) => this.handleHeaderComponentRemoveEvent(item),
+      (item) => this.handleHeaderComponentFocusEvent(item),
+      (x, y, dragListener, item) =>
+        this.handleHeaderComponentStartDragEvent(x, y, dragListener, item)
+    );
     this.isStack = true;
     this._childElementContainer = document.createElement("section");
     this._childElementContainer.classList.add("lm_items");
@@ -3915,8 +4770,7 @@ class Stack extends ComponentParentableItem {
     }
   }
   init() {
-    if (this.isInitialised === true)
-      return;
+    if (this.isInitialised === true) return;
     this.updateNodeSize();
     for (let i = 0; i < this.contentItems.length; i++) {
       this._childElementContainer.appendChild(this.contentItems[i].element);
@@ -3925,19 +4779,29 @@ class Stack extends ComponentParentableItem {
     const contentItems = this.contentItems;
     const contentItemCount = contentItems.length;
     if (contentItemCount > 0) {
-      if (this._initialActiveItemIndex < 0 || this._initialActiveItemIndex >= contentItemCount) {
-        throw new Error(`ActiveItemIndex out of range: ${this._initialActiveItemIndex} id: ${this.id}`);
+      if (
+        this._initialActiveItemIndex < 0 ||
+        this._initialActiveItemIndex >= contentItemCount
+      ) {
+        throw new Error(
+          `ActiveItemIndex out of range: ${this._initialActiveItemIndex} id: ${this.id}`
+        );
       } else {
         for (let i = 0; i < contentItemCount; i++) {
           const contentItem = contentItems[i];
           if (!(contentItem instanceof ComponentItem)) {
-            throw new Error(`Stack Content Item is not of type ComponentItem: ${i} id: ${this.id}`);
+            throw new Error(
+              `Stack Content Item is not of type ComponentItem: ${i} id: ${this.id}`
+            );
           } else {
             this._header.createTab(contentItem, i);
             contentItem.hide();
           }
         }
-        this.setActiveComponentItem(contentItems[this._initialActiveItemIndex], false);
+        this.setActiveComponentItem(
+          contentItems[this._initialActiveItemIndex],
+          false
+        );
         this._header.updateTabSizes();
       }
     }
@@ -3946,7 +4810,9 @@ class Stack extends ComponentParentableItem {
   }
   setActiveContentItem(item) {
     if (!ContentItem.isComponentItem(item)) {
-      throw new Error("Stack.setActiveContentItem: item is not a ComponentItem");
+      throw new Error(
+        "Stack.setActiveContentItem: item is not a ComponentItem"
+      );
     } else {
       this.setActiveComponentItem(item, false);
     }
@@ -3968,19 +4834,26 @@ class Stack extends ComponentParentableItem {
       }
     }
     if (this.focused || focus) {
-      this.layoutManager.setFocusedComponentItem(componentItem, suppressFocusEvent);
+      this.layoutManager.setFocusedComponentItem(
+        componentItem,
+        suppressFocusEvent
+      );
     }
   }
   getActiveContentItem() {
     var _a;
-    return (_a = this.getActiveComponentItem()) !== null && _a !== void 0 ? _a : null;
+    return (_a = this.getActiveComponentItem()) !== null && _a !== void 0
+      ? _a
+      : null;
   }
   getActiveComponentItem() {
     return this._activeComponentItem;
   }
   focusActiveContentItem() {
     var _a;
-    (_a = this._activeComponentItem) === null || _a === void 0 ? void 0 : _a.focus();
+    (_a = this._activeComponentItem) === null || _a === void 0
+      ? void 0
+      : _a.focus();
   }
   setFocusedValue(value) {
     this._header.applyFocusedValue(value);
@@ -3994,7 +4867,7 @@ class Stack extends ComponentParentableItem {
       type: "component",
       componentType,
       componentState,
-      title
+      title,
     };
     return this.newItem(itemConfig, index);
   }
@@ -4003,7 +4876,7 @@ class Stack extends ComponentParentableItem {
       type: "component",
       componentType,
       componentState,
-      title
+      title,
     };
     return this.addItem(itemConfig, index);
   }
@@ -4014,7 +4887,10 @@ class Stack extends ComponentParentableItem {
   addItem(itemConfig, index) {
     this.layoutManager.checkMinimiseMaximisedStack();
     const resolvedItemConfig = ItemConfig.resolve(itemConfig);
-    const contentItem = this.layoutManager.createAndInitContentItem(resolvedItemConfig, this);
+    const contentItem = this.layoutManager.createAndInitContentItem(
+      resolvedItemConfig,
+      this
+    );
     return this.addChild(contentItem, index);
   }
   addChild(contentItem, index, focus = false) {
@@ -4046,7 +4922,10 @@ class Stack extends ComponentParentableItem {
       }
       if (!stackWillBeDeleted) {
         const newActiveComponentIdx = index === 0 ? 1 : index - 1;
-        this.setActiveComponentItem(this.contentItems[newActiveComponentIdx], false);
+        this.setActiveComponentItem(
+          this.contentItems[newActiveComponentIdx],
+          false
+        );
       }
     }
     this._header.removeTab(componentItem);
@@ -4097,7 +4976,11 @@ class Stack extends ComponentParentableItem {
   }
   destroy() {
     var _a;
-    if ((_a = this._activeComponentItem) === null || _a === void 0 ? void 0 : _a.focused) {
+    if (
+      (_a = this._activeComponentItem) === null || _a === void 0
+        ? void 0
+        : _a.focused
+    ) {
       this._activeComponentItem.blur();
     }
     super.destroy();
@@ -4117,7 +5000,9 @@ class Stack extends ComponentParentableItem {
       }
     }
     if (this.contentItems.length > 0 && activeItemIndex === void 0) {
-      throw new Error("expected non-empty stack to have an active component item");
+      throw new Error(
+        "expected non-empty stack to have an active component item"
+      );
     } else {
       const result = {
         type: "stack",
@@ -4130,7 +5015,7 @@ class Stack extends ComponentParentableItem {
         isClosable: this.isClosable,
         maximised: this.isMaximised,
         header: this.createHeaderConfig(),
-        activeItemIndex
+        activeItemIndex,
       };
       return result;
     }
@@ -4149,19 +5034,30 @@ class Stack extends ComponentParentableItem {
       this.addChild(contentItem, 0, true);
       return;
     }
-    const isVertical = this._dropSegment === "top" || this._dropSegment === "bottom";
-    const isHorizontal = this._dropSegment === "left" || this._dropSegment === "right";
-    const insertBefore = this._dropSegment === "top" || this._dropSegment === "left";
-    const hasCorrectParent = isVertical && this.stackParent.isColumn || isHorizontal && this.stackParent.isRow;
+    const isVertical =
+      this._dropSegment === "top" || this._dropSegment === "bottom";
+    const isHorizontal =
+      this._dropSegment === "left" || this._dropSegment === "right";
+    const insertBefore =
+      this._dropSegment === "top" || this._dropSegment === "left";
+    const hasCorrectParent =
+      (isVertical && this.stackParent.isColumn) ||
+      (isHorizontal && this.stackParent.isRow);
     const dimension = isVertical ? "height" : "width";
     if (contentItem.isComponent) {
       const itemConfig = ResolvedStackItemConfig.createDefault();
       itemConfig.header = this.createHeaderConfig();
-      const stack = this.layoutManager.createAndInitContentItem(itemConfig, this);
+      const stack = this.layoutManager.createAndInitContentItem(
+        itemConfig,
+        this
+      );
       stack.addChild(contentItem);
       contentItem = stack;
     }
-    if (contentItem.type === ItemType.row || contentItem.type === ItemType.column) {
+    if (
+      contentItem.type === ItemType.row ||
+      contentItem.type === ItemType.column
+    ) {
       const itemConfig = ResolvedStackItemConfig.createDefault();
       itemConfig.header = this.createHeaderConfig();
       const stack = this.layoutManager.createContentItem(itemConfig, this);
@@ -4170,14 +5066,21 @@ class Stack extends ComponentParentableItem {
     }
     if (hasCorrectParent) {
       const index = this.stackParent.contentItems.indexOf(this);
-      this.stackParent.addChild(contentItem, insertBefore ? index : index + 1, true);
+      this.stackParent.addChild(
+        contentItem,
+        insertBefore ? index : index + 1,
+        true
+      );
       this[dimension] *= 0.5;
       contentItem[dimension] = this[dimension];
       this.stackParent.updateSize();
     } else {
       const type = isVertical ? ItemType.column : ItemType.row;
       const itemConfig = ResolvedItemConfig.createDefault(type);
-      const rowOrColumn = this.layoutManager.createContentItem(itemConfig, this);
+      const rowOrColumn = this.layoutManager.createContentItem(
+        itemConfig,
+        this
+      );
       this.stackParent.replaceChild(this, rowOrColumn);
       rowOrColumn.addChild(contentItem, insertBefore ? 0 : void 0, true);
       rowOrColumn.addChild(this, insertBefore ? void 0 : 0, true);
@@ -4219,15 +5122,15 @@ class Stack extends ComponentParentableItem {
           x1: headerArea.x1,
           y1: headerArea.y1,
           x2: headerArea.x2,
-          y2: headerArea.y2
+          y2: headerArea.y2,
         },
         highlightArea: {
           x1: headerArea.x1,
           y1: headerArea.y1,
           x2: headerArea.x2,
-          y2: headerArea.y2
-        }
-      }
+          y2: headerArea.y2,
+        },
+      },
     };
     if (this.contentItems.length === 0) {
       this._contentAreaDimensions.body = {
@@ -4235,14 +5138,14 @@ class Stack extends ComponentParentableItem {
           x1: contentArea.x1,
           y1: contentArea.y1,
           x2: contentArea.x2,
-          y2: contentArea.y2
+          y2: contentArea.y2,
         },
         highlightArea: {
           x1: contentArea.x1,
           y1: contentArea.y1,
           x2: contentArea.x2,
-          y2: contentArea.y2
-        }
+          y2: contentArea.y2,
+        },
       };
       return super.getElementArea(this.element);
     } else {
@@ -4251,56 +5154,56 @@ class Stack extends ComponentParentableItem {
           x1: contentArea.x1,
           y1: contentArea.y1,
           x2: contentArea.x1 + contentWidth * 0.25,
-          y2: contentArea.y2
+          y2: contentArea.y2,
         },
         highlightArea: {
           x1: contentArea.x1,
           y1: contentArea.y1,
           x2: contentArea.x1 + contentWidth * 0.5,
-          y2: contentArea.y2
-        }
+          y2: contentArea.y2,
+        },
       };
       this._contentAreaDimensions.top = {
         hoverArea: {
           x1: contentArea.x1 + contentWidth * 0.25,
           y1: contentArea.y1,
           x2: contentArea.x1 + contentWidth * 0.75,
-          y2: contentArea.y1 + contentHeight * 0.5
+          y2: contentArea.y1 + contentHeight * 0.5,
         },
         highlightArea: {
           x1: contentArea.x1,
           y1: contentArea.y1,
           x2: contentArea.x2,
-          y2: contentArea.y1 + contentHeight * 0.5
-        }
+          y2: contentArea.y1 + contentHeight * 0.5,
+        },
       };
       this._contentAreaDimensions.right = {
         hoverArea: {
           x1: contentArea.x1 + contentWidth * 0.75,
           y1: contentArea.y1,
           x2: contentArea.x2,
-          y2: contentArea.y2
+          y2: contentArea.y2,
         },
         highlightArea: {
           x1: contentArea.x1 + contentWidth * 0.5,
           y1: contentArea.y1,
           x2: contentArea.x2,
-          y2: contentArea.y2
-        }
+          y2: contentArea.y2,
+        },
       };
       this._contentAreaDimensions.bottom = {
         hoverArea: {
           x1: contentArea.x1 + contentWidth * 0.25,
           y1: contentArea.y1 + contentHeight * 0.5,
           x2: contentArea.x1 + contentWidth * 0.75,
-          y2: contentArea.y2
+          y2: contentArea.y2,
         },
         highlightArea: {
           x1: contentArea.x1,
           y1: contentArea.y1 + contentHeight * 0.5,
           x2: contentArea.x2,
-          y2: contentArea.y2
-        }
+          y2: contentArea.y2,
+        },
       };
       return super.getElementArea(this.element);
     }
@@ -4316,14 +5219,21 @@ class Stack extends ComponentParentableItem {
     if (this.element.style.display !== "none") {
       const content = getElementWidthAndHeight(this.element);
       if (this._header.show) {
-        const dimension = this._header.leftRightSided ? WidthOrHeightPropertyName.width : WidthOrHeightPropertyName.height;
-        content[dimension] -= this.layoutManager.layoutConfig.dimensions.headerHeight;
+        const dimension = this._header.leftRightSided
+          ? WidthOrHeightPropertyName.width
+          : WidthOrHeightPropertyName.height;
+        content[dimension] -=
+          this.layoutManager.layoutConfig.dimensions.headerHeight;
       }
       this._childElementContainer.style.width = numberToPixels(content.width);
       this._childElementContainer.style.height = numberToPixels(content.height);
       for (let i = 0; i < this.contentItems.length; i++) {
-        this.contentItems[i].element.style.width = numberToPixels(content.width);
-        this.contentItems[i].element.style.height = numberToPixels(content.height);
+        this.contentItems[i].element.style.width = numberToPixels(
+          content.width
+        );
+        this.contentItems[i].element.style.height = numberToPixels(
+          content.height
+        );
       }
       this.emit("resize");
       this.emitStateChangedEvent();
@@ -4343,7 +5253,7 @@ class Stack extends ComponentParentableItem {
         x1: headerOffset.left,
         x2: headerOffset.left + 100,
         y1: headerOffset.top + elementHeight - 20,
-        y2: headerOffset.top + elementHeight
+        y2: headerOffset.top + elementHeight,
       };
     } else {
       let tabIndex = 0;
@@ -4376,20 +5286,30 @@ class Stack extends ComponentParentableItem {
       const halfX = tabLeft + tabWidth / 2;
       if (x < halfX) {
         this._dropIndex = tabIndex;
-        tabElement.insertAdjacentElement("beforebegin", this.layoutManager.tabDropPlaceholder);
+        tabElement.insertAdjacentElement(
+          "beforebegin",
+          this.layoutManager.tabDropPlaceholder
+        );
       } else {
         this._dropIndex = Math.min(tabIndex + 1, tabsLength);
-        tabElement.insertAdjacentElement("afterend", this.layoutManager.tabDropPlaceholder);
+        tabElement.insertAdjacentElement(
+          "afterend",
+          this.layoutManager.tabDropPlaceholder
+        );
       }
-      const tabDropPlaceholderOffset = getJQueryOffset(this.layoutManager.tabDropPlaceholder);
-      const tabDropPlaceholderWidth = getElementWidth(this.layoutManager.tabDropPlaceholder);
+      const tabDropPlaceholderOffset = getJQueryOffset(
+        this.layoutManager.tabDropPlaceholder
+      );
+      const tabDropPlaceholderWidth = getElementWidth(
+        this.layoutManager.tabDropPlaceholder
+      );
       if (this._header.leftRightSided) {
         const placeHolderTop = tabDropPlaceholderOffset.top;
         area = {
           x1: tabTop,
           x2: tabTop + tabElement.clientHeight,
           y1: placeHolderTop,
-          y2: placeHolderTop + tabDropPlaceholderWidth
+          y2: placeHolderTop + tabDropPlaceholderWidth,
         };
       } else {
         const placeHolderLeft = tabDropPlaceholderOffset.left;
@@ -4397,7 +5317,7 @@ class Stack extends ComponentParentableItem {
           x1: placeHolderLeft,
           x2: placeHolderLeft + tabDropPlaceholderWidth,
           y1: tabTop,
-          y2: tabTop + tabElement.clientHeight
+          y2: tabTop + tabElement.clientHeight,
         };
       }
     }
@@ -4443,12 +5363,20 @@ class Stack extends ComponentParentableItem {
   }
   handleHeaderClickEvent(ev) {
     const eventName = EventEmitter.headerClickEventName;
-    const bubblingEvent = new EventEmitter.ClickBubblingEvent(eventName, this, ev);
+    const bubblingEvent = new EventEmitter.ClickBubblingEvent(
+      eventName,
+      this,
+      ev
+    );
     this.emit(eventName, bubblingEvent);
   }
   handleHeaderTouchStartEvent(ev) {
     const eventName = EventEmitter.headerTouchStartEventName;
-    const bubblingEvent = new EventEmitter.TouchStartBubblingEvent(eventName, this, ev);
+    const bubblingEvent = new EventEmitter.TouchStartBubblingEvent(
+      eventName,
+      this,
+      ev
+    );
     this.emit(eventName, bubblingEvent);
   }
   handleHeaderComponentRemoveEvent(item) {
@@ -4461,14 +5389,23 @@ class Stack extends ComponentParentableItem {
     if (this.isMaximised === true) {
       this.toggleMaximise();
     }
-    this.layoutManager.startComponentDrag(x, y, dragListener, componentItem, this);
+    this.layoutManager.startComponentDrag(
+      x,
+      y,
+      dragListener,
+      componentItem,
+      this
+    );
   }
   createHeaderConfig() {
     if (!this._headerSideChanged) {
       return ResolvedHeaderedItemConfig.Header.createCopy(this._headerConfig);
     } else {
       const show = this._header.show ? this._header.side : false;
-      let result = ResolvedHeaderedItemConfig.Header.createCopy(this._headerConfig, show);
+      let result = ResolvedHeaderedItemConfig.Header.createCopy(
+        this._headerConfig,
+        show
+      );
       if (result === void 0) {
         result = {
           show,
@@ -4476,7 +5413,7 @@ class Stack extends ComponentParentableItem {
           maximise: void 0,
           close: void 0,
           minimise: void 0,
-          tabDropdown: void 0
+          tabDropdown: void 0,
         };
       }
       return result;
@@ -4486,7 +5423,7 @@ class Stack extends ComponentParentableItem {
     this.emitBaseBubblingEvent("stateChanged");
   }
 }
-(function(Stack2) {
+(function (Stack2) {
   function createElement(document2) {
     const element = document2.createElement("div");
     element.classList.add("lm_item");
@@ -4496,7 +5433,14 @@ class Stack extends ComponentParentableItem {
   Stack2.createElement = createElement;
 })(Stack || (Stack = {}));
 class DragProxy extends EventEmitter {
-  constructor(x, y, _dragListener, _layoutManager, _componentItem, _originalParent) {
+  constructor(
+    x,
+    y,
+    _dragListener,
+    _layoutManager,
+    _componentItem,
+    _originalParent
+  ) {
     super();
     this._dragListener = _dragListener;
     this._layoutManager = _layoutManager;
@@ -4504,7 +5448,9 @@ class DragProxy extends EventEmitter {
     this._originalParent = _originalParent;
     this._area = null;
     this._lastValidArea = null;
-    this._dragListener.on("drag", (offsetX, offsetY, event) => this.onDrag(offsetX, offsetY, event));
+    this._dragListener.on("drag", (offsetX, offsetY, event) =>
+      this.onDrag(offsetX, offsetY, event)
+    );
     this._dragListener.on("dragStop", () => this.onDrop());
     this.createDragProxyElements(x, y);
     if (this._componentItem.parent === null) {
@@ -4547,11 +5493,19 @@ class DragProxy extends EventEmitter {
     this._proxyContainerElement.classList.add("lm_content");
     this._element.appendChild(headerElement);
     this._element.appendChild(this._proxyContainerElement);
-    if (this._originalParent instanceof Stack && this._originalParent.headerShow) {
+    if (
+      this._originalParent instanceof Stack &&
+      this._originalParent.headerShow
+    ) {
       this._sided = this._originalParent.headerLeftRightSided;
       this._element.classList.add("lm_" + this._originalParent.headerSide);
-      if ([Side.right, Side.bottom].indexOf(this._originalParent.headerSide) >= 0) {
-        this._proxyContainerElement.insertAdjacentElement("afterend", headerElement);
+      if (
+        [Side.right, Side.bottom].indexOf(this._originalParent.headerSide) >= 0
+      ) {
+        this._proxyContainerElement.insertAdjacentElement(
+          "afterend",
+          headerElement
+        );
       }
     }
     this._element.style.left = numberToPixels(initialX);
@@ -4564,7 +5518,8 @@ class DragProxy extends EventEmitter {
     const offset = getJQueryOffset(this._layoutManager.container);
     this._minX = offset.left;
     this._minY = offset.top;
-    const {width: containerWidth, height: containerHeight} = getElementWidthAndHeight(this._layoutManager.container);
+    const { width: containerWidth, height: containerHeight } =
+      getElementWidthAndHeight(this._layoutManager.container);
     this._maxX = containerWidth + this._minX;
     this._maxY = containerHeight + this._minY;
   }
@@ -4579,7 +5534,7 @@ class DragProxy extends EventEmitter {
     } else if (y >= this._maxY) {
       y = Math.floor(this._maxY - 1);
     }
-    return {x, y};
+    return { x, y };
   }
   onDrag(offsetX, offsetY, event) {
     const x = event.pageX;
@@ -4587,7 +5542,8 @@ class DragProxy extends EventEmitter {
     if (!this._layoutManager.layoutConfig.settings.constrainDragToContainer) {
       this.setDropPosition(x, y);
     } else {
-      const isWithinContainer = x > this._minX && x < this._maxX && y > this._minY && y < this._maxY;
+      const isWithinContainer =
+        x > this._minX && x < this._maxX && y > this._minY && y < this._maxY;
       if (isWithinContainer) {
         this.setDropPosition(x, y);
       }
@@ -4641,7 +5597,10 @@ class DragProxy extends EventEmitter {
     if (width === void 0 || height === void 0) {
       throw new Error("DragProxy.setDimensions: width and/or height undefined");
     }
-    const headerHeight = this._layoutManager.layoutConfig.header.show === false ? 0 : dimensions.headerHeight;
+    const headerHeight =
+      this._layoutManager.layoutConfig.header.show === false
+        ? 0
+        : dimensions.headerHeight;
     this._element.style.width = numberToPixels(width);
     this._element.style.height = numberToPixels(height);
     width -= this._sided ? headerHeight : 0;
@@ -4653,7 +5612,14 @@ class DragProxy extends EventEmitter {
   }
 }
 class DragSource {
-  constructor(_layoutManager, _element, _extraAllowableChildTargets, _componentTypeOrFtn, _componentState, _title) {
+  constructor(
+    _layoutManager,
+    _element,
+    _extraAllowableChildTargets,
+    _componentTypeOrFtn,
+    _componentState,
+    _title
+  ) {
     this._layoutManager = _layoutManager;
     this._element = _element;
     this._extraAllowableChildTargets = _extraAllowableChildTargets;
@@ -4662,8 +5628,13 @@ class DragSource {
     this._title = _title;
     this._dragListener = null;
     this._dummyGroundContainer = document.createElement("div");
-    const dummyRootItemConfig = ResolvedRowOrColumnItemConfig.createDefault("row");
-    this._dummyGroundContentItem = new GroundItem(this._layoutManager, dummyRootItemConfig, this._dummyGroundContainer);
+    const dummyRootItemConfig =
+      ResolvedRowOrColumnItemConfig.createDefault("row");
+    this._dummyGroundContentItem = new GroundItem(
+      this._layoutManager,
+      dummyRootItemConfig,
+      this._dummyGroundContainer
+    );
     this.createDragListener();
   }
   destroy() {
@@ -4671,7 +5642,10 @@ class DragSource {
   }
   createDragListener() {
     this.removeDragListener();
-    this._dragListener = new DragListener(this._element, this._extraAllowableChildTargets);
+    this._dragListener = new DragListener(
+      this._element,
+      this._extraAllowableChildTargets
+    );
     this._dragListener.on("dragStart", (x, y) => this.onDragStart(x, y));
     this._dragListener.on("dragStop", () => this.onDragStop());
   }
@@ -4693,20 +5667,34 @@ class DragSource {
       type: "component",
       componentType,
       componentState,
-      title
+      title,
     };
     const resolvedItemConfig = ComponentItemConfig.resolve(itemConfig);
-    const componentItem = new ComponentItem(this._layoutManager, resolvedItemConfig, this._dummyGroundContentItem);
+    const componentItem = new ComponentItem(
+      this._layoutManager,
+      resolvedItemConfig,
+      this._dummyGroundContentItem
+    );
     this._dummyGroundContentItem.contentItems.push(componentItem);
     if (this._dragListener === null) {
       throw new UnexpectedNullError("DSODSD66746");
     } else {
-      const dragProxy = new DragProxy(x, y, this._dragListener, this._layoutManager, componentItem, this._dummyGroundContentItem);
+      const dragProxy = new DragProxy(
+        x,
+        y,
+        this._dragListener,
+        this._layoutManager,
+        componentItem,
+        this._dummyGroundContentItem
+      );
       const transitionIndicator = this._layoutManager.transitionIndicator;
       if (transitionIndicator === null) {
         throw new UnexpectedNullError("DSODST66746");
       } else {
-        transitionIndicator.transitionElements(this._element, dragProxy.element);
+        transitionIndicator.transitionElements(
+          this._element,
+          dragProxy.element
+        );
       }
     }
   }
@@ -4721,37 +5709,39 @@ class DragSource {
   }
 }
 var I18nStrings;
-(function(I18nStrings2) {
+(function (I18nStrings2) {
   let initialised = false;
   const infosObject = {
     PopoutCannotBeCreatedWithGroundItemConfig: {
       id: 0,
-      default: "Popout cannot be created with ground ItemConfig"
+      default: "Popout cannot be created with ground ItemConfig",
     },
     PleaseRegisterAConstructorFunction: {
       id: 1,
-      default: "Please register a constructor function"
+      default: "Please register a constructor function",
     },
     ComponentTypeNotRegisteredAndBindComponentEventHandlerNotAssigned: {
       id: 2,
-      default: "Component type not registered and BindComponentEvent handler not assigned"
+      default:
+        "Component type not registered and BindComponentEvent handler not assigned",
     },
     ComponentIsAlreadyRegistered: {
       id: 3,
-      default: "Component is already registered"
+      default: "Component is already registered",
     },
     ComponentIsNotVirtuable: {
       id: 4,
-      default: "Component is not virtuable. Requires rootHtmlElement field/getter"
+      default:
+        "Component is not virtuable. Requires rootHtmlElement field/getter",
     },
     VirtualComponentDoesNotHaveRootHtmlElement: {
       id: 5,
-      default: 'Virtual component does not have getter "rootHtmlElement"'
+      default: 'Virtual component does not have getter "rootHtmlElement"',
     },
     ItemConfigIsNotTypeComponent: {
       id: 6,
-      default: "ItemConfig is not of type component"
-    }
+      default: "ItemConfig is not of type component",
+    },
   };
   I18nStrings2.idCount = Object.keys(infosObject).length;
   const infos = Object.values(infosObject);
@@ -4810,15 +5800,14 @@ class TransitionIndicator {
   transitionElements(fromElement, toElement) {
     return;
   }
-  nextAnimationFrame() {
-  }
+  nextAnimationFrame() {}
   measure(element) {
     const rect = element.getBoundingClientRect();
     return {
       left: rect.left,
       top: rect.top,
       width: element.offsetWidth,
-      height: element.offsetHeight
+      height: element.offsetHeight,
     };
   }
 }
@@ -4826,8 +5815,13 @@ class EventHub extends EventEmitter {
   constructor(_layoutManager) {
     super();
     this._layoutManager = _layoutManager;
-    this._childEventListener = (childEvent) => this.onEventFromChild(childEvent);
-    globalThis.addEventListener(EventHub.ChildEventName, this._childEventListener, {passive: true});
+    this._childEventListener = (childEvent) =>
+      this.onEventFromChild(childEvent);
+    globalThis.addEventListener(
+      EventHub.ChildEventName,
+      this._childEventListener,
+      { passive: true }
+    );
   }
   emit(eventName, ...args) {
     if (eventName === "userBroadcast") {
@@ -4840,7 +5834,10 @@ class EventHub extends EventEmitter {
     this.handleUserBroadcastEvent("userBroadcast", args);
   }
   destroy() {
-    globalThis.removeEventListener(EventHub.ChildEventName, this._childEventListener);
+    globalThis.removeEventListener(
+      EventHub.ChildEventName,
+      this._childEventListener
+    );
   }
   handleUserBroadcastEvent(eventName, args) {
     if (this._layoutManager.isSubWindow) {
@@ -4857,12 +5854,12 @@ class EventHub extends EventEmitter {
     const detail = {
       layoutManager: this._layoutManager,
       eventName,
-      args
+      args,
     };
     const eventInit = {
       bubbles: true,
       cancelable: true,
-      detail
+      detail,
     };
     const event = new CustomEvent(EventHub.ChildEventName, eventInit);
     const opener = globalThis.opener;
@@ -4881,7 +5878,7 @@ class EventHub extends EventEmitter {
     }
   }
 }
-(function(EventHub2) {
+(function (EventHub2) {
   EventHub2.ChildEventName = "gl_child_event";
 })(EventHub || (EventHub = {}));
 class LayoutManager extends EventEmitter {
@@ -4894,8 +5891,10 @@ class LayoutManager extends EventEmitter {
     this._dropTargetIndicator = null;
     this._transitionIndicator = null;
     this._itemAreas = [];
-    this._maximisePlaceholder = LayoutManager.createMaximisePlaceElement(document);
-    this._tabDropPlaceholder = LayoutManager.createTabDropPlaceholderElement(document);
+    this._maximisePlaceholder =
+      LayoutManager.createMaximisePlaceElement(document);
+    this._tabDropPlaceholder =
+      LayoutManager.createTabDropPlaceholderElement(document);
     this._dragSources = [];
     this._updatingColumnsResponsive = false;
     this._firstLoad = true;
@@ -4906,9 +5905,11 @@ class LayoutManager extends EventEmitter {
     this._virtualSizedContainerAddingBeginCount = 0;
     this._windowResizeListener = () => this.processResizeWithDebounce();
     this._windowUnloadListener = () => this.onUnload();
-    this._maximisedStackBeforeDestroyedListener = (ev) => this.cleanupBeforeMaximisedStackDestroyed(ev);
+    this._maximisedStackBeforeDestroyedListener = (ev) =>
+      this.cleanupBeforeMaximisedStackDestroyed(ev);
     this.isSubWindow = parameters.isSubWindow;
-    this._constructorOrSubWindowLayoutConfig = parameters.constructorOrSubWindowLayoutConfig;
+    this._constructorOrSubWindowLayoutConfig =
+      parameters.constructorOrSubWindowLayoutConfig;
     I18nStrings.checkInitialise();
     ConfigMinifier.checkInitialise();
     if (parameters.containerElement !== void 0) {
@@ -4967,7 +5968,9 @@ class LayoutManager extends EventEmitter {
     return this._maximisedStack;
   }
   get deprecatedConstructor() {
-    return !this.isSubWindow && this._constructorOrSubWindowLayoutConfig !== void 0;
+    return (
+      !this.isSubWindow && this._constructorOrSubWindowLayoutConfig !== void 0
+    );
   }
   destroy() {
     if (this._isInitialised) {
@@ -4980,7 +5983,10 @@ class LayoutManager extends EventEmitter {
         globalThis.removeEventListener("resize", this._windowResizeListener);
       }
       globalThis.removeEventListener("unload", this._windowUnloadListener);
-      globalThis.removeEventListener("beforeunload", this._windowUnloadListener);
+      globalThis.removeEventListener(
+        "beforeunload",
+        this._windowUnloadListener
+      );
       if (this._groundItem !== void 0) {
         this._groundItem.destroy();
       }
@@ -5015,23 +6021,36 @@ class LayoutManager extends EventEmitter {
       if (this._constructorOrSubWindowLayoutConfig === void 0) {
         throw new UnexpectedUndefinedError("LMIU07155");
       } else {
-        if (ItemConfig.isComponent(this._constructorOrSubWindowLayoutConfig.root)) {
+        if (
+          ItemConfig.isComponent(this._constructorOrSubWindowLayoutConfig.root)
+        ) {
           subWindowRootConfig = this._constructorOrSubWindowLayoutConfig.root;
         } else {
           throw new AssertError("LMIC07155");
         }
-        const resolvedLayoutConfig = LayoutConfig.resolve(this._constructorOrSubWindowLayoutConfig);
-        this.layoutConfig = Object.assign(Object.assign({}, resolvedLayoutConfig), {root: void 0});
+        const resolvedLayoutConfig = LayoutConfig.resolve(
+          this._constructorOrSubWindowLayoutConfig
+        );
+        this.layoutConfig = Object.assign(
+          Object.assign({}, resolvedLayoutConfig),
+          { root: void 0 }
+        );
       }
     } else {
       if (this._constructorOrSubWindowLayoutConfig === void 0) {
         this.layoutConfig = ResolvedLayoutConfig.createDefault();
       } else {
-        this.layoutConfig = LayoutConfig.resolve(this._constructorOrSubWindowLayoutConfig);
+        this.layoutConfig = LayoutConfig.resolve(
+          this._constructorOrSubWindowLayoutConfig
+        );
       }
     }
     const layoutConfig = this.layoutConfig;
-    this._groundItem = new GroundItem(this, layoutConfig.root, this._containerElement);
+    this._groundItem = new GroundItem(
+      this,
+      layoutConfig.root,
+      this._containerElement
+    );
     this._groundItem.init();
     this.checkLoadedLayoutMaximiseItem();
     this.bindEvents();
@@ -5044,7 +6063,9 @@ class LayoutManager extends EventEmitter {
   }
   loadLayout(layoutConfig) {
     if (!this.isInitialised) {
-      throw new Error("GoldenLayout: Need to call init() if LayoutConfig with defined root passed to constructor");
+      throw new Error(
+        "GoldenLayout: Need to call init() if LayoutConfig with defined root passed to constructor"
+      );
     } else {
       if (this._groundItem === void 0) {
         throw new UnexpectedUndefinedError("LMLL11119");
@@ -5079,10 +6100,16 @@ class LayoutManager extends EventEmitter {
         const config = {
           root: rootItemConfig,
           openPopouts,
-          settings: ResolvedLayoutConfig.Settings.createCopy(this.layoutConfig.settings),
-          dimensions: ResolvedLayoutConfig.Dimensions.createCopy(this.layoutConfig.dimensions),
-          header: ResolvedLayoutConfig.Header.createCopy(this.layoutConfig.header),
-          resolved: true
+          settings: ResolvedLayoutConfig.Settings.createCopy(
+            this.layoutConfig.settings
+          ),
+          dimensions: ResolvedLayoutConfig.Dimensions.createCopy(
+            this.layoutConfig.dimensions
+          ),
+          header: ResolvedLayoutConfig.Header.createCopy(
+            this.layoutConfig.header
+          ),
+          resolved: true,
         };
         return config;
       }
@@ -5099,18 +6126,32 @@ class LayoutManager extends EventEmitter {
     return this.saveLayout();
   }
   newComponent(componentType, componentState, title) {
-    const componentItem = this.newComponentAtLocation(componentType, componentState, title);
+    const componentItem = this.newComponentAtLocation(
+      componentType,
+      componentState,
+      title
+    );
     if (componentItem === void 0) {
       throw new AssertError("LMNC65588");
     } else {
       return componentItem;
     }
   }
-  newComponentAtLocation(componentType, componentState, title, locationSelectors) {
+  newComponentAtLocation(
+    componentType,
+    componentState,
+    title,
+    locationSelectors
+  ) {
     if (this._groundItem === void 0) {
       throw new Error("Cannot add component before init");
     } else {
-      const location2 = this.addComponentAtLocation(componentType, componentState, title, locationSelectors);
+      const location2 = this.addComponentAtLocation(
+        componentType,
+        componentState,
+        title,
+        locationSelectors
+      );
       if (location2 === void 0) {
         return void 0;
       } else {
@@ -5124,19 +6165,28 @@ class LayoutManager extends EventEmitter {
     }
   }
   addComponent(componentType, componentState, title) {
-    const location2 = this.addComponentAtLocation(componentType, componentState, title);
+    const location2 = this.addComponentAtLocation(
+      componentType,
+      componentState,
+      title
+    );
     if (location2 === void 0) {
       throw new AssertError("LMAC99943");
     } else {
       return location2;
     }
   }
-  addComponentAtLocation(componentType, componentState, title, locationSelectors) {
+  addComponentAtLocation(
+    componentType,
+    componentState,
+    title,
+    locationSelectors
+  ) {
     const itemConfig = {
       type: "component",
       componentType,
       componentState,
-      title
+      title,
     };
     return this.addItemAtLocation(itemConfig, locationSelectors);
   }
@@ -5246,7 +6296,9 @@ class LayoutManager extends EventEmitter {
       } else {
         this._groundItem.setSize(this._width, this._height);
         if (this._maximisedStack) {
-          const {width: width2, height: height2} = getElementWidthAndHeight(this._containerElement);
+          const { width: width2, height: height2 } = getElementWidthAndHeight(
+            this._containerElement
+          );
           setElementWidth(this._maximisedStack.element, width2);
           setElementHeight(this._maximisedStack.element, height2);
           this._maximisedStack.updateSize();
@@ -5256,7 +6308,7 @@ class LayoutManager extends EventEmitter {
     }
   }
   updateSizeFromContainer() {
-    const {width, height} = getElementWidthAndHeight(this._containerElement);
+    const { width, height } = getElementWidthAndHeight(this._containerElement);
     this.setSize(width, height);
   }
   updateRootSize() {
@@ -5273,9 +6325,17 @@ class LayoutManager extends EventEmitter {
   }
   createContentItem(config, parent) {
     if (typeof config.type !== "string") {
-      throw new ConfigurationError("Missing parameter 'type'", JSON.stringify(config));
+      throw new ConfigurationError(
+        "Missing parameter 'type'",
+        JSON.stringify(config)
+      );
     }
-    if (ResolvedItemConfig.isComponentItem(config) && !(parent instanceof Stack) && !!parent && !(this.isSubWindow === true && parent instanceof GroundItem)) {
+    if (
+      ResolvedItemConfig.isComponentItem(config) &&
+      !(parent instanceof Stack) &&
+      !!parent &&
+      !(this.isSubWindow === true && parent instanceof GroundItem)
+    ) {
       const stackConfig = {
         type: ItemType.stack,
         content: [config],
@@ -5287,7 +6347,7 @@ class LayoutManager extends EventEmitter {
         maximised: config.maximised,
         isClosable: config.isClosable,
         activeItemIndex: 0,
-        header: void 0
+        header: void 0,
       };
       config = stackConfig;
     }
@@ -5298,20 +6358,43 @@ class LayoutManager extends EventEmitter {
     if (this._groundItem === void 0) {
       throw new UnexpectedUndefinedError("LMFFCIBI82446");
     } else {
-      return this.findFirstContentItemTypeByIdRecursive(ItemType.component, id, this._groundItem);
+      return this.findFirstContentItemTypeByIdRecursive(
+        ItemType.component,
+        id,
+        this._groundItem
+      );
     }
   }
-  createPopout(itemConfigOrContentItem, positionAndSize, parentId, indexInParent) {
+  createPopout(
+    itemConfigOrContentItem,
+    positionAndSize,
+    parentId,
+    indexInParent
+  ) {
     if (itemConfigOrContentItem instanceof ContentItem) {
-      return this.createPopoutFromContentItem(itemConfigOrContentItem, positionAndSize, parentId, indexInParent);
+      return this.createPopoutFromContentItem(
+        itemConfigOrContentItem,
+        positionAndSize,
+        parentId,
+        indexInParent
+      );
     } else {
-      return this.createPopoutFromItemConfig(itemConfigOrContentItem, positionAndSize, parentId, indexInParent);
+      return this.createPopoutFromItemConfig(
+        itemConfigOrContentItem,
+        positionAndSize,
+        parentId,
+        indexInParent
+      );
     }
   }
   createPopoutFromContentItem(item, window2, parentId, indexInParent) {
     let parent = item.parent;
     let child = item;
-    while (parent !== null && parent.contentItems.length === 1 && !parent.isGround) {
+    while (
+      parent !== null &&
+      parent.contentItems.length === 1 &&
+      !parent.isGround
+    ) {
       child = parent;
       parent = parent.parent;
     }
@@ -5329,12 +6412,12 @@ class LayoutManager extends EventEmitter {
         const windowTop = globalThis.screenY || globalThis.screenTop;
         const offsetLeft = item.element.offsetLeft;
         const offsetTop = item.element.offsetTop;
-        const {width, height} = getElementWidthAndHeight(item.element);
+        const { width, height } = getElementWidthAndHeight(item.element);
         window2 = {
           left: windowLeft + offsetLeft,
           top: windowTop + offsetTop,
           width,
-          height
+          height,
         };
       }
       const itemConfig = item.toConfig();
@@ -5342,7 +6425,12 @@ class LayoutManager extends EventEmitter {
       if (!ResolvedRootItemConfig.isRootItemConfig(itemConfig)) {
         throw new Error(`${i18nStrings[0]}`);
       } else {
-        return this.createPopoutFromItemConfig(itemConfig, window2, parentId, indexInParent);
+        return this.createPopoutFromItemConfig(
+          itemConfig,
+          window2,
+          parentId,
+          indexInParent
+        );
       }
     }
   }
@@ -5389,7 +6477,7 @@ class LayoutManager extends EventEmitter {
       window: window2,
       parentId,
       indexInParent,
-      resolved: true
+      resolved: true,
     };
     return this.createPopoutFromPopoutLayoutConfig(popoutLayoutConfig);
   }
@@ -5397,19 +6485,39 @@ class LayoutManager extends EventEmitter {
     var _a, _b, _c, _d;
     const configWindow = config.window;
     const initialWindow = {
-      left: (_a = configWindow.left) !== null && _a !== void 0 ? _a : globalThis.screenX || globalThis.screenLeft + 20,
-      top: (_b = configWindow.top) !== null && _b !== void 0 ? _b : globalThis.screenY || globalThis.screenTop + 20,
+      left:
+        (_a = configWindow.left) !== null && _a !== void 0
+          ? _a
+          : globalThis.screenX || globalThis.screenLeft + 20,
+      top:
+        (_b = configWindow.top) !== null && _b !== void 0
+          ? _b
+          : globalThis.screenY || globalThis.screenTop + 20,
       width: (_c = configWindow.width) !== null && _c !== void 0 ? _c : 500,
-      height: (_d = configWindow.height) !== null && _d !== void 0 ? _d : 309
+      height: (_d = configWindow.height) !== null && _d !== void 0 ? _d : 309,
     };
     const browserPopout = new BrowserPopout(config, initialWindow, this);
-    browserPopout.on("initialised", () => this.emit("windowOpened", browserPopout));
+    browserPopout.on("initialised", () =>
+      this.emit("windowOpened", browserPopout)
+    );
     browserPopout.on("closed", () => this.reconcilePopoutWindows());
     this._openPopouts.push(browserPopout);
     return browserPopout;
   }
-  newDragSource(element, componentTypeOrItemConfigCallback, componentState, title) {
-    const dragSource = new DragSource(this, element, [], componentTypeOrItemConfigCallback, componentState, title);
+  newDragSource(
+    element,
+    componentTypeOrItemConfigCallback,
+    componentState,
+    title
+  ) {
+    const dragSource = new DragSource(
+      this,
+      element,
+      [],
+      componentTypeOrItemConfigCallback,
+      componentState,
+      title
+    );
     this._dragSources.push(dragSource);
     return dragSource;
   }
@@ -5429,8 +6537,7 @@ class LayoutManager extends EventEmitter {
   setFocusedComponentItem(item, suppressEvents = false) {
     if (item !== this._focusedComponentItem) {
       let newFocusedParentItem;
-      if (item === void 0)
-        ;
+      if (item === void 0);
       else {
         newFocusedParentItem = item.parentItem;
       }
@@ -5467,7 +6574,11 @@ class LayoutManager extends EventEmitter {
       case ItemType.component:
         return new ComponentItem(this, config, parent);
       default:
-        throw new UnreachableCaseError("CCC913564", config.type, "Invalid Config Item type specified");
+        throw new UnreachableCaseError(
+          "CCC913564",
+          config.type,
+          "Invalid Config Item type specified"
+        );
     }
   }
   setMaximisedStack(stack) {
@@ -5490,8 +6601,14 @@ class LayoutManager extends EventEmitter {
     }
   }
   cleanupBeforeMaximisedStackDestroyed(event) {
-    if (this._maximisedStack !== null && this._maximisedStack === event.target) {
-      this._maximisedStack.off("beforeItemDestroyed", this._maximisedStackBeforeDestroyedListener);
+    if (
+      this._maximisedStack !== null &&
+      this._maximisedStack === event.target
+    ) {
+      this._maximisedStack.off(
+        "beforeItemDestroyed",
+        this._maximisedStackBeforeDestroyedListener
+      );
       this._maximisedStack = void 0;
     }
   }
@@ -5503,7 +6620,13 @@ class LayoutManager extends EventEmitter {
     let smallestSurface = Infinity;
     for (let i = 0; i < this._itemAreas.length; i++) {
       const area = this._itemAreas[i];
-      if (x > area.x1 && x < area.x2 && y > area.y1 && y < area.y2 && smallestSurface > area.surface) {
+      if (
+        x > area.x1 &&
+        x < area.x2 &&
+        y > area.y1 &&
+        y < area.y2 &&
+        smallestSurface > area.surface
+      ) {
         smallestSurface = area.surface;
         matchingArea = area;
       }
@@ -5542,15 +6665,18 @@ class LayoutManager extends EventEmitter {
               if (stackContentAreaDimensions === void 0) {
                 throw new UnexpectedUndefinedError("LMCIASC45599");
               } else {
-                const highlightArea = stackContentAreaDimensions.header.highlightArea;
-                const surface = (highlightArea.x2 - highlightArea.x1) * (highlightArea.y2 - highlightArea.y1);
+                const highlightArea =
+                  stackContentAreaDimensions.header.highlightArea;
+                const surface =
+                  (highlightArea.x2 - highlightArea.x1) *
+                  (highlightArea.y2 - highlightArea.y1);
                 const header = {
                   x1: highlightArea.x1,
                   x2: highlightArea.x2,
                   y1: highlightArea.y1,
                   y2: highlightArea.y2,
                   contentItem: stack,
-                  surface
+                  surface,
                 };
                 this._itemAreas.push(header);
               }
@@ -5585,14 +6711,19 @@ class LayoutManager extends EventEmitter {
   }
   processMaximiseStack(stack) {
     this._maximisedStack = stack;
-    stack.on("beforeItemDestroyed", this._maximisedStackBeforeDestroyedListener);
+    stack.on(
+      "beforeItemDestroyed",
+      this._maximisedStackBeforeDestroyedListener
+    );
     stack.element.classList.add("lm_maximised");
     stack.element.insertAdjacentElement("afterend", this._maximisePlaceholder);
     if (this._groundItem === void 0) {
       throw new UnexpectedUndefinedError("LMMXI19993");
     } else {
       this._groundItem.element.prepend(stack.element);
-      const {width, height} = getElementWidthAndHeight(this._containerElement);
+      const { width, height } = getElementWidthAndHeight(
+        this._containerElement
+      );
       setElementWidth(stack.element, width);
       setElementHeight(stack.element, height);
       stack.updateSize();
@@ -5610,11 +6741,17 @@ class LayoutManager extends EventEmitter {
         throw new UnexpectedNullError("LMMI13668");
       } else {
         stack.element.classList.remove("lm_maximised");
-        this._maximisePlaceholder.insertAdjacentElement("afterend", stack.element);
+        this._maximisePlaceholder.insertAdjacentElement(
+          "afterend",
+          stack.element
+        );
         this._maximisePlaceholder.remove();
         stack.parent.updateSize();
         this._maximisedStack = void 0;
-        stack.off("beforeItemDestroyed", this._maximisedStackBeforeDestroyedListener);
+        stack.off(
+          "beforeItemDestroyed",
+          this._maximisedStackBeforeDestroyedListener
+        );
         stack.emit("minimised");
         this.emit("stateChanged");
       }
@@ -5643,10 +6780,16 @@ class LayoutManager extends EventEmitter {
   }
   bindEvents() {
     if (this._isFullPage) {
-      globalThis.addEventListener("resize", this._windowResizeListener, {passive: true});
+      globalThis.addEventListener("resize", this._windowResizeListener, {
+        passive: true,
+      });
     }
-    globalThis.addEventListener("unload", this._windowUnloadListener, {passive: true});
-    globalThis.addEventListener("beforeunload", this._windowUnloadListener, {passive: true});
+    globalThis.addEventListener("unload", this._windowUnloadListener, {
+      passive: true,
+    });
+    globalThis.addEventListener("beforeunload", this._windowUnloadListener, {
+      passive: true,
+    });
   }
   createSubWindows() {
     for (let i = 0; i < this.layoutConfig.openPopouts.length; i++) {
@@ -5658,12 +6801,18 @@ class LayoutManager extends EventEmitter {
     if (this._resizeTimeoutId !== void 0) {
       clearTimeout(this._resizeTimeoutId);
     }
-    this._resizeTimeoutId = setTimeout(() => this.updateSizeFromContainer(), 100);
+    this._resizeTimeoutId = setTimeout(
+      () => this.updateSizeFromContainer(),
+      100
+    );
   }
   setContainer() {
     var _a;
     const bodyElement = document.body;
-    const containerElement = (_a = this._containerElement) !== null && _a !== void 0 ? _a : bodyElement;
+    const containerElement =
+      (_a = this._containerElement) !== null && _a !== void 0
+        ? _a
+        : bodyElement;
     if (containerElement === bodyElement) {
       this._isFullPage = true;
       const documentElement = document.documentElement;
@@ -5686,11 +6835,17 @@ class LayoutManager extends EventEmitter {
       throw new UnexpectedUndefinedError("LMACR20883");
     } else {
       this._firstLoad = false;
-      if (this.useResponsiveLayout() && !this._updatingColumnsResponsive && this._groundItem.contentItems.length > 0 && this._groundItem.contentItems[0].isRow) {
+      if (
+        this.useResponsiveLayout() &&
+        !this._updatingColumnsResponsive &&
+        this._groundItem.contentItems.length > 0 &&
+        this._groundItem.contentItems[0].isRow
+      ) {
         if (this._groundItem === void 0 || this._width === null) {
           throw new UnexpectedUndefinedError("LMACR77412");
         } else {
-          const columnCount = this._groundItem.contentItems[0].contentItems.length;
+          const columnCount =
+            this._groundItem.contentItems[0].contentItems.length;
           if (columnCount <= 1) {
             return;
           } else {
@@ -5700,7 +6855,10 @@ class LayoutManager extends EventEmitter {
               return;
             } else {
               this._updatingColumnsResponsive = true;
-              const finalColumnCount = Math.max(Math.floor(this._width / minItemWidth), 1);
+              const finalColumnCount = Math.max(
+                Math.floor(this._width / minItemWidth),
+                1
+              );
               const stackColumnCount = columnCount - finalColumnCount;
               const rootContentItem = this._groundItem.contentItems[0];
               const allStacks = this.getAllStacks();
@@ -5709,8 +6867,14 @@ class LayoutManager extends EventEmitter {
               } else {
                 const firstStackContainer = allStacks[0];
                 for (let i = 0; i < stackColumnCount; i++) {
-                  const column = rootContentItem.contentItems[rootContentItem.contentItems.length - 1];
-                  this.addChildContentItemsToContainer(firstStackContainer, column);
+                  const column =
+                    rootContentItem.contentItems[
+                      rootContentItem.contentItems.length - 1
+                    ];
+                  this.addChildContentItemsToContainer(
+                    firstStackContainer,
+                    column
+                  );
                 }
                 this._updatingColumnsResponsive = false;
               }
@@ -5722,8 +6886,10 @@ class LayoutManager extends EventEmitter {
   }
   useResponsiveLayout() {
     const settings = this.layoutConfig.settings;
-    const alwaysResponsiveMode = settings.responsiveMode === ResponsiveMode.always;
-    const onLoadResponsiveModeAndFirst = settings.responsiveMode === ResponsiveMode.onload && this._firstLoad;
+    const alwaysResponsiveMode =
+      settings.responsiveMode === ResponsiveMode.always;
+    const onLoadResponsiveModeAndFirst =
+      settings.responsiveMode === ResponsiveMode.onload && this._firstLoad;
     return alwaysResponsiveMode || onLoadResponsiveModeAndFirst;
   }
   addChildContentItemsToContainer(container, node) {
@@ -5771,7 +6937,10 @@ class LayoutManager extends EventEmitter {
       }
       for (let i = 0; i < contentItemCount; i++) {
         const contentItem = contentItems[i];
-        const foundContentItem = this.findFirstContentItemTypeRecursive(type, contentItem);
+        const foundContentItem = this.findFirstContentItemTypeRecursive(
+          type,
+          contentItem
+        );
         if (foundContentItem !== void 0) {
           return foundContentItem;
         }
@@ -5793,7 +6962,11 @@ class LayoutManager extends EventEmitter {
       }
       for (let i = 0; i < contentItemCount; i++) {
         const contentItem = contentItems[i];
-        const foundContentItem = this.findFirstContentItemTypeByIdRecursive(type, id, contentItem);
+        const foundContentItem = this.findFirstContentItemTypeByIdRecursive(
+          type,
+          id,
+          contentItem
+        );
         if (foundContentItem !== void 0) {
           return foundContentItem;
         }
@@ -5836,14 +7009,16 @@ class LayoutManager extends EventEmitter {
           const parentContentItems = parentItem.contentItems;
           const parentContentItemCount = parentContentItems.length;
           if (selectorIndex === void 0) {
-            return {parentItem, index: parentContentItemCount};
+            return { parentItem, index: parentContentItemCount };
           } else {
-            const focusedIndex = parentContentItems.indexOf(this._focusedComponentItem);
+            const focusedIndex = parentContentItems.indexOf(
+              this._focusedComponentItem
+            );
             const index = focusedIndex + selectorIndex;
             if (index < 0 || index > parentContentItemCount) {
               return void 0;
             } else {
-              return {parentItem, index};
+              return { parentItem, index };
             }
           }
         }
@@ -5853,7 +7028,10 @@ class LayoutManager extends EventEmitter {
           return void 0;
         } else {
           const parentItem = this._focusedComponentItem.parentItem;
-          return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+          return this.tryCreateLocationFromParentItem(
+            parentItem,
+            selectorIndex
+          );
         }
       }
       case 2: {
@@ -5861,17 +7039,26 @@ class LayoutManager extends EventEmitter {
         if (parentItem === void 0) {
           return void 0;
         } else {
-          return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+          return this.tryCreateLocationFromParentItem(
+            parentItem,
+            selectorIndex
+          );
         }
       }
       case 3: {
         let parentItem = this.findFirstContentItemType(ItemType.row);
         if (parentItem !== void 0) {
-          return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+          return this.tryCreateLocationFromParentItem(
+            parentItem,
+            selectorIndex
+          );
         } else {
           parentItem = this.findFirstContentItemType(ItemType.column);
           if (parentItem !== void 0) {
-            return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+            return this.tryCreateLocationFromParentItem(
+              parentItem,
+              selectorIndex
+            );
           } else {
             return void 0;
           }
@@ -5882,7 +7069,10 @@ class LayoutManager extends EventEmitter {
         if (parentItem === void 0) {
           return void 0;
         } else {
-          return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+          return this.tryCreateLocationFromParentItem(
+            parentItem,
+            selectorIndex
+          );
         }
       }
       case 5: {
@@ -5890,7 +7080,10 @@ class LayoutManager extends EventEmitter {
         if (parentItem === void 0) {
           return void 0;
         } else {
-          return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+          return this.tryCreateLocationFromParentItem(
+            parentItem,
+            selectorIndex
+          );
         }
       }
       case 6: {
@@ -5901,7 +7094,7 @@ class LayoutManager extends EventEmitter {
             return void 0;
           } else {
             if (selectorIndex === void 0 || selectorIndex === 0)
-              return {parentItem: this._groundItem, index: 0};
+              return { parentItem: this._groundItem, index: 0 };
             else {
               return void 0;
             }
@@ -5915,13 +7108,16 @@ class LayoutManager extends EventEmitter {
           const groundContentItems = this._groundItem.contentItems;
           if (groundContentItems.length === 0) {
             if (selectorIndex === void 0 || selectorIndex === 0)
-              return {parentItem: this._groundItem, index: 0};
+              return { parentItem: this._groundItem, index: 0 };
             else {
               return void 0;
             }
           } else {
             const parentItem = groundContentItems[0];
-            return this.tryCreateLocationFromParentItem(parentItem, selectorIndex);
+            return this.tryCreateLocationFromParentItem(
+              parentItem,
+              selectorIndex
+            );
           }
         }
       }
@@ -5931,17 +7127,17 @@ class LayoutManager extends EventEmitter {
     const parentContentItems = parentItem.contentItems;
     const parentContentItemCount = parentContentItems.length;
     if (selectorIndex === void 0) {
-      return {parentItem, index: parentContentItemCount};
+      return { parentItem, index: parentContentItemCount };
     } else {
       if (selectorIndex < 0 || selectorIndex > parentContentItemCount) {
         return void 0;
       } else {
-        return {parentItem, index: selectorIndex};
+        return { parentItem, index: selectorIndex };
       }
     }
   }
 }
-(function(LayoutManager2) {
+(function (LayoutManager2) {
   function createMaximisePlaceElement(document2) {
     const element = document2.createElement("div");
     element.classList.add("lm_maximise_place");
@@ -5953,23 +7149,34 @@ class LayoutManager extends EventEmitter {
     element.classList.add("lm_drop_tab_placeholder");
     return element;
   }
-  LayoutManager2.createTabDropPlaceholderElement = createTabDropPlaceholderElement;
+  LayoutManager2.createTabDropPlaceholderElement =
+    createTabDropPlaceholderElement;
   LayoutManager2.defaultLocationSelectors = [
-    {typeId: 1, index: void 0},
-    {typeId: 2, index: void 0},
-    {typeId: 3, index: void 0},
-    {typeId: 7, index: void 0}
+    { typeId: 1, index: void 0 },
+    { typeId: 2, index: void 0 },
+    { typeId: 3, index: void 0 },
+    { typeId: 7, index: void 0 },
   ];
   LayoutManager2.afterFocusedItemIfPossibleLocationSelectors = [
-    {typeId: 0, index: 1},
-    {typeId: 2, index: void 0},
-    {typeId: 3, index: void 0},
-    {typeId: 7, index: void 0}
+    { typeId: 0, index: 1 },
+    { typeId: 2, index: void 0 },
+    { typeId: 3, index: void 0 },
+    { typeId: 7, index: void 0 },
   ];
 })(LayoutManager || (LayoutManager = {}));
 class VirtualLayout extends LayoutManager {
-  constructor(configOrOptionalContainer, containerOrBindComponentEventHandler, unbindComponentEventHandler, skipInit) {
-    super(VirtualLayout.createLayoutManagerConstructorParameters(configOrOptionalContainer, containerOrBindComponentEventHandler));
+  constructor(
+    configOrOptionalContainer,
+    containerOrBindComponentEventHandler,
+    unbindComponentEventHandler,
+    skipInit
+  ) {
+    super(
+      VirtualLayout.createLayoutManagerConstructorParameters(
+        configOrOptionalContainer,
+        containerOrBindComponentEventHandler
+      )
+    );
     this._bindComponentEventHanlderPassedInConstructor = false;
     this._creationTimeoutPassed = false;
     if (containerOrBindComponentEventHandler !== void 0) {
@@ -5986,8 +7193,13 @@ class VirtualLayout extends LayoutManager {
         if (this._constructorOrSubWindowLayoutConfig === void 0) {
           throw new UnexpectedUndefinedError("VLC98823");
         } else {
-          const resolvedLayoutConfig = LayoutConfig.resolve(this._constructorOrSubWindowLayoutConfig);
-          this.layoutConfig = Object.assign(Object.assign({}, resolvedLayoutConfig), {root: void 0});
+          const resolvedLayoutConfig = LayoutConfig.resolve(
+            this._constructorOrSubWindowLayoutConfig
+          );
+          this.layoutConfig = Object.assign(
+            Object.assign({}, resolvedLayoutConfig),
+            { root: void 0 }
+          );
         }
       }
     }
@@ -6003,11 +7215,20 @@ class VirtualLayout extends LayoutManager {
     super.destroy();
   }
   init() {
-    if (!this._bindComponentEventHanlderPassedInConstructor && (document.readyState === "loading" || document.body === null)) {
-      document.addEventListener("DOMContentLoaded", () => this.init(), {passive: true});
+    if (
+      !this._bindComponentEventHanlderPassedInConstructor &&
+      (document.readyState === "loading" || document.body === null)
+    ) {
+      document.addEventListener("DOMContentLoaded", () => this.init(), {
+        passive: true,
+      });
       return;
     }
-    if (!this._bindComponentEventHanlderPassedInConstructor && this.isSubWindow === true && !this._creationTimeoutPassed) {
+    if (
+      !this._bindComponentEventHanlderPassedInConstructor &&
+      this.isSubWindow === true &&
+      !this._creationTimeoutPassed
+    ) {
       setTimeout(() => this.init(), 7);
       this._creationTimeoutPassed = true;
       return;
@@ -6066,7 +7287,7 @@ class VirtualLayout extends LayoutManager {
       if (this.getComponentEvent !== void 0) {
         return {
           virtual: false,
-          component: this.getComponentEvent(container, itemConfig)
+          component: this.getComponentEvent(container, itemConfig),
         };
       } else {
         const text = i18nStrings[2];
@@ -6091,10 +7312,15 @@ class VirtualLayout extends LayoutManager {
     }
   }
 }
-(function(VirtualLayout2) {
+(function (VirtualLayout2) {
   let subWindowChecked = false;
-  function createLayoutManagerConstructorParameters(configOrOptionalContainer, containerOrBindComponentEventHandler) {
-    const windowConfigKey = subWindowChecked ? null : new URL(document.location.href).searchParams.get("gl-window");
+  function createLayoutManagerConstructorParameters(
+    configOrOptionalContainer,
+    containerOrBindComponentEventHandler
+  ) {
+    const windowConfigKey = subWindowChecked
+      ? null
+      : new URL(document.location.href).searchParams.get("gl-window");
     subWindowChecked = true;
     const isSubWindow = windowConfigKey !== null;
     let containerElement;
@@ -6106,7 +7332,8 @@ class VirtualLayout extends LayoutManager {
       }
       localStorage.removeItem(windowConfigKey);
       const minifiedWindowConfig = JSON.parse(windowConfigStr);
-      const resolvedConfig = ResolvedLayoutConfig.unminifyConfig(minifiedWindowConfig);
+      const resolvedConfig =
+        ResolvedLayoutConfig.unminifyConfig(minifiedWindowConfig);
       config = LayoutConfig.fromResolved(resolvedConfig);
       if (configOrOptionalContainer instanceof HTMLElement) {
         containerElement = configOrOptionalContainer;
@@ -6131,37 +7358,78 @@ class VirtualLayout extends LayoutManager {
     return {
       constructorOrSubWindowLayoutConfig: config,
       isSubWindow,
-      containerElement
+      containerElement,
     };
   }
-  VirtualLayout2.createLayoutManagerConstructorParameters = createLayoutManagerConstructorParameters;
+  VirtualLayout2.createLayoutManagerConstructorParameters =
+    createLayoutManagerConstructorParameters;
 })(VirtualLayout || (VirtualLayout = {}));
 class GoldenLayout extends VirtualLayout {
-  constructor(configOrOptionalContainer, containerOrBindComponentEventHandler, unbindComponentEventHandler) {
-    super(configOrOptionalContainer, containerOrBindComponentEventHandler, unbindComponentEventHandler, true);
+  constructor(
+    configOrOptionalContainer,
+    containerOrBindComponentEventHandler,
+    unbindComponentEventHandler
+  ) {
+    super(
+      configOrOptionalContainer,
+      containerOrBindComponentEventHandler,
+      unbindComponentEventHandler,
+      true
+    );
     this._componentTypesMap = new Map();
     this._virtuableComponentMap = new Map();
-    this._containerVirtualRectingRequiredEventListener = (container, width, height) => this.handleContainerVirtualRectingRequiredEvent(container, width, height);
-    this._containerVirtualVisibilityChangeRequiredEventListener = (container, visible) => this.handleContainerVirtualVisibilityChangeRequiredEvent(container, visible);
-    this._containerVirtualZIndexChangeRequiredEventListener = (container, logicalZIndex, defaultZIndex) => this.handleContainerVirtualZIndexChangeRequiredEvent(container, logicalZIndex, defaultZIndex);
+    this._containerVirtualRectingRequiredEventListener = (
+      container,
+      width,
+      height
+    ) =>
+      this.handleContainerVirtualRectingRequiredEvent(container, width, height);
+    this._containerVirtualVisibilityChangeRequiredEventListener = (
+      container,
+      visible
+    ) =>
+      this.handleContainerVirtualVisibilityChangeRequiredEvent(
+        container,
+        visible
+      );
+    this._containerVirtualZIndexChangeRequiredEventListener = (
+      container,
+      logicalZIndex,
+      defaultZIndex
+    ) =>
+      this.handleContainerVirtualZIndexChangeRequiredEvent(
+        container,
+        logicalZIndex,
+        defaultZIndex
+      );
     if (!this.deprecatedConstructor) {
       this.init();
     }
   }
   registerComponent(name, componentConstructorOrFactoryFtn, virtual = false) {
     if (typeof componentConstructorOrFactoryFtn !== "function") {
-      throw new ApiError("registerComponent() componentConstructorOrFactoryFtn parameter is not a function");
+      throw new ApiError(
+        "registerComponent() componentConstructorOrFactoryFtn parameter is not a function"
+      );
     } else {
       if (componentConstructorOrFactoryFtn.hasOwnProperty("prototype")) {
         const componentConstructor = componentConstructorOrFactoryFtn;
         this.registerComponentConstructor(name, componentConstructor, virtual);
       } else {
         const componentFactoryFtn = componentConstructorOrFactoryFtn;
-        this.registerComponentFactoryFunction(name, componentFactoryFtn, virtual);
+        this.registerComponentFactoryFunction(
+          name,
+          componentFactoryFtn,
+          virtual
+        );
       }
     }
   }
-  registerComponentConstructor(typeName, componentConstructor, virtual = false) {
+  registerComponentConstructor(
+    typeName,
+    componentConstructor,
+    virtual = false
+  ) {
     if (typeof componentConstructor !== "function") {
       throw new Error(i18nStrings[1]);
     }
@@ -6172,10 +7440,14 @@ class GoldenLayout extends VirtualLayout {
     this._componentTypesMap.set(typeName, {
       constructor: componentConstructor,
       factoryFunction: void 0,
-      virtual
+      virtual,
     });
   }
-  registerComponentFactoryFunction(typeName, componentFactoryFunction, virtual = false) {
+  registerComponentFactoryFunction(
+    typeName,
+    componentFactoryFunction,
+    virtual = false
+  ) {
     if (typeof componentFactoryFunction !== "function") {
       throw new BindError("Please register a constructor function");
     }
@@ -6186,7 +7458,7 @@ class GoldenLayout extends VirtualLayout {
     this._componentTypesMap.set(typeName, {
       constructor: void 0,
       factoryFunction: componentFactoryFunction,
-      virtual
+      virtual,
     });
   }
   registerComponentFunction(callback) {
@@ -6197,7 +7469,9 @@ class GoldenLayout extends VirtualLayout {
       throw new Error("Please register a callback function");
     }
     if (this._getComponentConstructorFtn !== void 0) {
-      console.warn("Multiple component functions are being registered.  Only the final registered function will be used.");
+      console.warn(
+        "Multiple component functions are being registered.  Only the final registered function will be used."
+      );
     }
     this._getComponentConstructorFtn = callback;
   }
@@ -6207,7 +7481,8 @@ class GoldenLayout extends VirtualLayout {
   }
   getComponentInstantiator(config) {
     let instantiator;
-    const typeName = ResolvedComponentItemConfig.resolveComponentTypeName(config);
+    const typeName =
+      ResolvedComponentItemConfig.resolveComponentTypeName(config);
     if (typeName !== void 0) {
       instantiator = this._componentTypesMap.get(typeName);
     }
@@ -6216,7 +7491,7 @@ class GoldenLayout extends VirtualLayout {
         instantiator = {
           constructor: this._getComponentConstructorFtn(config),
           factoryFunction: void 0,
-          virtual: false
+          virtual: false,
         };
       }
     }
@@ -6224,7 +7499,8 @@ class GoldenLayout extends VirtualLayout {
   }
   bindComponent(container, itemConfig) {
     let instantiator;
-    const typeName = ResolvedComponentItemConfig.resolveComponentTypeName(itemConfig);
+    const typeName =
+      ResolvedComponentItemConfig.resolveComponentTypeName(itemConfig);
     if (typeName !== void 0) {
       instantiator = this._componentTypesMap.get(typeName);
     }
@@ -6233,7 +7509,7 @@ class GoldenLayout extends VirtualLayout {
         instantiator = {
           constructor: this._getComponentConstructorFtn(itemConfig),
           factoryFunction: void 0,
-          virtual: false
+          virtual: false,
         };
       }
     }
@@ -6249,7 +7525,11 @@ class GoldenLayout extends VirtualLayout {
       let component;
       const componentConstructor = instantiator.constructor;
       if (componentConstructor !== void 0) {
-        component = new componentConstructor(container, componentState, virtual);
+        component = new componentConstructor(
+          container,
+          componentState,
+          virtual
+        );
       } else {
         const factoryFunction = instantiator.factoryFunction;
         if (factoryFunction !== void 0) {
@@ -6270,15 +7550,18 @@ class GoldenLayout extends VirtualLayout {
             ensureElementPositionAbsolute(componentRootElement);
             this.container.appendChild(componentRootElement);
             this._virtuableComponentMap.set(container, virtuableComponent);
-            container.virtualRectingRequiredEvent = this._containerVirtualRectingRequiredEventListener;
-            container.virtualVisibilityChangeRequiredEvent = this._containerVirtualVisibilityChangeRequiredEventListener;
-            container.virtualZIndexChangeRequiredEvent = this._containerVirtualZIndexChangeRequiredEventListener;
+            container.virtualRectingRequiredEvent =
+              this._containerVirtualRectingRequiredEventListener;
+            container.virtualVisibilityChangeRequiredEvent =
+              this._containerVirtualVisibilityChangeRequiredEventListener;
+            container.virtualZIndexChangeRequiredEvent =
+              this._containerVirtualZIndexChangeRequiredEventListener;
           }
         }
       }
       result = {
         virtual: instantiator.virtual,
-        component
+        component,
       };
     } else {
       result = super.bindComponent(container, itemConfig);
@@ -6300,7 +7583,8 @@ class GoldenLayout extends VirtualLayout {
     }
   }
   fireBeforeVirtualRectingEvent(count) {
-    this._goldenLayoutBoundingClientRect = this.container.getBoundingClientRect();
+    this._goldenLayoutBoundingClientRect =
+      this.container.getBoundingClientRect();
     super.fireBeforeVirtualRectingEvent(count);
   }
   handleContainerVirtualRectingRequiredEvent(container, width, height) {
@@ -6312,10 +7596,15 @@ class GoldenLayout extends VirtualLayout {
       if (rootElement === void 0) {
         throw new BindError(i18nStrings[4] + " " + container.title);
       } else {
-        const containerBoundingClientRect = container.element.getBoundingClientRect();
-        const left = containerBoundingClientRect.left - this._goldenLayoutBoundingClientRect.left;
+        const containerBoundingClientRect =
+          container.element.getBoundingClientRect();
+        const left =
+          containerBoundingClientRect.left -
+          this._goldenLayoutBoundingClientRect.left;
         rootElement.style.left = numberToPixels(left);
-        const top = containerBoundingClientRect.top - this._goldenLayoutBoundingClientRect.top;
+        const top =
+          containerBoundingClientRect.top -
+          this._goldenLayoutBoundingClientRect.top;
         rootElement.style.top = numberToPixels(top);
         setElementWidth(rootElement, width);
         setElementHeight(rootElement, height);
@@ -6335,7 +7624,11 @@ class GoldenLayout extends VirtualLayout {
       }
     }
   }
-  handleContainerVirtualZIndexChangeRequiredEvent(container, logicalZIndex, defaultZIndex) {
+  handleContainerVirtualZIndexChangeRequiredEvent(
+    container,
+    logicalZIndex,
+    defaultZIndex
+  ) {
     const virtuableComponent = this._virtuableComponentMap.get(container);
     if (virtuableComponent === void 0) {
       throw new UnexpectedUndefinedError("GLHCVZICRE55935");
@@ -6349,5 +7642,51 @@ class GoldenLayout extends VirtualLayout {
     }
   }
 }
-export {ApiError, BindError, BrowserPopout, ComponentContainer, ComponentItem, ComponentItemConfig, ConfigurationError, ContentItem, DragSource, EventEmitter, EventHub, ExternalError, GoldenLayout, Header, HeaderedItemConfig, I18nStrings, ItemConfig, ItemType, JsonValue, LayoutConfig, LayoutManager, LogicalZIndex, PopoutBlockedError, PopoutLayoutConfig, ResolvedComponentItemConfig, ResolvedGroundItemConfig, ResolvedHeaderedItemConfig, ResolvedItemConfig, ResolvedLayoutConfig, ResolvedPopoutLayoutConfig, ResolvedRootItemConfig, ResolvedRowOrColumnItemConfig, ResolvedStackItemConfig, ResponsiveMode, RootItemConfig, RowOrColumn, RowOrColumnItemConfig, Side, Stack, StackItemConfig, StyleConstants, Tab, VirtualLayout, WidthOrHeightPropertyName, i18nStrings};
+export {
+  ApiError,
+  BindError,
+  BrowserPopout,
+  ComponentContainer,
+  ComponentItem,
+  ComponentItemConfig,
+  ConfigurationError,
+  ContentItem,
+  DragSource,
+  EventEmitter,
+  EventHub,
+  ExternalError,
+  GoldenLayout,
+  Header,
+  HeaderedItemConfig,
+  I18nStrings,
+  ItemConfig,
+  ItemType,
+  JsonValue,
+  LayoutConfig,
+  LayoutManager,
+  LogicalZIndex,
+  PopoutBlockedError,
+  PopoutLayoutConfig,
+  ResolvedComponentItemConfig,
+  ResolvedGroundItemConfig,
+  ResolvedHeaderedItemConfig,
+  ResolvedItemConfig,
+  ResolvedLayoutConfig,
+  ResolvedPopoutLayoutConfig,
+  ResolvedRootItemConfig,
+  ResolvedRowOrColumnItemConfig,
+  ResolvedStackItemConfig,
+  ResponsiveMode,
+  RootItemConfig,
+  RowOrColumn,
+  RowOrColumnItemConfig,
+  Side,
+  Stack,
+  StackItemConfig,
+  StyleConstants,
+  Tab,
+  VirtualLayout,
+  WidthOrHeightPropertyName,
+  i18nStrings,
+};
 export default null;

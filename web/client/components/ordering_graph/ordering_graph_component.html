@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>OrderingGraph</title>
-    <link href="./components/ordering_graph/ordering_graph.css" rel="stylesheet" />
+    <link href="./components/ordering_graph/ordering_graph.css" rel="stylesheet" />    
 </head>
 
-<body style="overflow:hidden">
+<body>
+    <div id="sigma-container" style="height:100%;"></div>
+    <div id="search">
+      <input type="search" id="search-input" list="suggestions" placeholder="Enter Train ID" />
+      <datalist id="suggestions"></datalist>
+    </div>
 </body>
 </html>
