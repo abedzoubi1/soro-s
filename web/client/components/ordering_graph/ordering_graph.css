@@ -1,13 +1,16 @@
 #sigma-container {
-    height:100%;
-    width:100%;
-    padding: 0;
-    margin: 0;
-    position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: absolute;
 }
 
 #search {
-    position:absolute;
-    right: 1em;
-    top: 1em;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+#neighberhood-level {
+  width: 25px;
 }

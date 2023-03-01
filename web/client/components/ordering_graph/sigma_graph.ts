@@ -1,21 +1,22 @@
 import Graph from "graphology";
 import Sigma from "sigma";
-import data from "./data2.json";
+import data from "./requestedData.json";
 import { NodeProgramSquare } from "./node.square";
 import { Coordinates, EdgeDisplayData, NodeDisplayData } from "sigma/types";
 import _ from "lodash";
 import { getSystemErrorMap } from "util";
+import { graphExtent } from "sigma/utils";
 
 interface State {
   hoveredNode?: string;
   searchQuery: string;
   // State derived from query:
-
   selectedNode?: string;
   suggestions?: Set<string>;
 
   // State derived from hovered node:
   hoveredNeighbors?: Set<string>;
+  queryNodes?: Set<string>;
 }
 
 export class SigmaGraphCreator implements State {
@@ -27,6 +28,8 @@ export class SigmaGraphCreator implements State {
   searchWindowContainer;
   searchWindowInputContainer;
   searchWindowDatalist: HTMLDataListElement;
+  filterOptionList;
+  filterNeigberhoodLevel;
   //the canvas elements which make up the graph
   graph;
   renderer;
@@ -38,6 +41,7 @@ export class SigmaGraphCreator implements State {
   selectedNode?: string | undefined;
   suggestions?: Set<string> | undefined;
   hoveredNeighbors?: Set<string> | undefined;
+  queryNodes?: Set<string> | undefined;
 
   constructor(rootelement: HTMLElement) {
     //graph
@@ -53,53 +57,110 @@ export class SigmaGraphCreator implements State {
     this.searchWindowDatalist = rootelement.querySelector(
       "#suggestions"
     ) as HTMLDataListElement;
+    this.filterOptionList = rootelement.querySelector(
+      "#graph-filter-options"
+    ) as HTMLInputElement;
+    this.filterNeigberhoodLevel = rootelement.querySelector(
+      "#neighberhood-level"
+    ) as HTMLInputElement;
   }
 
   // Actions:
   private setSearchQuery(query: string) {
     this.state.searchQuery = query;
-
+    //get the current camera state
     if (this.searchWindowInputContainer.value !== query)
       this.searchWindowInputContainer.value = query;
 
     if (query) {
+      let suggestions;
       const lcQuery = query.toLowerCase();
-      var suggestions = this.graph
-        .nodes()
-        .map((n) => ({
-          id: n,
-          label: this.graph.getNodeAttribute(n, "label") as string,
-        }))
-        .filter(({ label }) => label.toLowerCase().includes(lcQuery));
+      if (this.filterOptionList.value === "train") {
+        suggestions = this.graph
+          .nodes()
+          .map((n) => ({
+            id: n,
+            label: this.graph.getNodeAttribute(n, "label") as string,
+          }))
+          .filter(({ label }) => label.toLowerCase() === lcQuery);
+      } else {
+        suggestions = this.graph
+          .nodes()
+          .map((n) => ({
+            id: n,
+            route: this.graph.getNodeAttribute(n, "route_id"),
+          }))
+          .filter(({ route }) => route.toString() === lcQuery);
+      }
       // If we have a single perfect match, them we remove the suggestions, and
       // we consider the user has selected a node through the datalist
       // autocomplete:
-      if (suggestions[0].label === query) {
+      if (
+        suggestions[0].label === query ||
+        suggestions[0].route.toString() === query
+      ) {
         this.state.selectedNode = suggestions[0].id;
-        this.state.suggestions = undefined;
-
-        // Move the camera to center it on the selected node:
-        const nodePosition = this.renderer.getNodeDisplayData(
-          this.state.selectedNode
-        ) as Coordinates;
-        this.renderer.getCamera().animate(nodePosition, {
-          duration: 500,
-        });
+        //here
+        if (this.filterOptionList.value === "train")
+          this.state.queryNodes = this.getAllTrainNodes(
+            this.state.selectedNode
+          );
+        else
+          this.state.queryNodes = this.getAllRouteNodes(
+            this.state.selectedNode
+          );
+        // Move the camera to center the graph
+        this.renderer.getCamera().animatedReset({ duration: 1000 });
       }
       // Else, we display the suggestions list:
       else {
         this.state.selectedNode = undefined;
+        this.state.queryNodes = undefined;
         this.state.suggestions = new Set(suggestions.map(({ id }) => id));
+        this.filterNeigberhoodLevel.value = 0;
       }
     }
     // If the query is empty, then we reset the selectedNode / suggestions state:
     else {
       this.state.selectedNode = undefined;
+      this.state.queryNodes = undefined;
       this.state.suggestions = undefined;
+      this.filterNeigberhoodLevel.value = 0;
     }
     // Refresh rendering:
     this.renderer.refresh();
   }
+  //set the suggestions list depending on the filter type
+  private setSuggestions() {
+    //get all nodes due to lable and remove duplicate nodes from suggestions dropDownList
+    let nodesList;
+    if (this.filterOptionList.value === "train") {
+      //make the neighberhood input  visible
+      this.filterNeigberhoodLevel.type = "number";
+      this.searchWindowInputContainer.placeholder = "Enter Train ID";
+      nodesList = this.graph
+        .nodes()
+        .map((node) => this.graph.getNodeAttribute(node, "label"));
+      nodesList = _.uniq(nodesList, "id");
+    } else {
+      //make the neighberhood not input  visible
+      this.filterNeigberhoodLevel.type = "hidden";
+      this.searchWindowInputContainer.placeholder = "Enter Route ID";
+      nodesList = this.graph
+        .nodes()
+        .map((node) => this.graph.getNodeAttribute(node, "route_id"));
+      nodesList = _.uniq(nodesList, "route_id");
+    }
+    nodesList.sort();
+    //display the nodeslist
+    this.searchWindowDatalist.innerHTML = nodesList
+      .map((node) => `<option value="${node}"></option>`)
+      .join("\n");
+
+    console.log(nodesList);
+  }
+
+  //Method that sets the current hoverd node
   private setHoveredNode(node?: string) {
     if (node) {
       this.state.hoveredNode = node;
@@ -109,7 +170,6 @@ export class SigmaGraphCreator implements State {
       this.state.hoveredNode = undefined;
       this.state.hoveredNeighbors = undefined;
     }
-
     // Refresh rendering:
     this.renderer.refresh();
   }
@@ -143,6 +203,56 @@ export class SigmaGraphCreator implements State {
       )
     ));
   }
+  //determin which nodes has the same train id as the given node and save them in a set(Train filter)
+  private getAllTrainNodes(node?: string) {
+    let trainNodes = new Set<string>();
+    const nodeTrainID: string = this.graph.getNodeAttribute(node, "train_id");
+    this.graph.mapNodes((node) => {
+      const trainID = this.graph.getNodeAttribute(node, "train_id");
+      //ad node if it has the same id as input train
+      if (trainID === nodeTrainID) trainNodes.add(node);
+    });
+    return new Set([
+      ...trainNodes,
+      ...this.getNeighbors(trainNodes, this.filterNeigberhoodLevel.value),
+    ]);
+  }
+
+  //function that return neighbors depending on the given level
+  private getNeighbors(nodes: Set<string>, level: number) {
+    let allNodes = new Set([...nodes]);
+    let lastAddedNodes = new Set([...nodes]);
+    //loop until we reach the level
+    for (let i = 0; i < level; i++) {
+      //loop through the nodes and get the neigbors
+      let currentNeigbors = new Set<string>();
+      //iterate through the nodes and get there neigbors
+      lastAddedNodes.forEach((node) => {
+        let nodeNighbors = this.graph.neighbors(node);
+        nodeNighbors.forEach((i) => {
+          currentNeigbors.add(i);
+          allNodes.add(i);
+        });
+      });
+      //set last added to current neigbors and currneigbors to new set
+      lastAddedNodes = currentNeigbors;
+      currentNeigbors = new Set<string>();
+    }
+    return allNodes;
+  }
+
+  //determin which nodes has the same train id as the given node and save them in a set(Train filter)
+  private getAllRouteNodes(node?: string) {
+    let trainNodes = new Set<string>();
+    const nodeRouteID: string = this.graph.getNodeAttribute(node, "route_id");
+    this.graph.mapNodes((node) => {
+      const routeID = this.graph.getNodeAttribute(node, "route_id");
+      if (routeID === nodeRouteID) {
+        trainNodes.add(node);
+      }
+    });
+    return trainNodes;
+  }
 
   public createSigmaGraph() {
     this.graph = new Graph();
@@ -166,7 +276,6 @@ export class SigmaGraphCreator implements State {
 
       //style elements
       let labelName = "Train:" + currrentTrainId;
-
       this.graph
         .mergeNodeAttributes(node, { label: labelName })
         .setNodeAttribute(node, "color", "#000000")
@@ -205,32 +314,19 @@ export class SigmaGraphCreator implements State {
         square: NodeProgramSquare,
       },
       renderEdgeLabels: true,
+      enableEdgeHoverEvents: true,
     });
-
-    //get all nodes due to lable and remove duplicate nodes from suggestions dropDownList
-    var uniqNodesList = this.graph
-      .nodes()
-      .map((node) => this.graph.getNodeAttribute(node, "label"));
-
-    //iterate over all nodes in the graph and remove duplicates
-    var lastNode = uniqNodesList[0];
-    var curr = 1;
-    while (curr < uniqNodesList.length) {
-      //check iflast node is the same as current node and rmove it
-      if (uniqNodesList[curr] === lastNode) uniqNodesList.splice(curr, 1);
-      //set new node as lastNode to check with next nodes
-      else lastNode = uniqNodesList[curr++];
-    }
-    //display the nodeslist
-    this.searchWindowDatalist.innerHTML = uniqNodesList
-      .map((node) => `<option value="${node}"></option>`)
-      .join("\n");
     // Bind search input interactions:
     this.searchWindowInputContainer.addEventListener("input", () => {
       this.setSearchQuery(this.searchWindowInputContainer.value || "");
     });
     this.searchWindowInputContainer.addEventListener("blur", () => {
       this.setSearchQuery("");
+    });
+    //change the suggetions when the filter type changes
+    this.setSuggestions();
+    this.filterOptionList.addEventListener("change", () => {
+      this.setSuggestions();
     });
 
     // Bind graph interactions:
@@ -257,9 +353,17 @@ export class SigmaGraphCreator implements State {
         res.color = "#f6f6f6";
       }
 
-      if (this.state.selectedNode === node) {
+      if (
+        this.state.selectedNode === node ||
+        (this.state.queryNodes && this.state.queryNodes.has(node))
+      ) {
         res.highlighted = true;
-      } else if (this.state.suggestions && !this.state.suggestions.has(node)) {
+      } else if (
+        (this.state.suggestions && !this.state.suggestions.has(node)) ||
+        (this.state.selectedNode !== node &&
+          this.state.queryNodes &&
+          !this.state.queryNodes.has(node))
+      ) {
         res.label = "";
         res.color = "#f6f6f6";
       }
@@ -282,9 +386,12 @@ export class SigmaGraphCreator implements State {
       }
 
       if (
-        this.state.suggestions &&
-        (!this.state.suggestions.has(this.graph.source(edge)) ||
-          !this.state.suggestions.has(this.graph.target(edge)))
+        (this.state.suggestions &&
+          (!this.state.suggestions.has(this.graph.source(edge)) ||
+            !this.state.suggestions.has(this.graph.target(edge)))) ||
+        (this.state.queryNodes &&
+          (!this.state.queryNodes.has(this.graph.source(edge)) ||
+            !this.state.queryNodes.has(this.graph.target(edge))))
       ) {
         res.hidden = true;
       }
@@ -292,7 +399,6 @@ export class SigmaGraphCreator implements State {
       return res;
     });
   }
-
   public resizeSigmaGraph() {
     if (this.renderer !== undefined) {
       this.renderer.refresh();
